@@ -1,0 +1,12 @@
+{
+  "name": "frontend-e2e-tests",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "codeceptjs run --steps"
+  },
+  "devDependencies": {
+    "codeceptjs": "^3.3.7",
+    "playwright": "^1.29.1"
+  }
+}

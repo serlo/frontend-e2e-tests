@@ -1,17 +1,21 @@
+const isCI = !!process.env.CI;
+
 exports.config = {
   tests: "tests/**.js",
   output: "./output",
   helpers: {
     Playwright: {
       url: "https://de.serlo-staging.dev",
-      show: false,
-      chromium: {
-        args: ["--no-sandbox"],
-      },
+      show: isCI ? false : true,
+      ...(isCI
+        ? {
+            chromium: {
+              args: ["--no-sandbox"],
+            },
+          }
+        : { browser: "chromium" }),
     },
   },
-  bootstrap: null,
-  mocha: {},
   name: "frontend-e2e-tests",
   plugins: {
     pauseOnFail: {},

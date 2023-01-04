@@ -1,22 +1,25 @@
-const isCI = !!process.env.CI;
+const isCI = !!process.env.CI
 
 exports.config = {
-  tests: "tests/**.js",
-  output: "./output",
+  tests: 'tests/**.ts',
+  output: './output', // we are not using any artifacts right now, but still need an output directory
   helpers: {
     Playwright: {
-      url: "https://de.serlo-staging.dev",
+      url: 'https://de.serlo-staging.dev',
+      restart: 'keep',
+      keepBrowserState: true,
+      keepCookies: true,
       show: isCI ? false : true,
       ...(isCI
         ? {
             chromium: {
-              args: ["--no-sandbox"],
+              args: ['--no-sandbox'], // this is needed for github CI to work
             },
           }
-        : { browser: "chromium" }),
+        : { browser: 'chromium' }),
     },
   },
-  name: "frontend-e2e-tests",
+  name: 'frontend-e2e-tests',
   plugins: {
     pauseOnFail: {},
     retryFailedStep: {
@@ -26,7 +29,7 @@ exports.config = {
       enabled: true,
     },
     screenshotOnFail: {
-      enabled: true,
+      enabled: false,
     },
   },
-};
+}

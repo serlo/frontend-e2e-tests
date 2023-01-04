@@ -56,6 +56,66 @@ Scenario('Main Menu', ({ I }) => {
   testMenu()
 })
 
-/*Scenario('Quickbar', ({I}) => {
+Scenario('Quickbar', ({ I }) => {
+  I.amOnPage('/')
 
-})*/
+  // Aktivate quickbar
+  I.click('input[placeholder*="heute lerne ich"]')
+  I.type('Vektor')
+
+  // Check dropdown
+  I.see('Kreuzprodukt')
+  I.see('Vektorbegriff')
+  I.see('Auf Serlo nach')
+
+  // Nav by enter
+  I.pressKey('Enter')
+  I.seeInTitle('Vektor')
+
+  // Another search
+  I.amOnPage('/')
+  I.click('input[placeholder*="heute lerne ich"]')
+  I.type('Berechnungen am Kreis')
+
+  I.click('Berechnungen am Kreis')
+  I.seeInTitle('Berechnungen am Kreis')
+  I.see('Dreiecke, Vierecke')
+})
+
+Scenario('Share modal', ({ I }) => {
+  I.amOnPage('/1553')
+  I.click('Teilen')
+  I.see('Link kopieren')
+  I.see('Als PDF herunterladen')
+
+  // QR code
+  I.seeElement('svg[width="128"][height="128"]')
+})
+
+Scenario('Languages', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Serlo in anderen Sprachen')
+  I.see('Serlo.org in other languages')
+
+  I.click('English')
+  I.see('personalized learning')
+  I.click('Serlo in other languages')
+
+  I.click('Français')
+  I.see('Notre vision est de permettre un apprentissage')
+  I.click("Serlo dans d'autres langues")
+
+  I.click('Español')
+  I.see('Somos una organización de base')
+  I.click('Serlo en otros idiomas')
+
+  I.click('हिंदी')
+  I.see('हम नॉनप्रॉफिट आर्गेनाइजेशन संगठन')
+  // Somehow this is the only way to go back
+  I.usePlaywrightTo('go back', async ({ page }) => {
+    await page.goBack()
+  })
+
+  I.click('தமிழ் (Tamil)')
+  I.see('நாம் சமமான கல்வி வாய்ப்புகளை')
+})

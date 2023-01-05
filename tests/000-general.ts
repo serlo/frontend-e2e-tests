@@ -25,24 +25,33 @@ Scenario('About Serlo', ({ I }) => {
   I.see("Was gibt's zu tun?")
 })
 
-Scenario('Main Menu', ({ I }) => {
-  function testMenu() {
-    I.click('Fächer')
-    I.see('Mathematik', 'li')
-    I.see('Angewandte Nachhaltigkeit', 'li')
-    // Close menu, try to reduce flakiness
-    I.click('Fächer')
-    I.wait(1)
+Scenario('Main Menu', async ({ I }) => {
+  async function ensureMenuState(button, item, open, context = 'ul.bg-white') {
+    let maxLoop = 20
+    while (
+      (await tryTo(() => {
+        I.see(item, context)
+      })) != open
+    ) {
+      await I.click(button, 'ul')
+      await I.wait(0.2)
+      maxLoop--
+      if (maxLoop <= 0) throw 'endless loop'
+    }
+  }
 
-    I.click('Über Uns')
-    I.see('Wirkung', 'li')
-    I.see('Transparenz', 'li')
-    // Close menu
-    I.click('Über Uns')
-    I.wait(1)
+  async function testMenu() {
+    await ensureMenuState('Fächer', 'Angewandte Nachhaltigkeit', true)
+    I.see('Mathematik', 'ul.bg-white')
+    await ensureMenuState('Fächer', 'Angewandte Nachhaltigkeit', false)
+
+    await ensureMenuState('Über Uns', 'Transparenz', true)
+    I.see('Wirkung', 'ul.bg-white')
+    I.see('Transparenz', 'ul.bg-white')
+    await ensureMenuState('Über Uns', 'Transparenz', false)
 
     // The li is clickable, therefore the context is ul
-    I.click('Mitmachen', 'ul')
+    await ensureMenuState('Mitmachen', 'Neu hier?', true, 'div.bg-white')
     I.see('Neu hier?')
     I.see('Teste den Editor', 'li')
     I.see('Hilfe', 'li')
@@ -50,10 +59,10 @@ Scenario('Main Menu', ({ I }) => {
 
   // Test menu on landing and in content
   I.amOnPage('/')
-  testMenu()
+  await testMenu()
 
   I.amOnPage('/mathe')
-  testMenu()
+  await testMenu()
 })
 
 Scenario('Quickbar', ({ I }) => {
@@ -118,4 +127,86 @@ Scenario('Languages', ({ I }) => {
 
   I.click('தமிழ் (Tamil)')
   I.see('நாம் சமமான கல்வி வாய்ப்புகளை')
+})
+
+Scenario('Donation', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Jetzt Spenden')
+  I.see('Deine Spende macht einen Unterschied')
+  I.see('Mit PayPal spenden')
+
+  I.click('Spendenformular laden')
+  I.switchTo('iframe')
+  I.waitForText('Bitte gib einen Spendenbetrag ein', 30)
+  I.click('Jetzt spenden')
+  I.see('Wähle eine Zahlungsart')
+  I.switchTo() // back from iframe
+
+  I.amOnPage('/')
+  I.click('Einwilligungen widerrufen')
+  I.see('Einwilligungen für externe Inhalte', 'h1')
+})
+
+Scenario('Legal Pages', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Impressum')
+  I.see('Amtsgericht München')
+  I.see('Haftung für Inhalte')
+
+  I.amOnPage('/')
+  I.click('Datenschutz')
+  I.see('personenbezogene Daten')
+  I.see('Verarbeitung der Nutzerdaten')
+
+  I.amOnPage('/')
+  I.click('Nutzungsbedingungen und Urheberrecht')
+  I.see('Änderungsvorbehalt')
+  I.see('CC-BY-SA-Lizenz')
+})
+
+Scenario('Consent', async ({ I }) => {
+  I.amOnPage('/')
+  I.click('Jetzt Spenden')
+
+  // Make sure that twingle is activated
+  const needConfirmation = await tryTo(() => {
+    I.see('Spendenformular laden')
+  })
+  if (needConfirmation) {
+    I.click('Spendenformular laden')
+  }
+
+  I.amOnPage('/')
+  I.click('Einwilligungen widerrufen')
+  I.see('Twingle')
+  I.click('Nicht mehr erlauben')
+  I.see('Keine Einwilligungen gespeichert')
+
+  // Go back and check
+  I.amOnPage('/')
+  I.click('Jetzt Spenden')
+  I.see('Spendenformular laden')
+})
+
+Scenario('Newsletter', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Newsletter')
+  I.see('Serlo Newsletter', 'h1')
+  I.click('Abonnieren')
+  I.see('Nachstehend finden sich Fehler')
+})
+
+Scenario('Special Pages', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Kontakt')
+  I.see('Kontakt und Standorte', 'h1')
+  I.click('Jobs')
+  I.see('Digitale Bildung braucht dich', 'h1')
+  I.see('Unsere offenen Stellen')
+  I.see('Weiterbildung')
+
+  I.amOnPage('/')
+  I.click('Kontakt')
+  I.click('Team')
+  I.see('Softwareentwicklung')
 })

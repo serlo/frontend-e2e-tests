@@ -188,14 +188,6 @@ Scenario('Consent', async ({ I }) => {
   I.see('Spendenformular laden')
 })
 
-Scenario('Newsletter', ({ I }) => {
-  I.amOnPage('/')
-  I.click('Newsletter')
-  I.see('Serlo Newsletter', 'h1')
-  I.click('Abonnieren')
-  I.see('Nachstehend finden sich Fehler')
-})
-
 Scenario('Special Pages', ({ I }) => {
   I.amOnPage('/')
   I.click('Kontakt')

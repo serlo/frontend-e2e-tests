@@ -21,27 +21,6 @@ exports.config = {
   },
   name: 'frontend-e2e-tests',
   plugins: {
-    autoLogin: {
-      enabled: true,
-      saveToFile: false,
-      inject: 'login',
-      users: {
-        admin: {
-          login: (I) => {
-            I.amOnPage('/auth/login')
-            I.waitForText('Benutzername oder E-Mailadresse', 10)
-            I.fillField('Benutzername oder E-Mailadresse', 'kulla')
-            I.fillField('Passwort', '123456')
-            I.pressKey('Enter')
-            I.waitForText('Willkommen Kulla!', 100)
-          },
-          check: (I) => {
-            I.amOnPage('/')
-            I.see('img', "header nav img[title='Benutzer*in Kulla']")
-          },
-        },
-      },
-    },
     pauseOnFail: {},
     retryFailedStep: {
       enabled: true,

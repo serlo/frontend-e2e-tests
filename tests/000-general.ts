@@ -11,6 +11,9 @@ Scenario('About Serlo', ({ I }) => {
   // Rounded corners are probably causing problems, move cursor a bit
   I.click('Mehr über uns', null, { position: { x: 10, y: 10 } })
 
+  // Try to reduce flakyness
+  I.waitForText('Über Serlo', 10, 'h1')
+
   // I am on the about page
   I.seeInTitle('Über Serlo')
   I.see('mehr als 10 Jahren')

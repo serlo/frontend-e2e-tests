@@ -23,21 +23,23 @@ exports.config = {
   plugins: {
     autoLogin: {
       enabled: true,
-      saveToFile: false,
+      saveToFile: true,
       inject: 'login',
       users: {
         admin: {
           login: (I) => {
-            I.amOnPage('/auth/login')
-            I.waitForText('Benutzername oder E-Mailadresse', 10)
+            I.amOnPage('/')
+            I.see('Anmelden')
+            I.click('Anmelden')
+            I.waitForText('Benutzername oder E-Mailadresse', 5)
             I.fillField('Benutzername oder E-Mailadresse', 'kulla')
             I.fillField('Passwort', '123456')
             I.pressKey('Enter')
-            I.waitForText('Willkommen Kulla!', 100)
+            I.waitForText('Willkommen Kulla!', 10)
           },
           check: (I) => {
             I.amOnPage('/')
-            I.see('img', "header nav img[title='Benutzer*in Kulla']")
+            I.waitForElement("header nav img[title='Benutzer*in Kulla']", 5)
           },
         },
       },

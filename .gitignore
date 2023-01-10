@@ -105,3 +105,9 @@ dist
 
 # codeceptjs output
 output/
+
+# allow usage of yarn but don't commmit to repo
+.yarn/
+yarn.lock
+.yarnrc.yml
+.yarnrc

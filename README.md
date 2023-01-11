@@ -21,4 +21,4 @@ To run a single test, use `--grep`:
 npm run test -- --grep "Quickbar"
 ```
 
-The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests. The files are `.ts`, which allows editors to pick up type definitions - but are not actually transpiled.
+The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests, TypeScript is supported.

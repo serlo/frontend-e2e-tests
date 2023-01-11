@@ -29,7 +29,12 @@ Scenario('About Serlo', ({ I }) => {
 })
 
 Scenario('Main Menu', async ({ I }) => {
-  async function ensureMenuState(button, item, open, context = 'ul.bg-white') {
+  async function ensureMenuState(
+    button: string,
+    item: string,
+    open: boolean,
+    context = 'ul.bg-white'
+  ) {
     let maxLoop = 20
     while (
       (await tryTo(() => {

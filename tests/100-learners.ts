@@ -132,3 +132,76 @@ Scenario('Informatik - landing page', ({ I }) => {
     taxonomyEntry2: 'Formale Sprachen',
   })
 })
+
+Scenario('Interact with single choice', ({ I }) => {
+  // Feedback from content
+  I.amOnPage('/3383')
+  I.see('Klicke auf eine der Optionen')
+  I.click('15')
+  I.click("Stimmt's?")
+  I.see('Diese Antwort passt leider nicht')
+  I.click('120')
+  I.dontSee('Diese Antwort passt leider nicht')
+  I.click("Stimmt's?")
+  I.see('Diese Antwort passt leider nicht')
+  I.click('495')
+  I.click("Stimmt's?")
+  I.see('Super!')
+
+  // Fallback feedback
+  I.amOnPage('/145139')
+  I.click('mit dem Graphen')
+  I.click("Stimmt's?")
+  I.see('Leider nicht richtig')
+  I.click('gestreckt')
+  I.click("Stimmt's?")
+  I.see('Richtig')
+  I.dontSee('Leider nicht')
+  I.click('gestaucht')
+  I.click("Stimmt's?")
+  I.see('Leider nicht richtig')
+})
+
+Scenario('Interact with multiple choice', ({ I }) => {
+  I.amOnPage('/131435')
+  I.see('Welche beiden Aufgaben')
+  I.click("Stimmt's")
+  I.see('Leider nicht richtig')
+  I.click('15% von 400€')
+  I.click("Stimmt's")
+  I.see('Fast! Dir fehlt noch mindestens eine richtige Antwort.')
+
+  // Deselect
+  I.click('15% von 400€')
+  I.dontSee('Fast! Dir fehlt noch mindestens eine richtige Antwort.')
+
+  I.click('30% von 200€')
+  I.click('15% von 400€')
+  I.click("Stimmt's")
+  I.see('Richtig')
+})
+
+Scenario('Geogebra', ({ I }) => {
+  I.amOnPage('/43563')
+  I.click('Applet laden von GeoGebra')
+  I.switchTo('iframe')
+  I.waitForElement('canvas[data-test="euclidianView"]', 10)
+})
+
+Scenario('Video + Injection', ({ I }) => {
+  I.amOnPage('/18524')
+  I.see('dass externe Inhalte von')
+  I.click('Video abspielen von YouTube')
+  I.switchTo('iframe')
+  I.see('Satz des Pythagoras für rechtwinklige Dreiecke')
+})
+
+Scenario('Toggle Solution', ({ I }) => {
+  I.amOnPage('/37779')
+  I.see('Die Klasse 8a')
+  I.dontSee('Für diese Aufgabe benötigst Du')
+  I.click('Lösung anzeigen')
+  I.see('Für diese Aufgabe benötigst Du')
+  I.click('Lösung ausblenden')
+  I.dontSee('Für diese Aufgabe benötigst Du')
+})

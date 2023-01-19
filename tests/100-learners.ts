@@ -205,3 +205,111 @@ Scenario('Toggle Solution', ({ I }) => {
   I.click('Lösung ausblenden')
   I.dontSee('Für diese Aufgabe benötigst Du')
 })
+
+Scenario('Taxonomy', ({ I }) => {
+  // Math all topics
+  I.amOnPage('/5')
+  I.see('Zahlen und Größen')
+  I.see('Bereiche')
+  I.see('Grundrechenarten')
+
+  // Meta nav
+  I.click('Realschule')
+
+  // Running around a bit more
+  I.see('Klasse 5')
+  I.see('Klasse 6')
+  I.click('Klasse 7')
+  I.see('Aufgaben')
+  I.click('Grundwissenstest 7. Klasse')
+  I.see('Aufgaben')
+  I.click('2021')
+
+  // Takes a long time to load
+  I.waitForText('Berechne', 30)
+
+  I.amOnPage('/24370')
+  I.see('Artikel')
+  I.see('Videos')
+  I.see('Applets')
+  I.see('Aufgaben')
+})
+
+Scenario('Breadcrumbs', ({ I }) => {
+  // Check entries
+  I.amOnPage('/247918')
+  I.see('Mathematik', 'a.hidden')
+  I.see('Realschule', 'a.hidden')
+  I.see('Klasse 7', 'a.hidden')
+  I.see('Grundwissenstest 7. Klasse', 'a.serlo-button')
+
+  // Nav
+  I.click('Realschule')
+  I.see('Dieser Bereich orientiert sich')
+
+  // Another test
+  I.amOnPage('/35149')
+  I.see('Angewandte Nachhaltigkeit', 'a.hidden')
+  I.see('Was bedeutet Nachhaltigkeit?', 'a.hidden')
+  I.see('Grundlagen der Nachhaltigkeit', 'a.serlo-button')
+
+  // Check description
+  I.click('Grundlagen der Nachhaltigkeit')
+  I.seeElement('img.serlo-img')
+})
+
+Scenario('Exercise folder', ({ I }) => {
+  I.amOnPage('/23869')
+
+  // Check numbering
+  for (let i = 1; i <= 20; i++) {
+    I.see(i.toString(), 'a.rounded-full')
+  }
+
+  // Some random text
+  I.see('Berlin nach München')
+
+  // License
+  I.see('Dieses Werk steht unter der freien Lizenz')
+
+  // Guest invites
+  I.click('Aufgaben überarbeiten')
+  I.see('Erstelle mit uns Lerninhalte')
+
+  // This line takes some time?
+  I.click('button.rounded-full')
+
+  I.click('Aufgabe hinzufügen')
+  I.see('Erstelle mit uns Lerninhalte')
+})
+
+Scenario('Course', ({ I }) => {
+  I.amOnPage('/1327')
+  I.see('Kurse')
+  I.click('Einführung lineare Funktionen')
+  I.see('1', 'span.rounded-full')
+  I.see('Kursübersicht', 'h1')
+  I.click('Weiter')
+  I.see('2', 'span.rounded-full')
+  I.see('Aufstieg zur Zugspitze', 'h1')
+  I.click('Zurück')
+  I.see('Kursübersicht', 'h1')
+  I.click('Kursübersicht')
+  I.see('Zusammenfassung')
+  I.click('Weiterführende Übungen')
+  I.see('123mathe.de')
+})
+
+Scenario('Comments', ({ I }) => {
+  // End of entity
+  I.amOnPage('/1537')
+  I.scrollTo('#comment-area-begin-scrollpoint')
+  I.see('Hast du eine Frage oder Feedback?')
+  I.see('Der Artikel Koordinatesystem ist nicht')
+
+  // In exercise
+  I.amOnPage('/37296')
+  I.click('Lösung anzeigen')
+  I.scrollTo('#comment-area-begin-scrollpoint')
+  I.see('Ich weiß nicht, ob es vom Computer')
+})

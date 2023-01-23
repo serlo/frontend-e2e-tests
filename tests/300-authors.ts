@@ -1,6 +1,6 @@
 Feature('Authors')
 
-//@ts-expect-error login is defined in codecept.config.ts
+// @ts-expect-error login is defined in codecept.config.ts
 Before(({ login }) => {
   login('admin') // login as admin for now
 })

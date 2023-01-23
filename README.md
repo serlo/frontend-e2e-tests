@@ -5,8 +5,8 @@ integration tests for serlo.org
 ```sh
 git clone https://github.com/serlo/frontend-e2e-tests.git
 cd frontend-e2e-tests
-yarn
-yarn test
+npm install
+npm run test
 ```
 
 output should look something like that:
@@ -18,5 +18,7 @@ Tests are written with Playwright (wrapped by CodeceptJS), extensive documentati
 To run a single test, use `--grep`:
 
 ```sh
-yarn test --grep "Quickbar"
+npm run test -- --grep "Quickbar"
 ```
+
+The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests, TypeScript is supported.

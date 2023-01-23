@@ -1,5 +1,6 @@
 Feature('Authors')
 
+//@ts-expect-error login is defined in codecept.config.ts
 Before(({ login }) => {
   login('admin') // login as admin for now
 })
@@ -9,7 +10,7 @@ Before(({ login }) => {
 Scenario('Open Editor', ({ I }) => {
   I.amOnPage('/74888')
   I.click('Überarbeiten')
-  I.see('Speichern')
+  I.waitForText('Speichern', 10)
   I.see('Treibhausgase')
 })
 
@@ -41,3 +42,9 @@ Scenario('Add Revision', ({ I }) => {
   I.click('automated-test')
   I.see('Treibhausgase-Test')
 })
+
+// LocalStorage tests
+
+// Tab Change
+
+// Logout in second Tab…

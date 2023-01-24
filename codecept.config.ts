@@ -31,6 +31,7 @@ exports.config = {
             I.amOnPage('/')
             I.see('Anmelden')
             I.click('Anmelden')
+            I.waitForText('Benutzername oder E-Mailadresse', 10)
             I.fillField('Benutzername oder E-Mailadresse', 'kulla')
             I.fillField('Passwort', '123456')
             I.pressKey('Enter')

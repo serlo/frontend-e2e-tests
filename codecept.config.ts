@@ -23,7 +23,7 @@ exports.config = {
   plugins: {
     autoLogin: {
       enabled: true,
-      saveToFile: true,
+      saveToFile: false,
       inject: 'login',
       users: {
         admin: {

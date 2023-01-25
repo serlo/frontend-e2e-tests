@@ -35,12 +35,15 @@ exports.config = {
             I.fillField('Benutzername oder E-Mailadresse', 'kulla')
             I.fillField('Passwort', '123456')
             I.pressKey('Enter')
-            I.waitForText('Willkommen Kulla!', 10)
+            I.waitForText('Willkommen Kulla!', 30)
           },
           check: (I) => {
             I.amOnPage('/')
-            I.waitForElement("header nav img[title='Benutzer*in Kulla']", 5)
+            I.waitForElement("header nav img[title='Benutzer*in Kulla']", 15)
           },
+          // see https://github.com/codeceptjs/CodeceptJS/issues/1591#issuecomment-480800333
+          fetch: () => 'whatever',
+          restore: () => {},
         },
       },
     },

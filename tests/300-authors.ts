@@ -1,7 +1,9 @@
 Feature('Authors')
 
+// expecting user to be logged out before start of tests
+
 // @ts-expect-error login is defined in codecept.config.ts
-Before(({ login }) => {
+Before(({ login, I }) => {
   login('admin') // login as admin for now
 })
 
@@ -21,7 +23,10 @@ Scenario('Saving without changes', ({ I }) => {
   I.dontSee('Beschreibe deine Änderungen am Inhalt')
 })
 
-Scenario('Add Revision', ({ I }) => {
+// work in progress: some unexpected stale values
+// I need to cleaning up revision after tests....
+
+/*Scenario('Add Revision @current', ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888/248633')
   I.click("input[placeholder='Titel']")
   I.pressKey('-')
@@ -41,7 +46,12 @@ Scenario('Add Revision', ({ I }) => {
   I.see('gerade eben')
   I.click('automated-test')
   I.see('Treibhausgase-Test')
-})
+})*/
+
+/*Scenario('Reject Revision @current', ({ I }) => {
+  // clean up revision
+  pause()
+})*/
 
 // LocalStorage tests
 

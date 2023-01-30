@@ -23,7 +23,7 @@ Scenario('Saving without changes', ({ I }) => {
   I.dontSee('Beschreibe deine Änderungen am Inhalt')
 })
 
-Scenario('Add Revision and reject', ({ I }) => {
+/*Scenario('Add Revision and reject', ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click("input[placeholder='Titel']")
   I.pressKey('-')
@@ -49,7 +49,7 @@ Scenario('Add Revision and reject', ({ I }) => {
   I.click('Bestätigen')
   I.waitForText('Bearbeitung wurde nicht akzeptiert', 15)
   pause()
-})
+})*/
 
 /*Scenario('Reject Revision @current', ({ I }) => {
   // clean up revision

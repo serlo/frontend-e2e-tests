@@ -23,11 +23,8 @@ Scenario('Saving without changes', ({ I }) => {
   I.dontSee('Beschreibe deine Änderungen am Inhalt')
 })
 
-// work in progress: some unexpected stale values
-// I need to cleaning up revision after tests....
-
-/*Scenario('Add Revision @current', ({ I }) => {
-  I.amOnPage('/entity/repository/add-revision/74888/248633')
+Scenario('Add Revision and reject', ({ I }) => {
+  I.amOnPage('/entity/repository/add-revision/74888')
   I.click("input[placeholder='Titel']")
   I.pressKey('-')
   I.pressKey('T')
@@ -46,7 +43,13 @@ Scenario('Saving without changes', ({ I }) => {
   I.see('gerade eben')
   I.click('automated-test')
   I.see('Treibhausgase-Test')
-})*/
+
+  // Reject revision
+  I.click('Nicht akzeptieren')
+  I.click('Bestätigen')
+  I.waitForText('Bearbeitung wurde nicht akzeptiert', 15)
+  pause()
+})
 
 /*Scenario('Reject Revision @current', ({ I }) => {
   // clean up revision

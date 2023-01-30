@@ -208,5 +208,7 @@ Scenario('Special Pages', ({ I }) => {
   I.amOnPage('/')
   I.click('Kontakt')
   I.click('Team')
-  I.see('Softwareentwicklung')
+
+  // Needs to do external fetching, so wait a bit longer
+  I.waitForText('Softwareentwicklung', 20)
 })

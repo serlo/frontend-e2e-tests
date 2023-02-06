@@ -243,6 +243,9 @@ Scenario('Breadcrumbs', ({ I }) => {
   I.see('Klasse 7', 'a.hidden')
   I.see('Grundwissenstest 7. Klasse', 'a.serlo-button')
 
+  // Is short-circuit
+  I.dontSee('Deutschland')
+
   // Nav
   I.click('Realschule')
   I.see('Dieser Bereich orientiert sich')
@@ -256,6 +259,32 @@ Scenario('Breadcrumbs', ({ I }) => {
   // Check description
   I.click('Grundlagen der Nachhaltigkeit')
   I.seeElement('img.serlo-img')
+})
+
+Scenario('Small subject', ({ I }) => {
+  I.amOnPage('/politik')
+  I.click('Alle Themen')
+
+  // Meta mneu
+  I.see('Alle Themen', 'a.block')
+
+  // Breadcrumbs
+  I.click('Politik')
+  I.see('Politik Startseite', 'h1')
+})
+
+Scenario('Subject on language version', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Serlo in anderen Sprachen')
+  I.click('Español')
+  I.click('Diásporas Africanas')
+  I.click('Todos los temas')
+
+  // All topics
+  I.see('Construimos una plataforma')
+
+  I.click('Estudios en Diásporas Africanas para la Escuela')
+  I.see('¡Bienvenidos a la')
 })
 
 Scenario('Exercise folder', ({ I }) => {

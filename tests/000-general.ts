@@ -210,5 +210,5 @@ Scenario('Special Pages', ({ I }) => {
   I.click('Team')
 
   // Needs to do external fetching, so wait a bit longer
-  I.waitForText('Softwareentwicklung', 20)
+  I.waitForText('Softwareentwicklung', 30)
 })

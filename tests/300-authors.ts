@@ -49,7 +49,10 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.pressKey('e')
   I.pressKey('s')
   I.pressKey('t')
+
+  // Randomize script so that revisions are not ignored
   I.type(Math.random().toString())
+
   I.click('Speichern')
   I.click('Speichern und reviewen lassen')
   I.waitForText('Bitte alle Pflichtfelder ausfüllen')
@@ -57,7 +60,9 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.waitForText('Bitte alle Pflichtfelder ausfüllen')
   I.fillField('label textarea', 'automated-test')
   I.click('Speichern und reviewen lassen')
-  I.waitForText('Danke für deine Bearbeitung')
+
+  // Give it some more time
+  I.waitForText('Danke für deine Bearbeitung', 10)
   I.see('Bearbeitungsverlauf')
 
   // I can't predict if it's the one or the other string

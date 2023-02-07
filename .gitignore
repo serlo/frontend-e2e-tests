@@ -107,3 +107,4 @@ output/
 yarn.lock
 .yarnrc.yml
 .yarnrc
+yarn-error.log

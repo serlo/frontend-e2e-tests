@@ -1,23 +1,23 @@
 import dotenv from 'dotenv'
 
 function createConfig() {
-    dotenv.config()
+  dotenv.config()
 
-    const isCI = Boolean(process.env.CI)
+  const isCI = Boolean(process.env.CI)
 
-    if (process.env.NODE_ENV === 'local') {
-        return {
-            adminUser: 'admin',
-            isCI,
-            frontendUrl: 'http://localhost:3000',
-        }
-    }
-
+  if (process.env.NODE_ENV === 'local') {
     return {
-        adminUser: 'Kulla',
-        isCI,
-        frontendUrl: 'https://de.serlo-staging.dev',
+      adminUser: 'admin',
+      isCI,
+      frontendUrl: 'http://localhost:3000',
     }
+  }
+
+  return {
+    adminUser: 'Kulla',
+    isCI,
+    frontendUrl: 'https://de.serlo-staging.dev',
+  }
 }
 
 const config = createConfig()

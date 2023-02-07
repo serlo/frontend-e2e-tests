@@ -54,14 +54,14 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.type(Math.random().toString())
 
   I.click('Speichern')
-  I.click('Speichern und reviewen lassen')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen')
-  I.click(' dem Speichern dieser Seite')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen')
-  I.fillField('label textarea', 'automated-test')
-  I.click('Speichern und reviewen lassen')
 
   // Give it some more time
+  I.click('Speichern und reviewen lassen')
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+  I.click(' dem Speichern dieser Seite')
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+  I.fillField('label textarea', 'automated-test')
+  I.click('Speichern und reviewen lassen')
   I.waitForText('Danke für deine Bearbeitung', 10)
   I.see('Bearbeitungsverlauf')
 

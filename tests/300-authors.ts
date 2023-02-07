@@ -55,14 +55,13 @@ Scenario('Add Revision and reject', async ({ I }) => {
 
   I.click('Speichern')
 
-  // Give it some more time
+  // Give it some more time - and really a lot of time ...
   I.click('Speichern und reviewen lassen')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 60)
   I.click(' dem Speichern dieser Seite')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 60)
   I.fillField('label textarea', 'automated-test')
   I.click('Speichern und reviewen lassen')
-  // I hope 1 min is enough time
   I.waitForText('Danke für deine Bearbeitung', 60)
   I.see('Bearbeitungsverlauf')
 

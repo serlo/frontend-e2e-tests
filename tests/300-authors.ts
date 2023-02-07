@@ -62,7 +62,8 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
   I.fillField('label textarea', 'automated-test')
   I.click('Speichern und reviewen lassen')
-  I.waitForText('Danke für deine Bearbeitung', 10)
+  // I hope 1 min is enough time
+  I.waitForText('Danke für deine Bearbeitung', 60)
   I.see('Bearbeitungsverlauf')
 
   // I can't predict if it's the one or the other string

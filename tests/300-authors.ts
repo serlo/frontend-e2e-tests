@@ -54,23 +54,19 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.type(Math.random().toString())
 
   I.click('Speichern')
-
-  // Give it some more time - and really a lot of time ...
   I.click('Speichern und reviewen lassen')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 60)
-  I.click(' dem Speichern dieser Seite')
-  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 60)
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+
+  // Use class instead of text because text is super long and not reliable
+  I.click('.license-wrapper')
+  I.click('Speichern und reviewen lassen')
+  I.waitForText('Bitte alle Pflichtfelder ausfüllen', 10)
+
   I.fillField('label textarea', 'automated-test')
   I.click('Speichern und reviewen lassen')
+  I.dontSee('Bitte alle Pflichtfelder ausfüllen')
 
-  // Not working in CI somehow ... leave it out for now
-  // I.waitForText('Danke für deine Bearbeitung', 60)
-
-  I.wait(10)
-
-  const logs = await I.grabBrowserLogs()
-  I.say(JSON.stringify(logs.map((l) => ({ type: l.type(), text: l.text() }))))
-
+  I.waitForText('Danke für deine Bearbeitung', 60)
   I.see('Bearbeitungsverlauf')
 
   // I can't predict if it's the one or the other string

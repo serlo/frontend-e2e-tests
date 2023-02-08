@@ -66,6 +66,11 @@ Scenario('Add Revision and reject', async ({ I }) => {
   // Not working in CI somehow ... leave it out for now
   // I.waitForText('Danke für deine Bearbeitung', 60)
 
+  I.wait(10)
+
+  const logs = await I.grabBrowserLogs()
+  I.say(JSON.stringify(logs.map((l) => ({ type: l.type(), text: l.text() }))))
+
   I.see('Bearbeitungsverlauf')
 
   // I can't predict if it's the one or the other string

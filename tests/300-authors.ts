@@ -23,6 +23,8 @@ Scenario('Open Editor from article', async ({ I }) => {
 
   // only works for 1 level
   const hasRevisions = await tryTo(() => {
+    // Menu takes time to load
+    I.wait(3)
     I.see('Zeige neue Bearbeitungen')
   })
   if (hasRevisions) {
@@ -49,6 +51,7 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.pressKey('e')
   I.pressKey('s')
   I.pressKey('t')
+  I.pressKey('Space')
 
   // Randomize script so that revisions are not ignored
   I.type(Math.random().toString())
@@ -78,7 +81,8 @@ Scenario('Add Revision and reject', async ({ I }) => {
   }
 
   I.click('automated-test')
-  I.see('Treibhausgase-Test')
+  // For local testing, it's slow
+  I.waitForText('Treibhausgase-Test', 30)
 
   // Reject revision
   I.click('Nicht akzeptieren')

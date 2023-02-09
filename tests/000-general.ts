@@ -207,6 +207,9 @@ Scenario('Special Pages', ({ I }) => {
 
   I.amOnPage('/')
   I.click('Kontakt')
+
+  // Wait for next page to load before clicking team
+  I.see('Kontakt und Standorte', 'h1')
   I.click('Team')
 
   // Needs to do external fetching, so wait a bit longer

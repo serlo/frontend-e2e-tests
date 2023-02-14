@@ -273,7 +273,9 @@ Scenario('Small subject', ({ I }) => {
   I.see('Politik Startseite', 'h1')
 })
 
-Scenario('Subject on language version', ({ I }) => {
+// This is not a good way of accessing language versions because it's testing production
+// Find another way if suitable
+/* Scenario('Subject on language version', ({ I }) => {
   I.amOnPage('/')
   I.click('Serlo in anderen Sprachen')
   I.click('Español')
@@ -285,7 +287,7 @@ Scenario('Subject on language version', ({ I }) => {
 
   I.click('Estudios en Diásporas Africanas para la Escuela')
   I.see('¡Bienvenidos a la')
-})
+})*/
 
 Scenario('Exercise folder', ({ I }) => {
   I.amOnPage('/23869')

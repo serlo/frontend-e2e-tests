@@ -4,6 +4,7 @@ declare namespace CodeceptJS {
   interface SupportObject {
     I: I
     current: any
+    login: (userRole: string) => void
   }
   interface Methods extends Playwright {}
   interface I extends WithTranslation<Methods> {}

@@ -1,4 +1,5 @@
 import config from './config'
+import { loginAs } from './helpers'
 
 const { adminUser, frontendUrl, isCI } = config
 

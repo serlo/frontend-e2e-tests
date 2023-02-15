@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { loginAs } from '../codecept.config'
 import config from '../config'
-import { logout } from './200-login'
+import { loginAs, logout } from '../helpers'
 
 Feature('Registration')
 

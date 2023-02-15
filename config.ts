@@ -3,8 +3,11 @@ import dotenv from 'dotenv'
 function createConfig() {
   dotenv.config()
 
+  const usesLocalApi = process.env.FRONTEND_API == 'local'
+
   return {
-    adminUser: process.env.FRONTEND_API == 'local' ? 'admin' : 'Kulla',
+    shouldRunOnlyLocally: usesLocalApi,
+    adminUser: usesLocalApi ? 'admin' : 'Kulla',
     isCI: Boolean(process.env.CI),
     frontendUrl: process.env.FRONTEND_URL ?? 'https://de.serlo-staging.dev',
   }

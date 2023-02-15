@@ -6,10 +6,11 @@ function createConfig() {
   const usesLocalApi = process.env.FRONTEND_API == 'local'
 
   return {
-    shouldRunOnlyLocally: usesLocalApi,
     adminUser: usesLocalApi ? 'admin' : 'Kulla',
-    isCI: Boolean(process.env.CI),
+    emailClientUrl: 'http://localhost:4436',
     frontendUrl: process.env.FRONTEND_URL ?? 'https://de.serlo-staging.dev',
+    isCI: Boolean(process.env.CI),
+    shouldRunOnlyLocally: usesLocalApi,
   }
 }
 

@@ -30,14 +30,7 @@ exports.config = {
       users: {
         admin: {
           login: (I) => {
-            I.amOnPage('/')
-            I.see('Anmelden')
-            I.click('Anmelden')
-            I.waitForText('Benutzername oder E-Mailadresse', 10)
-            I.fillField('Benutzername oder E-Mailadresse', adminUser)
-            I.fillField('Passwort', '123456')
-            I.pressKey('Enter')
-            I.waitForText(`Willkommen ${adminUser}!`, 30)
+            loginAs(I, adminUser)
           },
           check: (I) => {
             I.amOnPage('/')

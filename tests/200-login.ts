@@ -1,18 +1,16 @@
-import { faker } from '@faker-js/faker'
+import { loginAs } from '../helpers'
 
 Feature('Login')
 
 Scenario('Login user', ({ I }) => {
-  I.amOnPage('/')
-  I.see('Anmelden')
-  I.click('Anmelden')
-  I.fillField('Benutzername oder E-Mailadresse', 'dal')
-  I.fillField('Passwort', '123456')
-  I.click('Anmelden', '.serlo-button-green')
-  I.waitForText('Willkommen dal!', 10)
+  loginAs(I, 'dal')
 })
 
 Scenario('Logout user', ({ I }) => {
+  logout(I)
+})
+
+export function logout(I: CodeceptJS.I) {
   I.amOnPage('/')
   I.click('Benutzer*in')
   I.click('Abmelden')

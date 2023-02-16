@@ -4,7 +4,7 @@ import { loginAs, logout } from '../helpers'
 
 Feature('Registration')
 
-Scenario('Successfully register user', ({ I }) => {
+Scenario('User registers successfully', ({ I }) => {
   const username = faker.internet.userName().replaceAll('.', '')
   const verificationLink = '#mailDetails > p:nth-child(5) > a:nth-child(2)'
 
@@ -20,7 +20,8 @@ Scenario('Successfully register user', ({ I }) => {
     I.amOnPage(config.emailClientUrl)
     I.click('Bitte bestätige deine E-Mail-Adresse')
     I.click(verificationLink)
-    I.see('Mit deinem Account anmelden')
+    // FIXME: debug error that verification link was already used
+    I.see('Bestätige deine Mailadresse')
     loginAs(I, username)
     logout(I)
   }

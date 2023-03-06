@@ -49,7 +49,7 @@ async function testLandingPage(I: CodeceptJS.I, data: LandingPageData) {
   I.see(data.taxonomyEntry2, 'div.image-hack')
 
   // Mitmachen
-  I.click('Mitmachen', '.partner')
+  I.click('Mitmachen', '.bg-blueWave')
   I.see('Werde Teil der Serlo Community')
 }
 

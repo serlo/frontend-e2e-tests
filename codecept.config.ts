@@ -1,11 +1,13 @@
-const isCI = !!process.env.CI
+import config from './config'
+
+const { adminUser, frontendUrl, isCI } = config
 
 exports.config = {
   tests: 'tests/**.ts',
   output: './output', // we are not using any artifacts right now, but still need an output directory
   helpers: {
     Playwright: {
-      url: 'https://de.serlo-staging.dev',
+      url: frontendUrl,
       restart: 'keep',
       keepBrowserState: true,
       keepCookies: true,
@@ -32,15 +34,21 @@ exports.config = {
             I.see('Anmelden')
             I.click('Anmelden')
             I.waitForText('Benutzername oder E-Mailadresse', 10)
-            I.fillField('Benutzername oder E-Mailadresse', 'kulla')
+            I.fillField('Benutzername oder E-Mailadresse', adminUser)
             I.fillField('Passwort', '123456')
             I.pressKey('Enter')
-            I.waitForText('Willkommen Kulla!', 10)
+            I.waitForText(`Willkommen ${adminUser}!`, 30)
           },
           check: (I) => {
             I.amOnPage('/')
-            I.waitForElement("header nav img[title='Benutzer*in Kulla']", 5)
+            I.waitForElement(
+              `header nav img[title='Benutzer*in ${adminUser}']`,
+              15
+            )
           },
+          // see https://github.com/codeceptjs/CodeceptJS/issues/1591#issuecomment-480800333
+          fetch: () => 'whatever',
+          restore: () => {},
         },
       },
     },

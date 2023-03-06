@@ -9,3 +9,13 @@ Scenario('Login user', ({ I }) => {
   I.click('Anmelden', '.serlo-button-green')
   I.waitForText('Willkommen dal!', 10)
 })
+
+Scenario('Logout user', ({ I }) => {
+  I.amOnPage('/')
+  I.click('Benutzer*in')
+  I.click('Abmelden')
+  I.waitForText('Bis bald!', 10)
+  I.see('Anmelden')
+})
+
+// make sure user is logged out at the end of the tests

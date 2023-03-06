@@ -109,6 +109,9 @@ Scenario('Share modal', ({ I }) => {
   I.seeElement('svg[width="128"][height="128"]')
 })
 
+// Language versions are testing production
+// This is not intended
+/*
 Scenario('Languages', ({ I }) => {
   I.amOnPage('/')
   I.click('Serlo in anderen Sprachen')
@@ -136,6 +139,7 @@ Scenario('Languages', ({ I }) => {
   I.click('தமிழ் (Tamil)')
   I.see('நாம் சமமான கல்வி வாய்ப்புகளை')
 })
+*/
 
 Scenario('Donation', ({ I }) => {
   I.amOnPage('/')
@@ -207,6 +211,11 @@ Scenario('Special Pages', ({ I }) => {
 
   I.amOnPage('/')
   I.click('Kontakt')
+
+  // Wait for next page to load before clicking team
+  I.see('Kontakt und Standorte', 'h1')
   I.click('Team')
-  I.see('Softwareentwicklung')
+
+  // Needs to do external fetching, so wait a bit longer
+  I.waitForText('Softwareentwicklung', 30)
 })

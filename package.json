@@ -7,6 +7,7 @@
     "test": "codeceptjs run --steps"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/node": "^18.11.18",
     "codeceptjs": "^3.3.7",
     "dotenv": "^16.0.3",

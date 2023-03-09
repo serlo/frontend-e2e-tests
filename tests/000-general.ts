@@ -24,8 +24,6 @@ Scenario('About Serlo', ({ I }) => {
   I.scrollPageToBottom()
   I.click('Community')
 
-  pause()
-
   // Make sure it's the right page, wait longer to reduce flakiness
   I.waitForText("Was gibt's zu tun?", 20)
 })

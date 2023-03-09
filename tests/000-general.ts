@@ -24,8 +24,10 @@ Scenario('About Serlo', ({ I }) => {
   I.scrollPageToBottom()
   I.click('Community')
 
-  // Make sure it's the right page
-  I.see("Was gibt's zu tun?")
+  pause()
+
+  // Make sure it's the right page, wait longer to reduce flakiness
+  I.waitForText("Was gibt's zu tun?", 20)
 })
 
 Scenario('Main Menu', async ({ I }) => {

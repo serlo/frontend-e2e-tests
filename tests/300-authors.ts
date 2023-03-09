@@ -100,3 +100,23 @@ Scenario('Add Revision and reject', async ({ I }) => {
 // Tab Change
 
 // Logout in second Tab…
+
+Scenario('Sort taxonomy entities', async ({ I }) => {
+  I.amOnPage('/taxonomy/term/sort/entities/75211')
+  I.see('Artikel')
+  I.see('Codierungen')
+
+  I.see('Kurse')
+  I.see('Webseite selbst erstellen')
+
+  I.see('Bereiche')
+  I.see('Technische Informatik')
+})
+
+Scenario('Sort exercise folder', async ({ I }) => {
+  I.amOnPage('/taxonomy/term/sort/entities/23869')
+
+  I.see('Aufgaben')
+  I.see('(1) Aufgabe mit Teilaufgaben:')
+  I.see('(20)')
+})

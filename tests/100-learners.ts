@@ -259,6 +259,12 @@ Scenario('Breadcrumbs', ({ I }) => {
   // Check description
   I.click('Grundlagen der Nachhaltigkeit')
   I.seeElement('img.serlo-img')
+
+  // Check if right taxonomy is selected
+  I.amOnPage('/1555')
+  I.see('Wichtige Grundkörper', 'a.serlo-button')
+  I.dontSee('Realschule')
+  I.dontSee('Gymnasium')
 })
 
 Scenario('Small subject', ({ I }) => {

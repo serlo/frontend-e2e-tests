@@ -1,18 +1,25 @@
 Feature('Login')
 
-Scenario('Login user', ({ I }) => {
+Scenario('Login @user', ({ I }) => {
   I.amOnPage('/')
   I.see('Anmelden')
   I.click('Anmelden')
+
+  // Reduce flakiness
+  I.waitForText('Benutzername oder E-Mailadresse', 10)
+
   I.fillField('Benutzername oder E-Mailadresse', 'dal')
   I.fillField('Passwort', '123456')
   I.click('Anmelden', '.serlo-button-green')
   I.waitForText('Willkommen dal!', 10)
 })
 
-Scenario('Logout user', ({ I }) => {
+Scenario('Logout @user', ({ I }) => {
   I.amOnPage('/')
-  I.click('Benutzer*in')
+
+  // The asterix is mistaken as css selector sometimes, so remove it
+  I.click('Benutzer')
+
   I.click('Abmelden')
   I.waitForText('Bis bald!', 10)
   I.see('Anmelden')

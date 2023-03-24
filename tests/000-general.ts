@@ -219,3 +219,26 @@ Scenario('Special Pages', ({ I }) => {
   // Needs to do external fetching, so wait a bit longer
   I.waitForText('Softwareentwicklung', 30)
 })
+
+Scenario('Meta robots tags', ({ I }) => {
+  // should index
+  I.amOnPage('/')
+  I.dontSeeElementInDOM('meta[content=noindex]')
+
+  I.amOnPage('/serlo')
+  I.dontSeeElementInDOM('meta[content=noindex]')
+
+  I.amOnPage('/1555')
+  I.dontSeeElementInDOM('meta[content=noindex]')
+
+  // hide test area
+  I.amOnPage('/community/106082/testbereich')
+  I.seeElementInDOM('meta[content=noindex]')
+
+  I.amOnPage('/community/185201/kullas-testartikel-nicht-l%C3%B6schen')
+  I.seeElementInDOM('meta[content=noindex]')
+
+  // hide trashed
+  I.amOnPage('/268814')
+  I.seeElementInDOM('meta[content=noindex]')
+})

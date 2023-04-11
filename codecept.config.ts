@@ -36,7 +36,7 @@ exports.config = {
             I.waitForText('Benutzername oder E-Mailadresse', 10)
             I.fillField('Benutzername oder E-Mailadresse', adminUser)
             I.fillField('Passwort', '123456')
-            I.pressKey('Enter')
+            I.click('Anmelden', "button[value='password']")
             I.waitForText(`Willkommen ${adminUser}!`, 30)
           },
           check: (I) => {

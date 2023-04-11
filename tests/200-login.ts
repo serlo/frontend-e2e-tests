@@ -10,7 +10,10 @@ Scenario('Login @user', ({ I }) => {
 
   I.fillField('Benutzername oder E-Mailadresse', 'dal')
   I.fillField('Passwort', '123456')
-  I.click('Anmelden', '.serlo-button-green')
+
+  // More robust selector
+  I.click('Anmelden', "button[value='password']")
+
   I.waitForText('Willkommen dal!', 10)
 })
 

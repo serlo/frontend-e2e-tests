@@ -53,8 +53,8 @@ async function testLandingPage(I: CodeceptJS.I, data: LandingPageData) {
   I.see('Werde Teil der Serlo Community')
 }
 
-Scenario('Mathe - landing page', ({ I }) => {
-  testLandingPage(I, {
+const landingPages: LandingPageData[] = [
+  {
     iconSelector: 'svg.superspecial-math',
     headingText: 'Keine Angst vor Zahlen',
     taxRootName: 'Mathematik',
@@ -66,11 +66,8 @@ Scenario('Mathe - landing page', ({ I }) => {
     taxonomyEntry1: 'Grundrechenarten',
     taxonomy2: 'Stochastik',
     taxonomyEntry2: 'Kombinatorik',
-  })
-})
-
-Scenario('Nachhaltigkeit - landing page', ({ I }) => {
-  testLandingPage(I, {
+  },
+  {
     iconSelector: 'svg.superspecial-sus',
     headingText: 'Unsere Welt gibt es nur einmal',
     taxRootName: 'Angewandte Nachhaltigkeit',
@@ -82,11 +79,8 @@ Scenario('Nachhaltigkeit - landing page', ({ I }) => {
     taxonomyEntry1: 'Leben ohne Plastik?',
     taxonomy2: 'Klima',
     taxonomyEntry2: 'Klimawandel',
-  })
-})
-
-Scenario('Biologie - landing page', ({ I }) => {
-  testLandingPage(I, {
+  },
+  {
     iconSelector: 'svg.superspecial-bio',
     headingText: 'Gib deinem Hirn einen Evolutionssprung',
     taxRootName: 'Biologie',
@@ -98,11 +92,8 @@ Scenario('Biologie - landing page', ({ I }) => {
     taxonomyEntry1: 'Populationsdynamik',
     taxonomy2: 'Vielfalt der Lebewesen',
     taxonomyEntry2: 'Wirbellose Tiere',
-  })
-})
-
-Scenario('Chemie - landing page', ({ I }) => {
-  testLandingPage(I, {
+  },
+  {
     iconSelector: 'svg.superspecial-chem',
     headingText: 'In der Chemie ist nicht alles ätzend',
     taxRootName: 'Chemie',
@@ -114,11 +105,8 @@ Scenario('Chemie - landing page', ({ I }) => {
     taxonomyEntry1: 'Was ist Chemie?',
     taxonomy2: 'Stoffmenge',
     taxonomyEntry2: 'Stoffmenge und Mol',
-  })
-})
-
-Scenario('Informatik - landing page', ({ I }) => {
-  testLandingPage(I, {
+  },
+  {
     iconSelector: 'svg.superspecial-informatics',
     headingText: 'Keine Angst vor Computern',
     taxRootName: 'Informatik',
@@ -130,7 +118,14 @@ Scenario('Informatik - landing page', ({ I }) => {
     taxonomyEntry1: 'Verarbeitung von Informationen',
     taxonomy2: 'Theoretische Informatik',
     taxonomyEntry2: 'Formale Sprachen',
-  })
+  },
+]
+
+Scenario('Subject landing page', ({ I }) => {
+  testLandingPage(
+    I,
+    landingPages[Math.floor(Math.random() * landingPages.length)]
+  )
 })
 
 Scenario('Interact with single choice', ({ I }) => {

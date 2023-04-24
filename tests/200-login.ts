@@ -1,6 +1,6 @@
 Feature('Login')
 
-Scenario('Login @user', ({ I }) => {
+Scenario('Login', ({ I }) => {
   I.amOnPage('/')
   I.see('Anmelden')
   I.click('Anmelden')
@@ -17,7 +17,7 @@ Scenario('Login @user', ({ I }) => {
   I.waitForText('Willkommen dal!', 10)
 })
 
-Scenario('Logout @user', ({ I }) => {
+Scenario('Logout', ({ I }) => {
   I.amOnPage('/')
 
   // The asterix is mistaken as css selector sometimes, so remove it

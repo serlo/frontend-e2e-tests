@@ -120,3 +120,23 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.see('(1) Aufgabe mit Teilaufgaben:')
   I.see('(20)')
 })
+
+Scenario("Switching tabs shouldn't lose work", async ({ I }) => {
+  I.amOnPage('/entity/repository/add-revision/74888')
+  I.click("input[placeholder='Titel']")
+  I.pressKey('-')
+  I.pressKey('T')
+  I.pressKey('e')
+  I.pressKey('s')
+  I.pressKey('t')
+
+  I.seeInField("input[placeholder='Titel']", 'Treibhausgase-Test')
+
+  I.openNewTab()
+  I.wait(2)
+  I.closeCurrentTab()
+
+  I.wait(2)
+
+  I.seeInField("input[placeholder='Titel']", 'Treibhausgase-Test')
+})

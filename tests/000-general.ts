@@ -243,14 +243,14 @@ Scenario('Meta robots tags', ({ I }) => {
   I.seeElementInDOM('meta[content=noindex]')
 })
 
-Scenario('Link component should not rewrite assets.serlo.org @new', ({ I }) => {
+Scenario('Link component should not rewrite assets.serlo.org', ({ I }) => {
   I.amOnPage('/transparenz')
   I.click('Serlo Education Jahresbericht 2010')
   I.wait(2)
   I.dontSee('Es tut uns leid')
 })
 
-Scenario('Link to community chat should world @new', ({ I }) => {
+Scenario('Link to community chat should work', ({ I }) => {
   I.amOnPage('/19880/mitmachen-in-mathematik')
   I.click('Chat für Mathe-AutorInnen')
   I.seeInTitle('Serlo Communitychat')

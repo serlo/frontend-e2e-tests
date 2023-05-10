@@ -61,7 +61,7 @@ Scenario('Adding math formulas', async ({ I }) => {
   I.seeElement('span.katex')
 })
 
-Scenario('Undo Redo', async ({ I }) => {
+Scenario('Undo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.click('Füge ein Element hinzu')

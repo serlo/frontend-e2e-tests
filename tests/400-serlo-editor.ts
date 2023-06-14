@@ -173,9 +173,19 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Ctrl', 'I'])
 
+  I.seeElement({ css: 'em' }) //em = italic
+
+  I.pressKey(['Ctrl', 'I'])
+
+  I.dontSeeElement({ css: 'em' })
+
   I.pressKey(['Ctrl', 'B'])
 
-  //can't proof → id or name of bold/italic button is missing
+  I.seeElement({ css: 'strong' })
+
+  I.pressKey(['Ctrl', 'B'])
+
+  I.dontSeeElement({ css: 'strong' })
 
   //Create Link
 
@@ -187,11 +197,7 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.click('span[data-slate-string="true"]')
 
-  I.seeElement(
-    'a[href="https://de.serlo.org/" data-slate-node="element" data-slate-inline="true" style="cursor: pointer;"]'
-  )
-
-  I.seeElement('span[data-slate-leaf="true"]')
+  I.seeElement('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
 
   I.click('Some text')
 

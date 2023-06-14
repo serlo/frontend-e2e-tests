@@ -169,11 +169,17 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Ctrl', 'A'])
 
-  //Bold + Italic
+  //Toggle Bold + Italic on
 
   I.pressKey(['Ctrl', 'I'])
 
   I.seeElement({ css: 'em' }) //em = italic
+
+  I.pressKey(['Ctrl', 'B'])
+
+  I.seeElement({ css: 'strong' })
+
+  //Toggle Bold + Italic off
 
   I.pressKey(['Ctrl', 'I'])
 
@@ -181,36 +187,28 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Ctrl', 'B'])
 
-  I.seeElement({ css: 'strong' })
-
-  I.pressKey(['Ctrl', 'B'])
-
   I.dontSeeElement({ css: 'strong' })
 
-  //Create Link
-
+  //Toggle Link on
   //Use Hack because a id or name of link button is missing
 
   I.pressKey(['Ctrl', 'K'])
 
   I.type('https://serlo.org')
 
-  I.click('span[data-slate-string="true"]')
+  I.seeElement(
+    'button.serlo-tooltip-trigger.bg-editor-primary-200:nth-child(3)'
+  )
 
-  I.seeElement('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
+  I.click('span[data-slate-string="true"]')
 
   I.click('Some text')
 
-  I.amOnPage('https://serlo.org')
+  I.click('a.sc-hAQmFe.hciYUI')
 
-  I.pressKey(['Alt', 'LeftArrow'])
+  //Toggle Link off
 
-  I.amOnPage('/entity/create/Article/1377')
-
-  //delete Link
   I.click('Füge ein Element hinzu')
-
-  I.pressKey('Backspace')
 
   I.type('Some text')
 
@@ -228,5 +226,22 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Ctrl', 'K'])
 
-  //Can't proof → id of link button is missing
+  I.dontSeeElement(
+    'button.serlo-tooltip-trigger.bg-editor-primary-200:nth-child(3)'
+  )
+
+  //Toggle Math on
+
+  for (let i = 0; i < 9; i++) {
+    I.pressKey('Backspace')
+  }
+
+  I.pressKey(['CommandOrControl', 'M'])
+
+  I.see('LaTeX')
+  I.type('\\frac12')
+  I.pressKey('ArrowRight')
+  I.dontSee('LaTeX')
+
+  I.seeElement('span.katex')
 })

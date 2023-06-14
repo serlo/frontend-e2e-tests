@@ -155,3 +155,72 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
 
   I.see('CUTCUTCUT')
 })
+
+Scenario('Toggle on and off', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+
+  I.see('Some text')
+
+  I.pressKey(['Ctrl', 'A'])
+
+  //Bold + Italic
+
+  I.pressKey(['Ctrl', 'I'])
+
+  I.pressKey(['Ctrl', 'B'])
+
+  //can't proof → id or name of bold/italic button is missing
+
+  //Create Link
+
+  //Use Hack because a id or name of link button is missing
+
+  I.pressKey(['Ctrl', 'K'])
+
+  I.type('https://serlo.org')
+
+  I.click('span[data-slate-string="true"]')
+
+  I.seeElement(
+    'a[href="https://de.serlo.org/" data-slate-node="element" data-slate-inline="true" style="cursor: pointer;"]'
+  )
+
+  I.seeElement('span[data-slate-leaf="true"]')
+
+  I.click('Some text')
+
+  I.amOnPage('https://serlo.org')
+
+  I.pressKey(['Alt', 'LeftArrow'])
+
+  I.amOnPage('/entity/create/Article/1377')
+
+  //delete Link
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+
+  I.see('Some text')
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.pressKey(['Ctrl', 'K'])
+
+  I.type('https://serlo.org')
+
+  I.click('span[data-slate-string="true"]')
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.pressKey(['Ctrl', 'K'])
+
+  //Can't proof → id of link button is missing
+})

@@ -76,6 +76,26 @@ Scenario('Undo', async ({ I }) => {
   I.dontSee('Some text')
 })
 
+Scenario('Redo', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+
+  I.see('Some text')
+
+  I.click('button[title="Undo"]')
+
+  I.dontSee('Some text')
+
+  I.click('button[title="Redo"]')
+
+  I.see('Some text')
+})
+
 Scenario('Markdown list shortcut', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
@@ -90,7 +110,7 @@ Scenario('Markdown list shortcut', async ({ I }) => {
   I.seeElement('ul[data-slate-node="element"]')
 })
 
-Scenario('Copy/paste text', async ({ I }) => {
+Scenario('Copy/cut/paste text', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
 
   I.click('span[data-slate-node="text"]')
@@ -114,28 +134,24 @@ Scenario('Copy/paste text', async ({ I }) => {
   I.pressKey(['Ctrl', 'V'])
 
   I.see('TESTTESTTEST')
-})
-
-Scenario('Cut/paste text', async ({ I }) => {
-  I.amOnPage('/entity/repository/add-revision/74888')
-
-  I.click('span[data-slate-node="text"]')
-
-  I.type(' ')
-
-  I.type('TESTTESTTEST')
-
-  I.see('TESTTESTTEST')
 
   for (let i = 0; i < 12; i++) {
+    I.pressKey('Backspace')
+  }
+
+  I.type('CUTCUTCUT')
+
+  I.see('CUTCUTCUT')
+
+  for (let i = 0; i < 9; i++) {
     I.pressKey(['Shift', 'LeftArrow'])
   }
 
   I.pressKey(['Ctrl', 'X'])
 
-  I.dontSee('TESTTESTTEST')
+  I.dontSee('CUTCUTCUT')
 
   I.pressKey(['Ctrl', 'V'])
 
-  I.see('TESTTESTTEST')
+  I.see('CUTCUTCUT')
 })

@@ -90,7 +90,7 @@ Scenario('Markdown list shortcut', async ({ I }) => {
   I.seeElement('ul[data-slate-node="element"]')
 })
 
-Scenario('Copy/Paste text', async ({ I }) => {
+Scenario('Copy/paste text', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
 
   I.click('span[data-slate-node="text"]')
@@ -101,11 +101,37 @@ Scenario('Copy/Paste text', async ({ I }) => {
 
   I.see('TESTTESTTEST')
 
-  I.doubleClick('span[data-slate-node="text"]')
+  for (let i = 0; i < 12; i++) {
+    I.pressKey(['Shift', 'LeftArrow'])
+  }
 
   I.pressKey(['Ctrl', 'C'])
 
   I.pressKey('Backspace')
+
+  I.dontSee('TESTTESTTEST')
+
+  I.pressKey(['Ctrl', 'V'])
+
+  I.see('TESTTESTTEST')
+})
+
+Scenario('Cut/paste text', async ({ I }) => {
+  I.amOnPage('/entity/repository/add-revision/74888')
+
+  I.click('span[data-slate-node="text"]')
+
+  I.type(' ')
+
+  I.type('TESTTESTTEST')
+
+  I.see('TESTTESTTEST')
+
+  for (let i = 0; i < 12; i++) {
+    I.pressKey(['Shift', 'LeftArrow'])
+  }
+
+  I.pressKey(['Ctrl', 'X'])
 
   I.dontSee('TESTTESTTEST')
 

@@ -77,7 +77,7 @@ const landingPages: LandingPageData[] = [
     quickbarDistractorDontSee: 'Brennstoffzelle',
     taxonomy1: 'Plastik',
     taxonomyEntry1: 'Leben ohne Plastik?',
-    taxonomy2: 'Klima',
+    taxonomy2: 'Klimaschutz aktiv leben',
     taxonomyEntry2: 'Klimawandel',
   },
   {

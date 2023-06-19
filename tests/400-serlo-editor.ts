@@ -267,11 +267,56 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   //Clear
   I.pressKey(['Ctrl', 'A'])
+
   I.pressKey('Backspace')
 
   //Toogle H1 on
-  I.seeElement({ css: '.serlo-editor-hacks h1' })
-  I.type('# Some test')
+
+  I.type('# Some text')
+
+  I.see('Some text', 'h1')
+
+  //Toggle H1 off
+
+  for (let i = 0; i < 9; i++) {
+    I.pressKey('LeftArrow')
+  }
+
+  I.type('# ')
+
+  I.dontSee('Some text', 'h1')
+
+  //Toggle H2 on
+
+  I.type('## ')
+
+  I.see('Some text', 'h2')
+
+  //Toggle H2 off
+
+  for (let i = 0; i < 9; i++) {
+    I.pressKey('LeftArrow')
+  }
+
+  I.type('## ')
+
+  I.dontSee('Some text', 'h2')
+
+  //Toggle H3 on
+
+  I.type('### ')
+
+  I.see('Some text', 'h3')
+
+  //Toggle H3 off
+
+  for (let i = 0; i < 9; i++) {
+    I.pressKey('LeftArrow')
+  }
+
+  I.type('### ')
+
+  I.dontSee('Some text', 'h3')
 })
 
 Scenario('Toolbar Toggle on and off', async ({ I }) => {

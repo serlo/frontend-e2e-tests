@@ -156,7 +156,7 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
   I.see('CUTCUTCUT')
 })
 
-Scenario('Toggle on and off', async ({ I }) => {
+Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.click('Füge ein Element hinzu')
@@ -190,21 +190,16 @@ Scenario('Toggle on and off', async ({ I }) => {
   I.dontSeeElement({ css: 'strong' })
 
   //Toggle Link on
-  //Use Hack because a id or name of link button is missing
 
   I.pressKey(['Ctrl', 'K'])
 
-  I.type('https://serlo.org')
+  I.type('https://de.serlo.org/mathe/1541/hypotenuse')
 
-  I.seeElement(
-    'button.serlo-tooltip-trigger.bg-editor-primary-200:nth-child(3)'
-  )
-
-  I.click('span[data-slate-string="true"]')
+  I.click('div.mt-2.text-lg.text-gray-800')
 
   I.click('Some text')
 
-  I.click('a.sc-hAQmFe.hciYUI')
+  I.see('Hypotenuse')
 
   //Toggle Link off
 
@@ -218,9 +213,9 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Ctrl', 'K'])
 
-  I.type('https://serlo.org')
+  I.type('https://de.serlo.org/mathe/1541/hypotenuse')
 
-  I.click('span[data-slate-string="true"]')
+  I.click('div.mt-2.text-lg.text-gray-800')
 
   I.pressKey(['Ctrl', 'A'])
 
@@ -232,16 +227,73 @@ Scenario('Toggle on and off', async ({ I }) => {
 
   //Toggle Math on
 
-  for (let i = 0; i < 9; i++) {
-    I.pressKey('Backspace')
-  }
+  I.pressKey(['Ctrl', 'A'])
+  I.pressKey('Backspace')
 
   I.pressKey(['CommandOrControl', 'M'])
 
   I.see('LaTeX')
-  I.type('\\frac12')
+  I.type('\\frac12 test')
   I.pressKey('ArrowRight')
   I.dontSee('LaTeX')
 
   I.seeElement('span.katex')
+
+  //Toggle Math off
+
+  I.pressKey(['Shift', 'LeftArrow'])
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.pressKey(['Ctrl', 'M'])
+
+  I.dontSee('test')
+
+  //Toggle unordered list on
+
+  I.type('- Some test')
+
+  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+
+  //Toggle unordered list off
+
+  for (let i = 0; i < 9; i++) {
+    I.pressKey('LeftArrow')
+  }
+
+  I.pressKey('Backspace')
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+
+  //Clear
+  I.pressKey(['Ctrl', 'A'])
+  I.pressKey('Backspace')
+
+  //Toogle H1 on
+  I.seeElement({ css: '.serlo-editor-hacks h1' })
+  I.type('# Some test')
+})
+
+Scenario('Toolbar Toggle on and off', async ({ I }) => {
+  //Toggle unordered list on
+
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some test')
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
+
+  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+
+  //Toggle unordered list off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
 })

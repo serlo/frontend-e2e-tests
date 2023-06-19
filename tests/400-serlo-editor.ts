@@ -203,20 +203,6 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   //Toggle Link off
 
-  I.click('Füge ein Element hinzu')
-
-  I.type('Some text')
-
-  I.see('Some text')
-
-  I.pressKey(['Ctrl', 'A'])
-
-  I.pressKey(['Ctrl', 'K'])
-
-  I.type('https://de.serlo.org/mathe/1541/hypotenuse')
-
-  I.click('div.mt-2.text-lg.text-gray-800')
-
   I.pressKey(['Ctrl', 'A'])
 
   I.pressKey(['Ctrl', 'K'])
@@ -251,9 +237,9 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   //Toggle unordered list on
 
-  I.type('- Some test')
+  I.type('- Some text')
 
-  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.see('Some text', 'ul')
 
   //Toggle unordered list off
 
@@ -263,7 +249,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.pressKey('Backspace')
 
-  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.dontSee('Some text', 'ul')
 
   //Clear
   I.pressKey(['Ctrl', 'A'])
@@ -319,26 +305,110 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.dontSee('Some text', 'h3')
 })
 
-Scenario('Toolbar Toggle on and off', async ({ I }) => {
-  //Toggle unordered list on
+Scenario('Unordered list shortcuts', async ({ I }) => {
+  //Indent/un-indent list
+  //At the moment, I am unable to indent a bullet list within the text. Therefore, I cannot test this case here.
 
+  //Add new list item on enter
   I.amOnPage('/entity/create/Article/1377')
 
   I.click('Füge ein Element hinzu')
 
   I.pressKey('Backspace')
 
-  I.type('Some test')
+  I.type('- Some text')
 
+  I.see('Some text', 'ul')
+
+  I.pressKey('Enter')
+
+  I.type('Some more text')
+
+  I.see('Some more text', 'ul')
+
+  //Exit the list on double enter
+
+  I.pressKey('Enter')
+
+  I.pressKey('Enter')
+
+  I.type('Exit the list')
+
+  I.dontSee('Exit the list', 'ul')
+
+  //Clear Text in list
+  I.pressKey(['Ctrl', 'A'])
+
+  I.pressKey('Backspace')
+
+  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+
+  //Remove empty list item on backspace
+
+  I.pressKey('Backspace')
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+})
+
+Scenario('Toolbar Toggle on and off', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+
+  //Toggle Bold on
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
+
+  I.seeElement({ css: 'strong' })
+
+  //Toggle Bold off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
+
+  I.dontSeeElement({ css: 'strong' })
+
+  //Toggle italic on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
+
+  I.seeElement({ css: 'em' }) //em = italic
+
+  //Toggle italic off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
+
+  I.dontSeeElement({ css: 'em' }) //em = italic
+
+  //Toggle Code on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(9)')
+
+  I.see('Some text', 'code')
+
+  I.seeElement({ css: '.serlo-editor-hacks code' })
+
+  //Toggle Code off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(9)')
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks code' })
+
+  //Toggle unordered list on
   I.pressKey(['Ctrl', 'A'])
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
 
-  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.see('Some text', 'ul')
 
   //Toggle unordered list off
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
 
-  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.dontSee('Some text', 'ul')
 })

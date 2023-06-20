@@ -41,12 +41,12 @@ async function testLandingPage(I: CodeceptJS.I, data: LandingPageData) {
   I.refreshPage()
 
   // Taxonomy explorer
-  I.dontSee(data.taxonomyEntry1, 'a.serlo-link')
+  I.dontSee(data.taxonomyEntry1, 'li > a.serlo-link')
   I.click(data.taxonomy1)
-  I.see(data.taxonomyEntry1, 'a.serlo-link')
-  I.dontSee(data.taxonomyEntry2, 'a.serlo-link')
+  I.see(data.taxonomyEntry1, 'li > a.serlo-link')
+  I.dontSee(data.taxonomyEntry2, 'li > a.serlo-link')
   I.click(data.taxonomy2)
-  I.see(data.taxonomyEntry2, 'a.serlo-link')
+  I.see(data.taxonomyEntry2, 'li > a.serlo-link')
 
   // Mitmachen
   I.click('Mitmachen', '.bg-blueWave')

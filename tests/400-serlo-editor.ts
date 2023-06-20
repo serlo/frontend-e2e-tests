@@ -201,15 +201,15 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.see('Hypotenuse')
 
+  I.seeElement({ css: '.serlo-editor-hacks a' })
+
   //Toggle Link off
 
   I.pressKey(['Ctrl', 'A'])
 
   I.pressKey(['Ctrl', 'K'])
 
-  I.dontSeeElement(
-    'button.serlo-tooltip-trigger.bg-editor-primary-200:nth-child(3)'
-  )
+  I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
   //Toggle Math on
 
@@ -399,7 +399,32 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   I.dontSeeElement({ css: '.serlo-editor-hacks code' })
 
+  //Toggle Link on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
+
+  I.type('https://de.serlo.org/mathe/1541/hypotenuse')
+
+  I.click('div.mt-2.text-lg.text-gray-800')
+
+  I.seeElement({ css: '.serlo-editor-hacks a' })
+
+  I.click('Some text')
+
+  I.see('Hypotenuse')
+
+  //Toggle Link off
+
+  I.click('Some text')
+
+  I.click(
+    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10'
+  )
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks a' })
+
   //Toggle unordered list on
+
   I.pressKey(['Ctrl', 'A'])
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
@@ -411,4 +436,108 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
 
   I.dontSee('Some text', 'ul')
+
+  //Toggle ordered list on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(6)')
+
+  I.see('Some text', 'ol')
+
+  //Toggle unordered list off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(6)')
+
+  I.dontSeeElement({ css: '.serlo-editor-hacks ol' })
+
+  //Toggle H1 on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
+
+  I.see('Some text', 'h1')
+
+  //Toggle H1 off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
+
+  I.dontSee('Some text', 'h1')
+
+  //Toggle H2 on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
+
+  I.see('Some text', 'h2')
+
+  //Toggle H2 off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
+
+  I.dontSee('Some text', 'h2')
+
+  //Toggle H3 on
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
+
+  I.see('Some text', 'h3')
+
+  //Toggle H3 off
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
+
+  I.dontSee('Some text', 'h3')
+
+  //Color change orange
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(5)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
+
+  I.seeElement('span[style="color: rgb(255, 102, 0);"]')
+
+  //Color reset
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(5)')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
+
+  I.dontSeeElement('span[style="color: rgb(255, 102, 0);"]')
+
+  //Toggle Math on
+
+  I.pressKey(['Ctrl', 'A'])
+
+  I.pressKey('Backspace')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(8)')
+
+  I.see('LaTeX')
+
+  I.type('\\frac12')
+
+  I.pressKey('ArrowRight')
+
+  I.dontSee('LaTeX')
+
+  I.seeElement('span.katex')
+
+  //Toggle Math off
+
+  I.click('span.katex')
+
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(8)')
+
+  I.dontSeeElement('span.katex')
 })

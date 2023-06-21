@@ -125,13 +125,13 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
     I.pressKey(['Shift', 'LeftArrow'])
   }
 
-  I.pressKey(['Ctrl', 'C'])
+  I.pressKey(['CommandOrControl', 'C'])
 
   I.pressKey('Backspace')
 
   I.dontSee('TESTTESTTEST')
 
-  I.pressKey(['Ctrl', 'V'])
+  I.pressKey(['CommandOrControl', 'V'])
 
   I.see('TESTTESTTEST')
 
@@ -147,11 +147,11 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
     I.pressKey(['Shift', 'LeftArrow'])
   }
 
-  I.pressKey(['Ctrl', 'X'])
+  I.pressKey(['CommandOrControl', 'X'])
 
   I.dontSee('CUTCUTCUT')
 
-  I.pressKey(['Ctrl', 'V'])
+  I.pressKey(['CommandOrControl', 'V'])
 
   I.see('CUTCUTCUT')
 })
@@ -167,31 +167,31 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.see('Some text')
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   //Toggle Bold + Italic on
 
-  I.pressKey(['Ctrl', 'I'])
+  I.pressKey(['CommandOrControl', 'I'])
 
   I.seeElement({ css: 'em' }) //em = italic
 
-  I.pressKey(['Ctrl', 'B'])
+  I.pressKey(['CommandOrControl', 'B'])
 
   I.seeElement({ css: 'strong' })
 
   //Toggle Bold + Italic off
 
-  I.pressKey(['Ctrl', 'I'])
+  I.pressKey(['CommandOrControl', 'I'])
 
   I.dontSeeElement({ css: 'em' })
 
-  I.pressKey(['Ctrl', 'B'])
+  I.pressKey(['CommandOrControl', 'B'])
 
   I.dontSeeElement({ css: 'strong' })
 
   //Toggle Link on
 
-  I.pressKey(['Ctrl', 'K'])
+  I.pressKey(['CommandOrControl', 'K'])
 
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
 
@@ -205,15 +205,15 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   //Toggle Link off
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
-  I.pressKey(['Ctrl', 'K'])
+  I.pressKey(['CommandOrControl', 'K'])
 
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
   //Toggle Math on
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
 
   I.pressKey(['CommandOrControl', 'M'])
@@ -229,9 +229,9 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.pressKey(['Shift', 'LeftArrow'])
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
-  I.pressKey(['Ctrl', 'M'])
+  I.pressKey(['CommandOrControl', 'M'])
 
   I.dontSee('test')
 
@@ -252,7 +252,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.dontSee('Some text', 'ul')
 
   //Clear
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.pressKey('Backspace')
 
@@ -337,7 +337,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
   I.dontSee('Exit the list', 'ul')
 
   //Clear Text in list
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.pressKey('Backspace')
 
@@ -361,7 +361,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   //Toggle Bold on
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
 
@@ -425,7 +425,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   //Toggle unordered list on
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
 
@@ -507,7 +507,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   //Color reset
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(5)')
 
@@ -517,7 +517,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   //Toggle Math on
 
-  I.pressKey(['Ctrl', 'A'])
+  I.pressKey(['CommandOrControl', 'A'])
 
   I.pressKey('Backspace')
 

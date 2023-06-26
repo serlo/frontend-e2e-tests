@@ -100,26 +100,41 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
   I.type('https://denkspace.de/zukunftswerk.gif')
 
   //Click on “Füge ein Element hinzu” to get the menu
-  I.click('div.sc-gswNZR.dvlXPI')
 
   I.click('Füge ein Element hinzu')
 
-  I.seeElement('div.sc-ilhmMj.hKPBD') //→ plugin suggestion menu
+  I.click('span[data-slate-node="text"]')
+
+  I.seeElement('div.sc-eDvSVe.hffHv') //→ plugin suggestion menu
 
   //Close menu, when click on plugin or other element
   //Add new text plugin and check
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  I.pressKey(['CommandOrControl', 'A'])
 
-  I.dontSee('div.sc-jWgTtR.ksNJmX')
+  I.pressKey('Backspace') //Close menu with backspace
+
+  I.dontSeeElement('div.sc-eDvSVe.hffHv')
 
   I.click('Füge ein Element hinzu')
 
-  I.seeElement('div.sc-ilhmMj.hKPBD')
+  I.seeElement('div.sc-eDvSVe.hffHv')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(1)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(1)')
 
-  I.dontSee('div.sc-jWgTtR.ksNJmX')
+  I.dontSee('div.sc-eDvSVe.hffHv')
+
+  I.type('Some text')
+
+  I.see('Some text')
+
+  //search-function text
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('tex')
+
+  I.pressKey('Enter')
 
   I.type('Some text')
 
@@ -128,121 +143,214 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
   //Add new picture plugin and check
   I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(2)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(2)')
 
-  I.see('Image URL') //→ because we filled the first picture → for multimedia contetend we have to fill this picture too
+  I.see('Bild-URL') //→ because we filled the first picture → for multimedia contetend we have to fill this picture too
 
   I.click("input[placeholder='https://example.com/image.png']")
 
   I.type('https://denkspace.de/zukunftswerk.gif')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function picture
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('Bild')
+
+  I.pressKey('Enter')
+
+  I.see('Bild-URL') //→ because we filled the first picture → for multimedia contetend we have to fill this picture too
+
+  I.click("input[placeholder='https://example.com/image.png']")
+
+  I.type('https://denkspace.de/zukunftswerk.gif')
 
   //Add new multi-media plugin an check
 
   I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(3)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(3)')
 
-  I.see('Image URL')
+  I.see('Bild-URL')
 
-  I.click('div.sc-gswNZR.dvlXPI')
-
+  I.click('div.sc-jfvxQR.eJQLuu')
   //Add new spoiler
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(4)')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(4)')
+  I.seeElement('div.sc-evzXkX.kCakgO')
 
-  I.seeElement('div.sc-eJDSGI.hFwOSO')
+  //search-function spoiler
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('spoi')
+
+  I.pressKey('Enter')
+
+  I.seeElement('div.sc-evzXkX.kCakgO')
 
   //Add new box
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(5)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(5)')
 
   I.see('Art der Box')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function box
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('bo')
+
+  I.pressKey('Enter')
+
+  I.see('Art der Box')
 
   //Add new table
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(6)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(6)')
 
   I.seeElement('table.serlo-table.mb-8')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function table
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('tab')
+
+  I.pressKey('Enter')
+
+  I.seeElement('table.serlo-table.mb-8')
+
+  I.click('div.sc-jfvxQR.eJQLuu')
 
   //Add new serlo.org content
 
-  I.click('Füge ein Element hinzu')
-
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(7)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(7)')
 
   I.see('Serlo ID')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function serlo.org content
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('ser')
+
+  I.pressKey('Enter')
+
+  I.see('Serlo ID')
+
+  I.click('div.sc-jfvxQR.eJQLuu')
 
   //Add new terms und equations
 
-  I.click('Füge ein Element hinzu')
-
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(8)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(8)')
 
   I.see('Neue Gleichung hinzufügen')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function serlo.org content
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('gle')
+
+  I.pressKey('Enter')
+
+  I.see('Neue Gleichung hinzufügen')
+
+  I.click('div.sc-jfvxQR.eJQLuu')
 
   //Add new GeoGebra
 
-  I.click('Füge ein Element hinzu')
-
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(9)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(9)')
 
   I.see('GeoGebra Materials URL oder ID')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function GeoGebra
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('geo')
+
+  I.pressKey('Enter')
+
+  I.see('GeoGebra Materials URL oder ID')
 
   //Add new code plugin
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(10)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(10)')
 
   I.seeElement('div.mt-2.flex.justify-between')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function code plugin
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('cod')
+
+  I.pressKey('Enter')
+
+  I.seeElement('div.mt-2.flex.justify-between')
 
   //Add new video
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(11)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(11)')
 
   I.see('Video URL')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function video
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('vid')
+
+  I.pressKey('Enter')
+
+  I.see('Video URL')
 
   //Add new jump mark
 
-  I.click('Füge ein Element hinzu')
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(12)')
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(12)')
 
   I.seeElement('input[placeholder="Name der Sprungmarke"]')
 
-  I.click('div.sc-gswNZR.dvlXPI')
+  //search-function jump mark
 
-  //Add new paste Hack
+  I.click('div.sc-jfvxQR.eJQLuu')
 
-  I.click('Füge ein Element hinzu')
+  I.type('spr')
 
-  I.click('div.sc-fmZqYP.jrCWCc:nth-child(13)')
+  I.pressKey('Enter')
+
+  I.seeElement('input[placeholder="Name der Sprungmarke"]')
+
+  //Add new Editor Stage
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.click('div.sc-gUJyNl.gsCVtz:nth-child(13)')
+
+  I.see('Experimental Import')
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  //search-function Editor Stge
+
+  I.click('div.sc-jfvxQR.eJQLuu')
+
+  I.type('edi')
+
+  I.pressKey('Enter')
 
   I.see('Experimental Import')
 })

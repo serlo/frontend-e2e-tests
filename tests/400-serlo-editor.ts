@@ -535,7 +535,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   //Toggle Math off
 
-  I.click('span.katex')
+  I.pressKey('ArrowLeft')
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(8)')
 

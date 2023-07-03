@@ -169,25 +169,25 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.pressKey(['CommandOrControl', 'A'])
 
-  //Toggle Bold + Italic on
-
-  I.pressKey(['CommandOrControl', 'I'])
-
-  I.seeElement({ css: 'em' }) //em = italic
+  //Toggle bold on & off
 
   I.pressKey(['CommandOrControl', 'B'])
 
-  I.seeElement({ css: 'strong' })
-
-  //Toggle Bold + Italic off
-
-  I.pressKey(['CommandOrControl', 'I'])
-
-  I.dontSeeElement({ css: 'em' })
+  I.seeElement({ css: 'b' })
 
   I.pressKey(['CommandOrControl', 'B'])
 
-  I.dontSeeElement({ css: 'strong' })
+  I.dontSeeElement({ css: 'b' })
+
+  //Toggle Italic on & off
+
+  I.pressKey(['CommandOrControl', 'I'])
+
+  I.seeElement({ css: 'i' })
+
+  I.pressKey(['CommandOrControl', 'I'])
+
+  I.dontSeeElement({ css: 'i' })
 
   //Toggle Link on
 
@@ -365,25 +365,25 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
 
-  I.seeElement({ css: 'strong' })
+  I.seeElement({ css: 'b' })
 
   //Toggle Bold off
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
 
-  I.dontSeeElement({ css: 'strong' })
+  I.dontSeeElement({ css: 'b' })
 
   //Toggle italic on
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
 
-  I.seeElement({ css: 'em' }) //em = italic
+  I.seeElement({ css: 'i' })
 
   //Toggle italic off
 
   I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
 
-  I.dontSeeElement({ css: 'em' }) //em = italic
+  I.dontSeeElement({ css: 'i' })
 
   //Toggle Code on
 

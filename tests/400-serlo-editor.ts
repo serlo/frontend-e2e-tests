@@ -18,7 +18,7 @@ Scenario('Add new plugins', async ({ I }) => {
   I.pressKey('Backspace')
 
   // Only one text plugin visible
-  I.see('Write something or add elements with')
+  I.see('Schreib etwas oder füge')
 
   I.click('Füge ein Element hinzu')
   for (let i = 0; i < 3; i++) {

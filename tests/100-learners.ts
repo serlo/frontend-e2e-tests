@@ -179,7 +179,6 @@ Scenario('Interact with multiple choice', ({ I }) => {
 Scenario('Geogebra', ({ I }) => {
   I.amOnPage('/43563')
   I.click('Applet laden von GeoGebra')
-  I.switchTo('iframe')
   I.waitForElement('canvas[data-test="euclidianView"]', 10)
 })
 

@@ -32,8 +32,11 @@ async function testLandingPage(I: CodeceptJS.I, data: LandingPageData) {
   I.click(subjectQuickbarSelector)
   I.type(data.quickbarKeyword)
   I.see(data.quickbarKeywordResult, 'div.shadow')
-  I.clearField(subjectQuickbarSelector)
+
+  // Clear input
+  I.pressKey('Escape')
   I.click(subjectQuickbarSelector)
+
   I.type(data.quickbarDistractor)
   I.dontSee(data.quickbarDistractorDontSee, 'div.shadow')
 

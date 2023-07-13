@@ -418,7 +418,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.click('Some text')
 
   I.click(
-    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10'
+    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10',
   )
 
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })

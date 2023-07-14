@@ -2,6 +2,7 @@
   "name": "frontend-e2e-tests",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "format": "prettier . --write",
     "test": "codeceptjs run --steps"

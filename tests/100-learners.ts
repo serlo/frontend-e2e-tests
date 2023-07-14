@@ -32,8 +32,11 @@ async function testLandingPage(I: CodeceptJS.I, data: LandingPageData) {
   I.click(subjectQuickbarSelector)
   I.type(data.quickbarKeyword)
   I.see(data.quickbarKeywordResult, 'div.shadow')
-  I.clearField(subjectQuickbarSelector)
+
+  // Clear input
+  I.pressKey('Escape')
   I.click(subjectQuickbarSelector)
+
   I.type(data.quickbarDistractor)
   I.dontSee(data.quickbarDistractorDontSee, 'div.shadow')
 
@@ -124,7 +127,7 @@ const landingPages: LandingPageData[] = [
 Scenario('Subject landing page', ({ I }) => {
   testLandingPage(
     I,
-    landingPages[Math.floor(Math.random() * landingPages.length)]
+    landingPages[Math.floor(Math.random() * landingPages.length)],
   )
 })
 
@@ -179,7 +182,6 @@ Scenario('Interact with multiple choice', ({ I }) => {
 Scenario('Geogebra', ({ I }) => {
   I.amOnPage('/43563')
   I.click('Applet laden von GeoGebra')
-  I.switchTo('iframe')
   I.waitForElement('canvas[data-test="euclidianView"]', 10)
 })
 

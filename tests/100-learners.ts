@@ -127,7 +127,7 @@ const landingPages: LandingPageData[] = [
 Scenario('Subject landing page', ({ I }) => {
   testLandingPage(
     I,
-    landingPages[Math.floor(Math.random() * landingPages.length)]
+    landingPages[Math.floor(Math.random() * landingPages.length)],
   )
 })
 

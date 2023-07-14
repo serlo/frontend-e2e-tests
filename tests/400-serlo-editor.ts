@@ -3,12 +3,13 @@ Feature('Serlo Editor')
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click('span[data-slate-node="text"]')
-  I.type('TESTTESTTEST')
-  I.see('TESTTESTTEST')
-  for (let i = 0; i < 12; i++) {
+  const testString = 'TESTTESTTEST'
+  I.type(testString)
+  I.see(testString)
+  for (let i = 0; i < testString.length; i++) {
     I.pressKey('Backspace')
   }
-  I.dontSee('TESTTESTTEST')
+  I.dontSee(testString)
 })
 
 Scenario('Add new plugins', async ({ I }) => {
@@ -40,6 +41,29 @@ Scenario('Add new plugins', async ({ I }) => {
   I.click('Merke')
 
   I.see('(optionaler Titel)')
+})
+
+Scenario('Delete text plugin with keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+  // When visting the page, a new text plugin with no content is already there. Now we create a second one.
+  I.click('Füge ein Element hinzu')
+
+  // Delete two text plugins with backspace. 3 backspaces in total are needed to delete the / in the beginning too
+  I.pressKey('Backspace')
+  I.pressKey('Backspace')
+  I.pressKey('Backspace')
+  I.dontSee('Schreib etwas oder füge')
+
+  I.click('Füge ein Element hinzu')
+  // Removes the slash and not the text plugin
+  I.pressKey('Backspace')
+
+  // Only one empty text plugin should be visible
+  I.see('Schreib etwas oder füge')
+
+  // Now delete the text plugin with the delete key
+  I.pressKey('Delete')
+  I.dontSee('Schreib etwas oder füge')
 })
 
 Scenario('Adding math formulas', async ({ I }) => {
@@ -76,6 +100,21 @@ Scenario('Undo', async ({ I }) => {
   I.dontSee('Some text')
 })
 
+Scenario('Undo via keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+  I.see('Some text')
+
+  I.pressKey(['CommandOrControl', 'z'])
+
+  I.dontSee('Some text')
+})
+
 Scenario('Redo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
@@ -92,6 +131,34 @@ Scenario('Redo', async ({ I }) => {
   I.dontSee('Some text')
 
   I.click('button[title="Redo"]')
+
+  I.see('Some text')
+})
+
+Scenario('Redo via keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('Füge ein Element hinzu')
+
+  I.pressKey('Backspace')
+
+  I.type('Some text')
+
+  I.see('Some text')
+
+  // UNDO
+  I.pressKey(['CommandOrControl', 'z'])
+
+  I.dontSee('Some text')
+
+  // REDO
+  // ! For some reason, the first redo does not work. The second one does. If
+  // one puts a pause() here and runs the command only once through the
+  // interactive shell , it works just as fine as clicking the button.
+  // Therefore, I thought the Ctrl+Y was maybe happening too quickly after the
+  // Ctrl+Z, but even with I.wait(1) two executions were needed.
+  I.pressKey(['CommandOrControl', 'y'])
+  I.pressKey(['CommandOrControl', 'y'])
 
   I.see('Some text')
 })

@@ -18,7 +18,7 @@ Tests are written with Playwright (wrapped by CodeceptJS), extensive documentati
 To run a single test, use `--grep`:
 
 ```sh
-yarn  test -- --grep "Quickbar"
+yarn  test --grep "Quickbar"
 ```
 
 The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests, TypeScript is supported.

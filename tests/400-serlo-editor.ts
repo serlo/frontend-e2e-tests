@@ -1,9 +1,5 @@
 Feature('Serlo Editor')
 
-const stopPopupPropagation = (event) => {
-  event.stopImmediatePropagation()
-}
-
 // Fixes warning "Popup already exists and was not closed. Popups must always be
 // closed by calling either I.acceptPopup() or I.cancelPopup()"
 Before(async ({ I }) => {
@@ -497,7 +493,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.click('Some text')
 
   I.click(
-    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10'
+    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10',
   )
 
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })

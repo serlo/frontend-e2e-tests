@@ -60,7 +60,7 @@ exports.config = {
       enabled: true,
     },
     screenshotOnFail: {
-      enabled: false,
+      enabled: true,
     },
   },
 }

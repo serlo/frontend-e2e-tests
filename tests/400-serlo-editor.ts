@@ -203,7 +203,7 @@ Scenario('Redo via keyboard', async ({ I }) => {
   I.see('Some text')
 })
 
-Scenario.only('Redo in editor input field via keyboard', async ({ I }) => {
+Scenario('Redo in editor input field via keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }

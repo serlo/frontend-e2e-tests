@@ -121,6 +121,11 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.see('(20)')
 })
 
+Scenario('Solution revision should be visible', async ({ I }) => {
+  I.amOnPage('/entity/repository/compare/279738/279739')
+  I.see('Lösung anzeigen')
+})
+
 Scenario("Switching tabs shouldn't lose work", async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click("input[placeholder='Titel']")

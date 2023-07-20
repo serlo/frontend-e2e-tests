@@ -123,6 +123,38 @@ Scenario('Undo via keyboard', async ({ I }) => {
   I.dontSee('Some text')
 })
 
+/**
+ * Most of the input of the editor happens within the editor contenteditable
+ * div. However, there are some input fields whose undo/redo behavior could
+ * function differently because we have one global undo/redo handler and the
+ * browser also natively handles it unless we specifically overwrite the behavior.
+ * Therefore, we want to ensure that we never do 2 undos when ctrl+z is pressed.
+ */
+Scenario('Undo in editor input field via keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
+  I.click(articleHeadingInput)
+
+  const firstWord = 'Some '
+  I.type(firstWord)
+  I.wait(2)
+
+  const secondWord = 'Text'
+  I.type(secondWord)
+
+  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+
+  I.pressKey(['CommandOrControl', 'z'])
+  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+  I.dontSeeInField(articleHeadingInput, `${secondWord}`)
+  I.seeInField(articleHeadingInput, firstWord)
+
+  I.pressKey(['CommandOrControl', 'z'])
+  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+  I.dontSeeInField(articleHeadingInput, firstWord)
+})
+
 Scenario('Redo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
@@ -169,6 +201,29 @@ Scenario('Redo via keyboard', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'y'])
 
   I.see('Some text')
+})
+
+Scenario('Redo in editor input field via keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
+  I.click(articleHeadingInput)
+
+  const firstWord = 'Some '
+  I.type(firstWord)
+  I.wait(2)
+
+  const secondWord = 'Text'
+  I.type(secondWord)
+  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+
+  I.pressKey(['CommandOrControl', 'z'])
+  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+  I.dontSeeInField(articleHeadingInput, `${secondWord}`)
+  I.seeInField(articleHeadingInput, firstWord)
+
+  I.pressKey(['CommandOrControl', 'y'])
+  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
 })
 
 Scenario('Markdown list shortcut', async ({ I }) => {

@@ -51,6 +51,18 @@ Scenario('Add new plugins', async ({ I }) => {
   I.see('(optionaler Titel)')
 })
 
+Scenario('Add plugin via slash command', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  // ensure there is no table yet
+  I.dontSeeElement('.serlo-table')
+  I.click('Füge ein Element hinzu')
+  I.type('Tabelle')
+  I.pressKey('Enter')
+
+  I.seeElement('.serlo-table')
+})
+
 Scenario('Delete text plugin with keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
   // When visting the page, a new text plugin with no content is already there. Now we create a second one.

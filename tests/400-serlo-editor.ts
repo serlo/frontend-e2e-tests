@@ -1,5 +1,10 @@
 Feature('Serlo Editor')
 
+// @ts-expect-error login is defined in codecept.config.ts
+Before(({ login, I }) => {
+  login('admin') // login as admin for now
+})
+
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click('span[data-slate-node="text"]')
@@ -105,7 +110,7 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.click('span[data-slate-node="text"]')
 
-  I.seeElement('div.sc-eDvSVe.hffHv') //→ plugin suggestion menu
+  I.seeElement('div.sc-fbYMXx.dTXjUa') //→ plugin suggestion menu
 
   //Close menu, when click on plugin or other element
   //Add new text plugin and check
@@ -114,15 +119,15 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.pressKey('Backspace') //Close menu with backspace
 
-  I.dontSeeElement('div.sc-eDvSVe.hffHv')
+  I.dontSeeElement('div.sc-fbYMXx.dTXjUa')
 
   I.click('Füge ein Element hinzu')
 
-  I.seeElement('div.sc-eDvSVe.hffHv')
+  I.seeElement('div.sc-fbYMXx.dTXjUa')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(1)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(1)')
 
-  I.dontSee('div.sc-eDvSVe.hffHv')
+  I.dontSee('div.sc-fbYMXx.dTXjUa')
 
   I.type('Some text')
 
@@ -353,4 +358,24 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
   I.pressKey('Enter')
 
   I.see('Experimental Import')
+})
+
+Scenario('images in exercises', async ({ I }) => {
+  I.amOnPage('/mathe/54749/54749')
+
+  I.see('Aufgaben zu Kreisen und Kreisteilen')
+
+  I.click('Überarbeiten')
+
+  I.see('Speichern')
+
+  I.click('Teilaufgabe hinzufügen')
+
+  I.see('Auswahlaufgabe')
+
+  I.click('Auswahlaufgabe')
+
+  I.click("Stimmt's?")
+
+  I.see('Multiple Choice')
 })

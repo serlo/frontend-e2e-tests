@@ -347,3 +347,13 @@ Scenario('Comments', ({ I }) => {
   I.scrollTo('#comment-area-begin-scrollpoint')
   I.see('Ich weiß nicht, ob es vom Computer')
 })
+
+Scenario('Check picture in scmc exercise', ({ I }) => {
+  I.amOnPage('/mathe/54749/54749')
+
+  I.see('Aufgaben zu Kreisen und Kreisteilen')
+
+  I.seeInSource(
+    'https://assets.serlo.org/legacy/56ebffb3bb393_1fe5b83b4ff8aae9bbc0026f127423c166e1ce93.png'
+  )
+})

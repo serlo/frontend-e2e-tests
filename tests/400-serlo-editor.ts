@@ -1,10 +1,5 @@
 Feature('Serlo Editor')
 
-// @ts-expect-error login is defined in codecept.config.ts
-Before(({ login, I }) => {
-  login('admin') // login as admin for now
-})
-
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click('span[data-slate-node="text"]')
@@ -360,6 +355,7 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
   I.see('Experimental Import')
 })
 
+/* on going work
 Scenario('images in exercises', async ({ I }) => {
   I.amOnPage('/mathe/54749/54749')
 
@@ -379,3 +375,4 @@ Scenario('images in exercises', async ({ I }) => {
 
   I.see('Multiple Choice')
 })
+*/

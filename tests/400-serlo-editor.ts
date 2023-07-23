@@ -158,7 +158,7 @@ Scenario(
   },
 )
 
-Scenario.only(
+Scenario(
   'Undo via keyboard in input field of picture plugin',
   async ({ I }) => {
     I.amOnPage('/entity/create/Article/1377')

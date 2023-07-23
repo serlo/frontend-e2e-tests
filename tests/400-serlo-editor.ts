@@ -130,30 +130,65 @@ Scenario('Undo via keyboard', async ({ I }) => {
  * browser also natively handles it unless we specifically overwrite the behavior.
  * Therefore, we want to ensure that we never do 2 undos when ctrl+z is pressed.
  */
-Scenario('Undo in editor input field via keyboard', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+Scenario(
+  'Undo via keyboard in input field for article heading ',
+  async ({ I }) => {
+    I.amOnPage('/entity/create/Article/1377')
 
-  const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
-  I.click(articleHeadingInput)
+    const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
+    I.click(articleHeadingInput)
 
-  const firstWord = 'Some '
-  I.type(firstWord)
-  I.wait(2)
+    const firstWord = 'Some '
+    I.type(firstWord)
+    I.wait(2)
 
-  const secondWord = 'Text'
-  I.type(secondWord)
+    const secondWord = 'Text'
+    I.type(secondWord)
 
-  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
 
-  I.pressKey(['CommandOrControl', 'z'])
-  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
-  I.dontSeeInField(articleHeadingInput, `${secondWord}`)
-  I.seeInField(articleHeadingInput, firstWord)
+    I.pressKey(['CommandOrControl', 'z'])
+    I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    I.dontSeeInField(articleHeadingInput, `${secondWord}`)
+    I.seeInField(articleHeadingInput, firstWord)
 
-  I.pressKey(['CommandOrControl', 'z'])
-  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
-  I.dontSeeInField(articleHeadingInput, firstWord)
-})
+    I.pressKey(['CommandOrControl', 'z'])
+    I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    I.dontSeeInField(articleHeadingInput, firstWord)
+  },
+)
+
+Scenario.only(
+  'Undo via keyboard in input field of picture plugin',
+  async ({ I }) => {
+    I.amOnPage('/entity/create/Article/1377')
+
+    // No need to create the image plugin first as the multimedia plugin at the
+    // beginning of each page already contains one
+    const imagePluginUrlInput = {
+      xpath: '//input[@placeholder="https://example.com/image.png"]',
+    }
+    I.click(imagePluginUrlInput)
+
+    const firstWord = 'Some '
+    I.type(firstWord)
+    I.wait(2)
+
+    const secondWord = 'Text'
+    I.type(secondWord)
+
+    I.seeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+
+    I.pressKey(['CommandOrControl', 'z'])
+    I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+    I.dontSeeInField(imagePluginUrlInput, `${secondWord}`)
+    I.seeInField(imagePluginUrlInput, firstWord)
+
+    I.pressKey(['CommandOrControl', 'z'])
+    I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+    I.dontSeeInField(imagePluginUrlInput, firstWord)
+  },
+)
 
 Scenario('Redo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')

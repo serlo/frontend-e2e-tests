@@ -404,8 +404,6 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   //Toggle Math off
 
-  I.pressKey(['Shift', 'LeftArrow'])
-
   I.pressKey(['CommandOrControl', 'A'])
 
   I.pressKey(['CommandOrControl', 'M'])

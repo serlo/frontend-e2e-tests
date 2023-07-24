@@ -6,6 +6,7 @@ Before(async ({ I }) => {
   I.executeScript(() => {
     window.onbeforeunload = null
   })
+  I.refreshPage()
 })
 
 Scenario('Basic text interactions', async ({ I }) => {
@@ -408,6 +409,10 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.pressKey('Backspace')
 
   I.dontSeeElement('span.katex')
+
+  // Refocus
+  I.click('Füge ein Element hinzu')
+  I.pressKey('Backspace')
 
   //Toggle unordered list on
 

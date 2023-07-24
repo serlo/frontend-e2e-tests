@@ -144,11 +144,11 @@ Scenario('Undo via keyboard', async ({ I }) => {
  * Therefore, we want to ensure that we never do 2 undos when ctrl+z is pressed.
  */
 Scenario(
-  'Undo via keyboard in input field for article heading ',
+  'Undo via keyboard in input field for article heading',
   async ({ I }) => {
     I.amOnPage('/entity/create/Article/1377')
 
-    const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
+    const articleHeadingInput = 'input[placeholder="Titel"]'
     I.click(articleHeadingInput)
 
     const firstWord = 'Some '
@@ -178,9 +178,9 @@ Scenario(
 
     // No need to create the image plugin first as the multimedia plugin at the
     // beginning of each page already contains one
-    const imagePluginUrlInput = {
-      xpath: '//input[@placeholder="https://example.com/image.png"]',
-    }
+    const imagePluginUrlInput =
+      'input[placeholder="https://example.com/image.png"]'
+
     I.click(imagePluginUrlInput)
 
     const firstWord = 'Some '

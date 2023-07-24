@@ -396,20 +396,18 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'M'])
 
   I.see('LaTeX')
-  I.type('\\frac12 test')
+  I.type('\\frac12 test42')
   I.pressKey('ArrowRight')
   I.dontSee('LaTeX')
 
   I.seeElement('span.katex')
 
-  //Toggle Math off
+  //Remove Math Element
 
   I.pressKey(['CommandOrControl', 'A'])
+  I.pressKey('Backspace')
 
-  I.pressKey(['CommandOrControl', 'M'])
-
-  I.wait(0.1)
-  I.dontSee('test')
+  I.dontSeeElement('span.katex')
 
   //Toggle unordered list on
 

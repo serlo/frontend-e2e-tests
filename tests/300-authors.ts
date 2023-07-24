@@ -72,6 +72,9 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.waitForText('Danke für deine Bearbeitung', 60)
   I.see('Bearbeitungsverlauf')
 
+  // updates are sometimes not fast enough
+  I.refreshPage()
+
   // I can't predict if it's the one or the other string
   const seeVersion1 = await tryTo(() => {
     I.see('vor einer Weile')

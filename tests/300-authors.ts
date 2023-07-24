@@ -123,7 +123,7 @@ Scenario('Sort exercise folder', async ({ I }) => {
 
 Scenario('Solution revision should be visible', async ({ I }) => {
   I.amOnPage('/entity/repository/compare/279738/279739')
-  I.see('Lösung anzeigen')
+  I.see('Der Zeiger ist alle 12 Stunden')
 })
 
 Scenario("Switching tabs shouldn't lose work", async ({ I }) => {

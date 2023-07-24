@@ -408,6 +408,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.pressKey(['CommandOrControl', 'M'])
 
+  I.wait(0.1)
   I.dontSee('test')
 
   //Toggle unordered list on

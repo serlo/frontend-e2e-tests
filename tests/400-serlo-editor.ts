@@ -520,13 +520,17 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
 
   I.pressKey('Backspace')
 
-  I.seeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.seeElement({
+    css: '.serlo-editor-hacks div[data-slate-editor="true"] ul:not(.unstyled-list)',
+  })
 
   //Remove empty list item on backspace
 
   I.pressKey('Backspace')
 
-  I.dontSeeElement({ css: '.serlo-editor-hacks ul:not(.unstyled-list)' })
+  I.dontSeeElement({
+    css: '.serlo-editor-hacks div[data-slate-editor="true"] ul:not(.unstyled-list)',
+  })
 })
 
 Scenario('Toolbar Toggle on and off', async ({ I }) => {

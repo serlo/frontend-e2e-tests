@@ -97,7 +97,9 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.click("input[placeholder='https://example.com/image.png']")
 
-  I.type('https://denkspace.de/zukunftswerk.gif')
+  I.type(
+    'https://assets.serlo.org/625590c482def_091c2bb83f67d918693c62af513e60844e6a481e.png',
+  )
 
   //Click on “Füge ein Element hinzu” to get the menu
 
@@ -105,7 +107,7 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.click('span[data-slate-node="text"]')
 
-  I.seeElement('div.sc-fbYMXx.dTXjUa') //→ plugin suggestion menu
+  I.see('Schreibe Text und Matheformeln, und formatiere sie.') //→ plugin suggestion menu
 
   //Close menu, when click on plugin or other element
   //Add new text plugin and check
@@ -114,15 +116,15 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.pressKey('Backspace') //Close menu with backspace
 
-  I.dontSeeElement('div.sc-fbYMXx.dTXjUa')
+  I.dontSee('Schreibe Text und Matheformeln, und formatiere sie.')
 
   I.click('Füge ein Element hinzu')
 
-  I.seeElement('div.sc-fbYMXx.dTXjUa')
+  I.see('Schreibe Text und Matheformeln, und formatiere sie.')
 
   I.click('div.sc-fbYMXx.dTXjUa:nth-child(1)')
 
-  I.dontSee('div.sc-fbYMXx.dTXjUa')
+  I.dontSee('Schreibe Text und Matheformeln, und formatiere sie.')
 
   I.type('Some text')
 
@@ -130,7 +132,7 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   //search-function text
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('tex')
 
@@ -143,17 +145,19 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
   //Add new picture plugin and check
   I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(2)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(2)')
 
   I.see('Bild-URL') //→ because we filled the first picture → for multimedia contetend we have to fill this picture too
 
   I.click("input[placeholder='https://example.com/image.png']")
 
-  I.type('https://denkspace.de/zukunftswerk.gif')
+  I.type(
+    'https://assets.serlo.org/625590c482def_091c2bb83f67d918693c62af513e60844e6a481e.png',
+  )
 
   //search-function picture
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('Bild')
 
@@ -163,44 +167,45 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.click("input[placeholder='https://example.com/image.png']")
 
-  I.type('https://denkspace.de/zukunftswerk.gif')
+  I.type(
+    'https://assets.serlo.org/625590c482def_091c2bb83f67d918693c62af513e60844e6a481e.png',
+  )
 
   //Add new multi-media plugin an check
 
   I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(3)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(3)')
 
   I.see('Bild-URL')
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
   //Add new spoiler
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(4)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(4)')
 
-  I.seeElement('div.sc-evzXkX.kCakgO')
+  I.seeElement('div.sc-cCjUiG.gnGuYg')
 
   //search-function spoiler
-
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('spoi')
 
   I.pressKey('Enter')
 
-  I.seeElement('div.sc-evzXkX.kCakgO')
+  I.seeElement('div.sc-cCjUiG.gnGuYg')
 
   //Add new box
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(5)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(5)')
 
   I.see('Art der Box')
 
   //search-function box
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('bo')
 
@@ -210,15 +215,15 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   //Add new table
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(6)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(6)')
 
   I.seeElement('table.serlo-table.mb-8')
 
   //search-function table
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('tab')
 
@@ -226,17 +231,17 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.seeElement('table.serlo-table.mb-8')
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   //Add new serlo.org content
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(7)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(7)')
 
   I.see('Serlo ID')
 
   //search-function serlo.org content
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('ser')
 
@@ -244,35 +249,35 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   I.see('Serlo ID')
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   //Add new terms und equations
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(8)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(8)')
 
-  I.see('Neue Gleichung hinzufügen')
+  I.see('Neue Zeile hinzufügen')
 
   //search-function serlo.org content
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('gle')
 
   I.pressKey('Enter')
 
-  I.see('Neue Gleichung hinzufügen')
+  I.see('Neue Zeile hinzufügen')
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   //Add new GeoGebra
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(9)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(9)')
 
   I.see('GeoGebra Materials URL oder ID')
 
   //search-function GeoGebra
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('geo')
 
@@ -282,15 +287,15 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   //Add new code plugin
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(10)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(10)')
 
   I.seeElement('div.mt-2.flex.justify-between')
 
   //search-function code plugin
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('cod')
 
@@ -300,15 +305,15 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   //Add new video
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(11)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(11)')
 
   I.see('Video URL')
 
   //search-function video
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('vid')
 
@@ -318,61 +323,19 @@ Scenario('Plugin Suggestions Menu', async ({ I }) => {
 
   //Add new jump mark
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(12)')
+  I.click('div.sc-fbYMXx.dTXjUa:nth-child(12)')
 
   I.seeElement('input[placeholder="Name der Sprungmarke"]')
 
   //search-function jump mark
 
-  I.click('div.sc-jfvxQR.eJQLuu')
+  I.click('Füge ein Element hinzu')
 
   I.type('spr')
 
   I.pressKey('Enter')
 
   I.seeElement('input[placeholder="Name der Sprungmarke"]')
-
-  //Add new Editor Stage
-
-  I.click('div.sc-jfvxQR.eJQLuu')
-
-  I.click('div.sc-gUJyNl.gsCVtz:nth-child(13)')
-
-  I.see('Experimental Import')
-
-  I.click('div.sc-jfvxQR.eJQLuu')
-
-  //search-function Editor Stge
-
-  I.click('div.sc-jfvxQR.eJQLuu')
-
-  I.type('edi')
-
-  I.pressKey('Enter')
-
-  I.see('Experimental Import')
 })
-
-/* on going work
-Scenario('images in exercises', async ({ I }) => {
-  I.amOnPage('/mathe/54749/54749')
-
-  I.see('Aufgaben zu Kreisen und Kreisteilen')
-
-  I.click('Überarbeiten')
-
-  I.see('Speichern')
-
-  I.click('Teilaufgabe hinzufügen')
-
-  I.see('Auswahlaufgabe')
-
-  I.click('Auswahlaufgabe')
-
-  I.click("Stimmt's?")
-
-  I.see('Multiple Choice')
-})
-*/

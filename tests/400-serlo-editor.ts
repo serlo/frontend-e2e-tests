@@ -11,7 +11,9 @@ Before(async ({ I }) => {
 
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
-  I.click('span[data-slate-node="text"]')
+
+  I.clickByDataQA('plugin:text-editor')
+
   const testString = 'TESTTESTTEST'
   I.type(testString)
   I.see(testString)
@@ -23,14 +25,14 @@ Scenario('Basic text interactions', async ({ I }) => {
 
 Scenario('Add new plugins', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
   I.pressKey('Enter')
   I.pressKey('Backspace')
 
   // Only one text plugin visible
   I.see('Schreib etwas oder füge')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
   for (let i = 0; i < 3; i++) {
     I.pressKey('ArrowDown')
   }
@@ -57,7 +59,7 @@ Scenario('Add plugin via slash command', async ({ I }) => {
 
   // ensure there is no table yet
   I.dontSeeElement('.serlo-table')
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
   I.type('Tabelle')
   I.pressKey('Enter')
 
@@ -67,7 +69,7 @@ Scenario('Add plugin via slash command', async ({ I }) => {
 Scenario('Delete text plugin with keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
   // When visting the page, a new text plugin with no content is already there. Now we create a second one.
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   // Delete two text plugins with backspace. 3 backspaces in total are needed to delete the / in the beginning too
   I.pressKey('Backspace')
@@ -75,7 +77,7 @@ Scenario('Delete text plugin with keyboard', async ({ I }) => {
   I.pressKey('Backspace')
   I.dontSee('Schreib etwas oder füge')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
   // Removes the slash and not the text plugin
   I.pressKey('Backspace')
 
@@ -90,7 +92,7 @@ Scenario('Delete text plugin with keyboard', async ({ I }) => {
 Scenario('Adding math formulas', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   // Within plugin-text
   I.pressKey('Backspace')
@@ -109,7 +111,7 @@ Scenario('Adding math formulas', async ({ I }) => {
 Scenario('Undo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -124,7 +126,7 @@ Scenario('Undo', async ({ I }) => {
 Scenario('Undo via keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -206,7 +208,7 @@ Scenario(
 Scenario('Redo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -226,7 +228,7 @@ Scenario('Redo', async ({ I }) => {
 Scenario('Redo via keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -277,7 +279,7 @@ Scenario('Redo in editor input field via keyboard', async ({ I }) => {
 Scenario('Markdown list shortcut', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -337,7 +339,7 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
 Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -411,7 +413,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.dontSeeElement('span.katex')
 
   // Refocus
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
   I.pressKey('Backspace')
 
   //Toggle unordered list on
@@ -491,7 +493,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
   //Add new list item on enter
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -536,7 +538,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
 Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -732,7 +734,7 @@ Scenario('Save changes', async ({ I }) => {
 
   I.type('Test save changes')
 
-  I.click('Füge ein Element hinzu')
+  I.clickByDataQA('add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 

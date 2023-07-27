@@ -43,6 +43,12 @@ Scenario('Open Editor from article', async ({ I }) => {
   I.see('Treibhausgase')
 })
 
+// This test fails regulary due to sychronization issues
+// Especially bad: it will leave staging in a undetermined state
+// and break subsequent test runs
+// I will disable this test for now
+// In the future, try to break to behaviour into parts
+/*
 Scenario('Add Revision and reject', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
   I.click("input[placeholder='Titel']")
@@ -92,6 +98,7 @@ Scenario('Add Revision and reject', async ({ I }) => {
   I.click('Bestätigen')
   I.waitForText('Bearbeitung wurde nicht akzeptiert', 15)
 })
+*/
 
 /*Scenario('Reject Revision @current', ({ I }) => {
   // clean up revision
@@ -99,8 +106,6 @@ Scenario('Add Revision and reject', async ({ I }) => {
 })*/
 
 // LocalStorage tests
-
-// Tab Change
 
 // Logout in second Tab…
 

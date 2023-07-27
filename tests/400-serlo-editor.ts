@@ -122,18 +122,26 @@ Scenario('Undo', async ({ I }) => {
 })
 
 Scenario('Undo via keyboard', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+  const keyCombos = {
+    windows: ['control', 'z'],
+    mac: ['command', 'z'],
+  }
 
-  I.click('Füge ein Element hinzu')
+  for (const [platform, keys] of Object.entries(keyCombos)) {
+    I.say(`Checking undo keyboard shortcut for '${platform}'`)
+    I.amOnPage('/entity/create/Article/1377')
 
-  I.pressKey('Backspace')
+    I.click('Füge ein Element hinzu')
 
-  I.type('Some text')
-  I.see('Some text')
+    I.pressKey('Backspace')
 
-  I.pressKey(['CommandOrControl', 'z'])
+    I.type('Some text')
+    I.see('Some text')
 
-  I.dontSee('Some text')
+    I.pressKey(keys)
+
+    I.dontSee('Some text')
+  }
 })
 
 /**

@@ -20,6 +20,9 @@ exports.config = {
           }
         : { browser: 'chromium' }),
     },
+    DataAttributeHelper: {
+      require: './helpers/DataAttributeHelper.ts',
+    },
   },
   name: 'frontend-e2e-tests',
   plugins: {

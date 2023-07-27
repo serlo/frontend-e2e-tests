@@ -154,60 +154,76 @@ Scenario('Undo via keyboard', async ({ I }) => {
 Scenario(
   'Undo via keyboard in input field for article heading',
   async ({ I }) => {
-    I.amOnPage('/entity/create/Article/1377')
+    const keyCombos = {
+      windows: ['control', 'z'],
+      mac: ['command', 'z'],
+    }
 
-    const articleHeadingInput = 'input[placeholder="Titel"]'
-    I.click(articleHeadingInput)
+    for (const [platform, keys] of Object.entries(keyCombos)) {
+      I.say(`Checking undo keyboard shortcut for '${platform}'`)
 
-    const firstWord = 'Some '
-    I.type(firstWord)
-    I.wait(2)
+      I.amOnPage('/entity/create/Article/1377')
 
-    const secondWord = 'Text'
-    I.type(secondWord)
+      const articleHeadingInput = 'input[placeholder="Titel"]'
+      I.click(articleHeadingInput)
 
-    I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+      const firstWord = 'Some '
+      I.type(firstWord)
+      I.wait(2)
 
-    I.pressKey(['CommandOrControl', 'z'])
-    I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
-    I.dontSeeInField(articleHeadingInput, `${secondWord}`)
-    I.seeInField(articleHeadingInput, firstWord)
+      const secondWord = 'Text'
+      I.type(secondWord)
 
-    I.pressKey(['CommandOrControl', 'z'])
-    I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
-    I.dontSeeInField(articleHeadingInput, firstWord)
+      I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+
+      I.pressKey(keys)
+      I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+      I.dontSeeInField(articleHeadingInput, `${secondWord}`)
+      I.seeInField(articleHeadingInput, firstWord)
+
+      I.pressKey(keys)
+      I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+      I.dontSeeInField(articleHeadingInput, firstWord)
+    }
   },
 )
 
 Scenario(
   'Undo via keyboard in input field of picture plugin',
   async ({ I }) => {
-    I.amOnPage('/entity/create/Article/1377')
+    const keyCombos = {
+      windows: ['control', 'z'],
+      mac: ['command', 'z'],
+    }
 
-    // No need to create the image plugin first as the multimedia plugin at the
-    // beginning of each page already contains one
-    const imagePluginUrlInput =
-      'input[placeholder="https://example.com/image.png"]'
+    for (const [platform, keys] of Object.entries(keyCombos)) {
+      I.say(`Checking undo keyboard shortcut for '${platform}'`)
 
-    I.click(imagePluginUrlInput)
+      // No need to create the image plugin first as the multimedia plugin at the
+      // beginning of each page already contains one
+      const imagePluginUrlInput =
+        'input[placeholder="https://example.com/image.png"]'
 
-    const firstWord = 'Some '
-    I.type(firstWord)
-    I.wait(2)
+      I.click(imagePluginUrlInput)
 
-    const secondWord = 'Text'
-    I.type(secondWord)
+      const firstWord = 'Some '
+      I.type(firstWord)
+      I.wait(2)
 
-    I.seeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+      const secondWord = 'Text'
+      I.type(secondWord)
 
-    I.pressKey(['CommandOrControl', 'z'])
-    I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
-    I.dontSeeInField(imagePluginUrlInput, `${secondWord}`)
-    I.seeInField(imagePluginUrlInput, firstWord)
+      I.seeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
 
-    I.pressKey(['CommandOrControl', 'z'])
-    I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
-    I.dontSeeInField(imagePluginUrlInput, firstWord)
+      I.pressKey(keys)
+      I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+      I.dontSeeInField(imagePluginUrlInput, `${secondWord}`)
+      I.seeInField(imagePluginUrlInput, firstWord)
+
+      I.pressKey(keys)
+      I.dontSeeInField(imagePluginUrlInput, `${firstWord}${secondWord}`)
+      I.dontSeeInField(imagePluginUrlInput, firstWord)
+    }
   },
 )
 
@@ -232,54 +248,82 @@ Scenario('Redo', async ({ I }) => {
 })
 
 Scenario('Redo via keyboard', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+  const keyCombos = {
+    windows: {
+      UNDO: ['control', 'z'],
+      REDO: ['control', 'y'],
+    },
+    mac: {
+      UNDO: ['command', 'z'],
+      REDO: ['command', 'y'],
+    },
+  }
 
-  I.click('Füge ein Element hinzu')
+  for (const [platform, keys] of Object.entries(keyCombos)) {
+    I.say(`Checking redo keyboard shortcut for '${platform}'`)
 
-  I.pressKey('Backspace')
+    I.amOnPage('/entity/create/Article/1377')
 
-  I.type('Some text')
+    I.click('Füge ein Element hinzu')
 
-  I.see('Some text')
+    I.pressKey('Backspace')
 
-  // UNDO
-  I.pressKey(['CommandOrControl', 'z'])
+    I.type('Some text')
 
-  I.dontSee('Some text')
+    I.see('Some text')
 
-  // REDO
-  // ! For some reason, the first redo does not work. The second one does. If
-  // one puts a pause() here and runs the command only once through the
-  // interactive shell , it works just as fine as clicking the button.
-  // Therefore, I thought the Ctrl+Y was maybe happening too quickly after the
-  // Ctrl+Z, but even with I.wait(1) two executions were needed.
-  I.pressKey(['CommandOrControl', 'y'])
-  I.pressKey(['CommandOrControl', 'y'])
+    I.pressKey(keys.UNDO)
 
-  I.see('Some text')
+    I.dontSee('Some text')
+
+    // ! For some reason, the first redo does not work. The second one does. If
+    // one puts a pause() here and runs the command only once through the
+    // interactive shell , it works just as fine as clicking the button.
+    // Therefore, I thought the Ctrl+Y was maybe happening too quickly after the
+    // Ctrl+Z, but even with I.wait(1) inbetween, two executions were needed.
+    I.pressKey(keys.REDO)
+    I.pressKey(keys.REDO)
+
+    I.see('Some text')
+  }
 })
 
 Scenario('Redo in editor input field via keyboard', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+  const keyCombos = {
+    windows: {
+      UNDO: ['control', 'z'],
+      REDO: ['control', 'y'],
+    },
+    mac: {
+      UNDO: ['command', 'z'],
+      REDO: ['command', 'y'],
+    },
+  }
 
-  const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
-  I.click(articleHeadingInput)
+  for (const [platform, keys] of Object.entries(keyCombos)) {
+    I.say(`Checking redo keyboard shortcut for '${platform}'`)
 
-  const firstWord = 'Some '
-  I.type(firstWord)
-  I.wait(2)
+    I.amOnPage('/entity/create/Article/1377')
 
-  const secondWord = 'Text'
-  I.type(secondWord)
-  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    const articleHeadingInput = { xpath: '//input[@placeholder="Titel"]' }
+    I.click(articleHeadingInput)
 
-  I.pressKey(['CommandOrControl', 'z'])
-  I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
-  I.dontSeeInField(articleHeadingInput, `${secondWord}`)
-  I.seeInField(articleHeadingInput, firstWord)
+    const firstWord = 'Some '
+    I.type(firstWord)
+    I.wait(2)
 
-  I.pressKey(['CommandOrControl', 'y'])
-  I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    const secondWord = 'Text'
+    I.type(secondWord)
+    I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+
+    I.pressKey(keys.UNDO)
+    I.dontSeeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+    I.dontSeeInField(articleHeadingInput, `${secondWord}`)
+    I.seeInField(articleHeadingInput, firstWord)
+
+    I.pressKey(keys.REDO)
+    I.seeInField(articleHeadingInput, `${firstWord}${secondWord}`)
+  }
 })
 
 Scenario('Markdown list shortcut', async ({ I }) => {

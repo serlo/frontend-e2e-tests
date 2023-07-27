@@ -123,7 +123,7 @@ Scenario('Undo', async ({ I }) => {
 
 Scenario('Undo via keyboard', async ({ I }) => {
   const keyCombos = {
-    windows: ['control', 'z'],
+    windowsAndLinux: ['control', 'z'],
     mac: ['command', 'z'],
   }
 
@@ -155,7 +155,7 @@ Scenario(
   'Undo via keyboard in input field for article heading',
   async ({ I }) => {
     const keyCombos = {
-      windows: ['control', 'z'],
+      windowsAndLinux: ['control', 'z'],
       mac: ['command', 'z'],
     }
 
@@ -192,7 +192,7 @@ Scenario(
   'Undo via keyboard in input field of picture plugin',
   async ({ I }) => {
     const keyCombos = {
-      windows: ['control', 'z'],
+      windowsAndLinux: ['control', 'z'],
       mac: ['command', 'z'],
     }
 
@@ -249,7 +249,7 @@ Scenario('Redo', async ({ I }) => {
 
 Scenario('Redo via keyboard', async ({ I }) => {
   const keyCombos = {
-    windows: {
+    windowsAndLinux: {
       UNDO: ['control', 'z'],
       REDO: ['control', 'y'],
     },
@@ -290,7 +290,7 @@ Scenario('Redo via keyboard', async ({ I }) => {
 
 Scenario('Redo in editor input field via keyboard', async ({ I }) => {
   const keyCombos = {
-    windows: {
+    windowsAndLinux: {
       UNDO: ['control', 'z'],
       REDO: ['control', 'y'],
     },

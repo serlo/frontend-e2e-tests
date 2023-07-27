@@ -52,6 +52,29 @@ Scenario('Add new plugins', async ({ I }) => {
   I.see('(optionaler Titel)')
 })
 
+Scenario('Close plugin selection modal', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+  I.click('Füge ein Element hinzu')
+  const textPluginDescription =
+    'Schreibe Text und Matheformeln, und formatiere sie.'
+  I.see(textPluginDescription)
+
+  I.pressKey('Escape')
+  // Modal should be closed
+  I.dontSee(textPluginDescription)
+
+  // Open modal again
+  I.type('/')
+  I.see(textPluginDescription)
+
+  // focus something different by clicking outside of the modal, in this
+  // instance into the quickbar
+  const quickbar = 'input[placeholder*="Suche"]'
+  I.click(quickbar)
+  // Modal should now be closed
+  I.dontSee(textPluginDescription)
+})
+
 Scenario('Add plugin via slash command', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 

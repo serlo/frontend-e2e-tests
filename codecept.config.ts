@@ -20,8 +20,8 @@ exports.config = {
           }
         : { browser: 'chromium' }),
     },
-    DataAttributeHelper: {
-      require: './helpers/DataAttributeHelper.ts',
+    QaClassNameHelper: {
+      require: './helpers/QaClassNameHelper.ts',
     },
   },
   name: 'frontend-e2e-tests',

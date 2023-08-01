@@ -447,7 +447,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.say('Toggle link on')
   I.pressKey(['CommandOrControl', 'K'])
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
-  I.click('div.mt-2.text-lg.text-gray-800')
+  I.clickByQaClassName('link-suggestion-0')
   I.click('Some text')
   I.see('Hypotenuse')
   I.seeElement({ css: '.serlo-editor-hacks a' })
@@ -630,19 +630,18 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.say('Toggle link on')
   I.clickByQaClassName('plugin-toolbar-button-link')
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
-  I.click('div.mt-2.text-lg.text-gray-800')
+  // select the very first suggestion (index 0)
+  I.clickByQaClassName('link-suggestion-0')
   I.seeElement({ css: '.serlo-editor-hacks a' })
 
+  I.say('Refocus link')
   I.click('Some text')
   I.see('Hypotenuse')
 
   // Toggle Link off
-
-  I.say('Toggle link off')
+  I.say('Toggle link off via plugin bar')
   I.click('Some text')
-  I.click(
-    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10',
-  )
+  I.clickByQaClassName('plugin-toolbar-button-link')
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
   // Toggle unordered list on

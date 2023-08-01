@@ -795,7 +795,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   I.pressKey('ArrowLeft')
 
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(8)')
+  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
 
   I.dontSeeElement('span.katex')
 })

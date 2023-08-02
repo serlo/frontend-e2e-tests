@@ -11,7 +11,9 @@ Before(async ({ I }) => {
 
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
-  I.click('span[data-slate-node="text"]')
+
+  I.click('$plugin-text-editor')
+
   const testString = 'TESTTESTTEST'
   I.type(testString)
   I.see(testString)
@@ -23,14 +25,14 @@ Scenario('Basic text interactions', async ({ I }) => {
 
 Scenario('Add new plugins', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
   I.pressKey('Enter')
   I.pressKey('Backspace')
 
   // Only one text plugin visible
   I.see('Schreib etwas oder füge')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
   for (let i = 0; i < 3; i++) {
     I.pressKey('ArrowDown')
   }
@@ -80,7 +82,7 @@ Scenario('Add plugin via slash command', async ({ I }) => {
 
   // ensure there is no table yet
   I.dontSeeElement('.serlo-table')
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
   I.type('Tabelle')
   I.pressKey('Enter')
 
@@ -89,16 +91,18 @@ Scenario('Add plugin via slash command', async ({ I }) => {
 
 Scenario('Delete text plugin with keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  // When visting the page, a new text plugin with no content is already there. Now we create a second one.
-  I.click('Füge ein Element hinzu')
-
-  // Delete two text plugins with backspace. 3 backspaces in total are needed to delete the / in the beginning too
+  // When visting the page, a new text plugin with no content is already there.
+  // Now we create a second one.
+  I.click('$add-new-plugin-row-button')
+  // Delete two text plugins. First one with delete, the other one with
+  // backspace. The first backspace is needed to delete the / in the beginning
+  // too
   I.pressKey('Backspace')
-  I.pressKey('Backspace')
+  I.pressKey('Delete')
   I.pressKey('Backspace')
   I.dontSee('Schreib etwas oder füge')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
   // Removes the slash and not the text plugin
   I.pressKey('Backspace')
 
@@ -113,9 +117,9 @@ Scenario('Delete text plugin with keyboard', async ({ I }) => {
 Scenario('Adding math formulas', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
-  // Within plugin-text
+  // Within text plugin to delete slash
   I.pressKey('Backspace')
 
   I.type('Some text ')
@@ -132,7 +136,7 @@ Scenario('Adding math formulas', async ({ I }) => {
 Scenario('Undo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -154,7 +158,7 @@ Scenario('Undo via keyboard', async ({ I }) => {
     I.say(`Checking undo keyboard shortcut for '${platform}'`)
     I.amOnPage('/entity/create/Article/1377')
 
-    I.click('Füge ein Element hinzu')
+    I.click('$add-new-plugin-row-button')
 
     I.pressKey('Backspace')
 
@@ -253,7 +257,7 @@ Scenario(
 Scenario('Redo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -287,7 +291,7 @@ Scenario('Redo via keyboard', async ({ I }) => {
 
     I.amOnPage('/entity/create/Article/1377')
 
-    I.click('Füge ein Element hinzu')
+    I.click('$add-new-plugin-row-button')
 
     I.pressKey('Backspace')
 
@@ -352,7 +356,7 @@ Scenario('Redo in editor input field via keyboard', async ({ I }) => {
 Scenario('Markdown list shortcut', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -412,150 +416,105 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
 Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
-
+  I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')
-
   I.type('Some text')
-
   I.see('Some text')
 
   I.pressKey(['CommandOrControl', 'A'])
 
-  //Toggle bold on & off
-
+  I.say('Toggle bold on')
   I.pressKey(['CommandOrControl', 'B'])
-
   I.seeElement({ css: 'b' })
 
+  I.say('Toggle bold off')
   I.pressKey(['CommandOrControl', 'B'])
-
   I.dontSeeElement({ css: 'b' })
 
-  //Toggle Italic on & off
-
+  I.say('Toggle italic on')
   I.pressKey(['CommandOrControl', 'I'])
-
   I.seeElement({ css: 'i' })
 
+  I.say('Toggle italic off')
   I.pressKey(['CommandOrControl', 'I'])
-
   I.dontSeeElement({ css: 'i' })
 
-  //Toggle Link on
-
+  I.say('Toggle link on')
   I.pressKey(['CommandOrControl', 'K'])
-
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
-
-  I.click('div.mt-2.text-lg.text-gray-800')
-
+  I.click('$link-suggestion-0')
   I.click('Some text')
-
   I.see('Hypotenuse')
-
   I.seeElement({ css: '.serlo-editor-hacks a' })
 
-  //Toggle Link off
-
+  I.say('Toggle link off')
   I.pressKey(['CommandOrControl', 'A'])
-
   I.pressKey(['CommandOrControl', 'K'])
-
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
-  //Toggle Math on
-
+  // Clear link
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
 
+  I.say('Toggle math on')
   I.pressKey(['CommandOrControl', 'M'])
-
   I.see('LaTeX')
   I.type('\\frac12 test42')
   I.pressKey('ArrowRight')
   I.dontSee('LaTeX')
-
   I.seeElement('span.katex')
 
-  //Remove Math Element
-
+  I.say('Remove math element')
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
-
   I.dontSeeElement('span.katex')
 
-  // Refocus
-  I.click('Füge ein Element hinzu')
-  I.pressKey('Backspace')
-
-  //Toggle unordered list on
-
+  I.say('Toggle unordered list on')
   I.type('- Some text')
-
   I.see('Some text', 'ul')
 
-  //Toggle unordered list off
-
+  I.say('Toggle unordered list off by deleting hyphen')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
   }
-
   I.pressKey('Backspace')
-
   I.dontSee('Some text', 'ul')
 
-  //Clear
+  // Clear remnants of the list
   I.pressKey(['CommandOrControl', 'A'])
-
   I.pressKey('Backspace')
 
-  //Toogle H1 on
-
+  I.say('Toggle H1 on')
   I.type('# Some text')
-
   I.see('Some text', 'h1')
 
-  //Toggle H1 off
-
+  I.say('Toggle H1 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
   }
-
   I.type('# ')
-
   I.dontSee('Some text', 'h1')
 
-  //Toggle H2 on
-
+  I.say('Toggle H2 on')
   I.type('## ')
-
   I.see('Some text', 'h2')
 
-  //Toggle H2 off
-
+  I.say('Toggle H2 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
   }
-
   I.type('## ')
-
   I.dontSee('Some text', 'h2')
 
-  //Toggle H3 on
-
+  I.say('Toggle H3 on')
   I.type('### ')
-
   I.see('Some text', 'h3')
 
-  //Toggle H3 off
-
+  I.say('Toggle H3 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
   }
-
   I.type('### ')
-
   I.dontSee('Some text', 'h3')
 })
 
@@ -566,7 +525,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
   //Add new list item on enter
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
@@ -580,7 +539,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
 
   I.see('Some more text', 'ul')
 
-  //Exit the list on double enter
+  // Exit the list on double enter
 
   I.pressKey('Enter')
 
@@ -590,7 +549,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
 
   I.dontSee('Exit the list', 'ul')
 
-  //Clear Text in list
+  // Clear Text in list
   I.pressKey(['CommandOrControl', 'A'])
 
   I.pressKey('Backspace')
@@ -599,7 +558,7 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
     css: '.serlo-editor-hacks div[data-slate-editor="true"] ul:not(.unstyled-list)',
   })
 
-  //Remove empty list item on backspace
+  // Remove empty list item on backspace
 
   I.pressKey('Backspace')
 
@@ -611,192 +570,126 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
 Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 
   I.type('Some text')
 
-  //Toggle Bold on
-
+  I.say('Toggle bold on')
   I.pressKey(['CommandOrControl', 'A'])
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.click('$plugin-toolbar-button-fett')
   I.seeElement({ css: 'b' })
 
-  //Toggle Bold off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.say('Toggle bold off')
+  I.click('$plugin-toolbar-button-fett')
   I.dontSeeElement({ css: 'b' })
 
-  //Toggle italic on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
-
+  I.say('Toggle italic on')
+  I.click('$plugin-toolbar-button-kursiv')
   I.seeElement({ css: 'i' })
 
-  //Toggle italic off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
-
+  I.say('Toggle italic off')
+  I.click('$plugin-toolbar-button-kursiv')
   I.dontSeeElement({ css: 'i' })
 
-  //Toggle Code on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(9)')
-
+  I.say('Toggle code on')
+  I.click('$plugin-toolbar-button-code')
   I.see('Some text', 'code')
-
   I.seeElement({ css: '.serlo-editor-hacks code' })
 
-  //Toggle Code off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(9)')
-
+  I.say('Toggle code off')
+  I.click('$plugin-toolbar-button-code')
   I.dontSeeElement({ css: '.serlo-editor-hacks code' })
 
-  //Toggle Link on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
-
+  I.say('Toggle link on')
+  I.click('$plugin-toolbar-button-link')
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
-
-  I.click('div.mt-2.text-lg.text-gray-800')
-
+  // select the very first suggestion (index 0)
+  I.click('$link-suggestion-0')
   I.seeElement({ css: '.serlo-editor-hacks a' })
 
+  I.say('Refocus link')
   I.click('Some text')
-
   I.see('Hypotenuse')
 
-  //Toggle Link off
-
+  I.say('Toggle link off via plugin bar')
   I.click('Some text')
-
-  I.click(
-    'button.serlo-button-editor-secondary.serlo-tooltip-trigger.ml-2.h-10.w-10',
-  )
-
+  I.click('$plugin-toolbar-button-link')
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
-  //Toggle unordered list on
-
+  I.say('Toggle unordered list on')
   I.pressKey(['CommandOrControl', 'A'])
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
-
+  I.click('$plugin-toolbar-button-aufzählung')
   I.see('Some text', 'ul')
 
-  //Toggle unordered list off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(7)')
-
+  I.say('Toggle unordered list off')
+  I.click('$plugin-toolbar-button-aufzählung')
   I.dontSee('Some text', 'ul')
 
-  //Toggle ordered list on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(6)')
-
+  I.say('Toggle ordered list on')
+  I.click('$plugin-toolbar-button-nummerierte-liste')
   I.see('Some text', 'ol')
 
-  //Toggle unordered list off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(6)')
-
+  I.say('Toggle ordered list off')
+  I.click('$plugin-toolbar-button-nummerierte-liste')
   I.dontSeeElement({ css: '.serlo-editor-hacks ol' })
 
-  //Toggle H1 on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.say('Toggle H1 on')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-1')
   I.see('Some text', 'h1')
 
-  //Toggle H1 off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.say('Toggle H1 off')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-1')
   I.dontSee('Some text', 'h1')
 
-  //Toggle H2 on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
-
+  I.say('Toggle H2 on')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-2')
   I.see('Some text', 'h2')
 
-  //Toggle H2 off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(2)')
-
+  I.say('Toggle H2 off')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-2')
   I.dontSee('Some text', 'h2')
 
-  //Toggle H3 on
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
-
+  I.say('Toggle H3 on')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-3')
   I.see('Some text', 'h3')
 
-  //Toggle H3 off
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(3)')
-
+  I.say('Toggle H3 off')
+  I.click('$plugin-toolbar-button-überschriften')
+  I.click('$plugin-toolbar-heading-3')
   I.dontSee('Some text', 'h3')
 
-  //Color change orange
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(5)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(4)')
-
+  I.say('Change text color to orange')
+  I.click('$plugin-toolbar-button-textfarben')
+  I.click('$plugin-toolbar-button-orange')
   I.seeElement('span[style="color: rgb(255, 102, 0);"]')
 
-  //Color reset
-
+  I.say('Reset color')
   I.pressKey(['CommandOrControl', 'A'])
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(5)')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.click('$plugin-toolbar-button-textfarben')
+  I.click('$plugin-toolbar-button-farbe-zurücksetzen')
   I.dontSeeElement('span[style="color: rgb(255, 102, 0);"]')
 
-  //Toggle Math on
-
+  I.say('Toggle math on')
   I.pressKey(['CommandOrControl', 'A'])
-
   I.pressKey('Backspace')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(8)')
-
+  I.click('$plugin-toolbar-button-matheformel')
   I.see('LaTeX')
 
   I.type('\\frac12')
-
   I.pressKey('ArrowRight')
-
   I.dontSee('LaTeX')
-
   I.seeElement('span.katex')
 
-  //Toggle Math off
-
+  I.say('Toggle math off')
   I.pressKey('ArrowLeft')
-
-  I.click('button.serlo-tooltip-trigger.cursor-pointer:nth-child(1)')
-
+  I.click('$plugin-toolbar-button-matheformel')
   I.dontSeeElement('span.katex')
 })
 
@@ -807,7 +700,7 @@ Scenario('Save changes', async ({ I }) => {
 
   I.type('Test save changes')
 
-  I.click('Füge ein Element hinzu')
+  I.click('$add-new-plugin-row-button')
 
   I.pressKey('Backspace')
 

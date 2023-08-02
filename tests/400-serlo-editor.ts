@@ -12,7 +12,7 @@ Before(async ({ I }) => {
 Scenario('Basic text interactions', async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')
 
-  I.click('$plugin:text-editor')
+  I.click('$plugin-text-editor')
 
   const testString = 'TESTTESTTEST'
   I.type(testString)

@@ -20,12 +20,15 @@ exports.config = {
           }
         : { browser: 'chromium' }),
     },
-    QaClassNameHelper: {
-      require: './helpers/QaClassNameHelper.ts',
-    },
   },
   name: 'frontend-e2e-tests',
   plugins: {
+    customLocator: {
+      enabled: true,
+      // Allows data-qa attributes to be selected with $ prefix. E.g
+      // [data-qa-quickbar] could be selected with simply I.click('$quickbar').
+      attribute: 'data-qa',
+    },
     autoLogin: {
       enabled: true,
       saveToFile: false,

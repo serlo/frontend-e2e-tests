@@ -423,27 +423,22 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.pressKey(['CommandOrControl', 'A'])
 
-  // Toggle bold on
   I.say('Toggle bold on')
   I.pressKey(['CommandOrControl', 'B'])
   I.seeElement({ css: 'b' })
 
-  // Toggle bold off
   I.say('Toggle bold off')
   I.pressKey(['CommandOrControl', 'B'])
   I.dontSeeElement({ css: 'b' })
 
-  // Toggle Italic on
   I.say('Toggle italic on')
   I.pressKey(['CommandOrControl', 'I'])
   I.seeElement({ css: 'i' })
 
-  // Toggle Italic off
   I.say('Toggle italic off')
   I.pressKey(['CommandOrControl', 'I'])
   I.dontSeeElement({ css: 'i' })
 
-  // Toggle Link on
   I.say('Toggle link on')
   I.pressKey(['CommandOrControl', 'K'])
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
@@ -452,7 +447,6 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.see('Hypotenuse')
   I.seeElement({ css: '.serlo-editor-hacks a' })
 
-  // Toggle Link off
   I.say('Toggle link off')
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey(['CommandOrControl', 'K'])
@@ -462,7 +456,6 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
 
-  // Toggle Math on
   I.say('Toggle math on')
   I.pressKey(['CommandOrControl', 'M'])
   I.see('LaTeX')
@@ -471,18 +464,15 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.dontSee('LaTeX')
   I.seeElement('span.katex')
 
-  // Remove Math Element
   I.say('Remove math element')
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
   I.dontSeeElement('span.katex')
 
-  // Toggle unordered list on
   I.say('Toggle unordered list on')
   I.type('- Some text')
   I.see('Some text', 'ul')
 
-  // Toggle unordered list off
   I.say('Toggle unordered list off by deleting hyphen')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
@@ -494,12 +484,10 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
 
-  // Toggle H1 on
   I.say('Toggle H1 on')
   I.type('# Some text')
   I.see('Some text', 'h1')
 
-  // Toggle H1 off
   I.say('Toggle H1 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
@@ -507,12 +495,10 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.type('# ')
   I.dontSee('Some text', 'h1')
 
-  // Toggle H2 on
   I.say('Toggle H2 on')
   I.type('## ')
   I.see('Some text', 'h2')
 
-  // Toggle H2 off
   I.say('Toggle H2 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
@@ -520,12 +506,10 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
   I.type('## ')
   I.dontSee('Some text', 'h2')
 
-  // Toggle H3 on
   I.say('Toggle H3 on')
   I.type('### ')
   I.see('Some text', 'h3')
 
-  // Toggle H3 off
   I.say('Toggle H3 off')
   for (let i = 0; i < 9; i++) {
     I.pressKey('LeftArrow')
@@ -592,41 +576,32 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
 
   I.type('Some text')
 
-  // Toggle Bold on
-
   I.say('Toggle bold on')
   I.pressKey(['CommandOrControl', 'A'])
   I.click('$plugin-toolbar-button-fett')
   I.seeElement({ css: 'b' })
 
-  // Toggle Bold off
-
   I.say('Toggle bold off')
   I.click('$plugin-toolbar-button-fett')
   I.dontSeeElement({ css: 'b' })
 
-  // Toggle italic on
   I.say('Toggle italic on')
   I.click('$plugin-toolbar-button-kursiv')
   I.seeElement({ css: 'i' })
 
-  // Toggle italic off
   I.say('Toggle italic off')
   I.click('$plugin-toolbar-button-kursiv')
   I.dontSeeElement({ css: 'i' })
 
-  // Toggle Code on
   I.say('Toggle code on')
   I.click('$plugin-toolbar-button-code')
   I.see('Some text', 'code')
   I.seeElement({ css: '.serlo-editor-hacks code' })
 
-  // Toggle Code off
   I.say('Toggle code off')
   I.click('$plugin-toolbar-button-code')
   I.dontSeeElement({ css: '.serlo-editor-hacks code' })
 
-  // Toggle Link on
   I.say('Toggle link on')
   I.click('$plugin-toolbar-button-link')
   I.type('https://de.serlo.org/mathe/1541/hypotenuse')
@@ -638,83 +613,69 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.click('Some text')
   I.see('Hypotenuse')
 
-  // Toggle Link off
   I.say('Toggle link off via plugin bar')
   I.click('Some text')
   I.click('$plugin-toolbar-button-link')
   I.dontSeeElement({ css: '.serlo-editor-hacks a' })
 
-  // Toggle unordered list on
   I.say('Toggle unordered list on')
   I.pressKey(['CommandOrControl', 'A'])
   I.click('$plugin-toolbar-button-aufzählung')
   I.see('Some text', 'ul')
 
-  // Toggle unordered list off
   I.say('Toggle unordered list off')
   I.click('$plugin-toolbar-button-aufzählung')
   I.dontSee('Some text', 'ul')
 
-  // Toggle ordered list on
   I.say('Toggle ordered list on')
   I.click('$plugin-toolbar-button-nummerierte-liste')
   I.see('Some text', 'ol')
 
-  // Toggle ordered list off
   I.say('Toggle ordered list off')
   I.click('$plugin-toolbar-button-nummerierte-liste')
   I.dontSeeElement({ css: '.serlo-editor-hacks ol' })
 
-  // Toggle H1 on
   I.say('Toggle H1 on')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-1')
   I.see('Some text', 'h1')
 
-  // Toggle H1 off
   I.say('Toggle H1 off')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-1')
   I.dontSee('Some text', 'h1')
 
-  // Toggle H2 on
   I.say('Toggle H2 on')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-2')
   I.see('Some text', 'h2')
 
-  // Toggle H2 off
   I.say('Toggle H2 off')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-2')
   I.dontSee('Some text', 'h2')
 
-  // Toggle H3 on
   I.say('Toggle H3 on')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-3')
   I.see('Some text', 'h3')
 
-  // Toggle H3 off
   I.say('Toggle H3 off')
   I.click('$plugin-toolbar-button-überschriften')
   I.click('$plugin-toolbar-heading-3')
   I.dontSee('Some text', 'h3')
 
-  // Color change orange
-  I.say('Change text color to orange', 'orange')
+  I.say('Change text color to orange')
   I.click('$plugin-toolbar-button-textfarben')
   I.click('$plugin-toolbar-button-orange')
   I.seeElement('span[style="color: rgb(255, 102, 0);"]')
 
-  // Color reset
   I.say('Reset color')
   I.pressKey(['CommandOrControl', 'A'])
   I.click('$plugin-toolbar-button-textfarben')
   I.click('$plugin-toolbar-button-farbe-zurücksetzen')
   I.dontSeeElement('span[style="color: rgb(255, 102, 0);"]')
 
-  // Toggle Math on
   I.say('Toggle math on')
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
@@ -726,7 +687,6 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.dontSee('LaTeX')
   I.seeElement('span.katex')
 
-  // Toggle Math off
   I.say('Toggle math off')
   I.pressKey('ArrowLeft')
   I.click('$plugin-toolbar-button-matheformel')

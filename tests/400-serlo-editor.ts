@@ -567,6 +567,68 @@ Scenario('Unordered list shortcuts', async ({ I }) => {
   })
 })
 
+Scenario('Add and remove link via link suggestion menu', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click('$add-new-plugin-row-button')
+  I.pressKey('Backspace')
+
+  I.say('Create text of link and select it')
+  I.type('Some text')
+  I.pressKey(['CommandOrControl', 'A'])
+
+  I.say('Toggle link on')
+  I.click('$plugin-toolbar-button-link')
+
+  // Should find a plentitude of link suggestions (most likely way more than 3)
+  I.say('Search for math articles')
+  I.type('Math')
+  I.seeElement('$link-suggestion-0')
+  I.seeElement('$link-suggestion-1')
+  I.seeElement('$link-suggestion-2')
+
+  I.say('Navigate through the link suggestion menu and assert the a11y')
+  I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$link-suggestion-1', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'false' })
+
+  I.pressKey('ArrowDown')
+  I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-1', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'false' })
+
+  I.pressKey('ArrowDown')
+  I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-1', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'true' })
+
+  I.pressKey('ArrowUp')
+  I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-1', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'false' })
+
+  I.say(
+    'Hovering on a different suggestion than the selected one should not change aria-selected',
+  )
+  I.moveCursorTo('$link-suggestion-0')
+  I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$link-suggestion-1', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'false' })
+
+  I.say('Select first suggestion')
+  I.click('$link-suggestion-0')
+  I.seeElement({ css: '.serlo-editor-hacks a' })
+
+  I.say('Refocus link allows me to see edit and remove button')
+  I.click('Some text')
+  I.seeElement('$edit-link-button')
+  I.seeElement('$remove-link-button')
+
+  I.say('Remove link by clicking the trashcan icon')
+  I.click('$remove-link-button')
+  I.dontSeeElement({ css: '.serlo-editor-hacks a' })
+})
+
 Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 

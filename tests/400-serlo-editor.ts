@@ -608,7 +608,7 @@ Scenario('Add and remove link via link suggestion menu', async ({ I }) => {
   I.seeAttributesOnElements('$link-suggestion-2', { 'aria-selected': 'false' })
 
   I.say(
-    'Hovering on a different element than the selected on should not change aria-selected',
+    'Hovering on a different suggestion than the selected one should not change aria-selected',
   )
   I.moveCursorTo('$link-suggestion-0')
   I.seeAttributesOnElements('$link-suggestion-0', { 'aria-selected': 'false' })

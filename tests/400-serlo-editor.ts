@@ -755,7 +755,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.dontSeeElement('span.katex')
 })
 
-Scenario.only('Multimedia plugin controls', async ({ I }) => {
+Scenario('Multimedia plugin controls', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   // Ensure that only the Multimedia plugin from article introduction is present

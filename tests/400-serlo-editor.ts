@@ -114,7 +114,7 @@ Scenario('Delete text plugin with keyboard', async ({ I }) => {
   I.dontSee('Schreib etwas oder füge')
 })
 
-Scenario('Adding math formulas', async ({ I }) => {
+Scenario('Adding formulas through math editor plugin', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.click('$add-new-plugin-row-button')
@@ -125,11 +125,39 @@ Scenario('Adding math formulas', async ({ I }) => {
   I.type('Some text ')
   I.pressKey(['CommandOrControl', 'M'])
 
-  I.see('LaTeX')
+  I.seeElement('$plugin-math-latex-editor')
   I.type('\\frac12')
+
+  I.say('Close math editor with cursor at the end and ArrowRight')
   I.pressKey('ArrowRight')
   I.dontSee('LaTeX')
+  I.seeElement('span.katex')
 
+  I.say('Refocus math editor')
+  I.click('span.katex')
+  I.seeElement('$plugin-math-latex-editor')
+
+  I.say('Close math editor with cursor at the start and ArrowLeft')
+  I.pressKey('Home')
+  I.pressKey('ArrowLeft')
+  I.dontSee('LaTeX')
+  I.seeElement('span.katex')
+
+  I.say('Refocus math editor')
+  I.click('span.katex')
+
+  I.say('Close math editor with ESC key')
+  I.pressKey('Escape')
+  I.dontSee('LaTeX')
+  I.seeElement('span.katex')
+
+  I.say('Refocus math editor')
+  I.click('span.katex')
+  I.seeElement('$plugin-math-latex-editor')
+
+  I.say('Close math editor with close button')
+  I.click('$plugin-math-close-formula-editor')
+  I.dontSeeElement('$plugin-math-latex-editor')
   I.seeElement('span.katex')
 })
 
@@ -458,7 +486,7 @@ Scenario('Keyboard Toggle on and off', async ({ I }) => {
 
   I.say('Toggle math on')
   I.pressKey(['CommandOrControl', 'M'])
-  I.see('LaTeX')
+  I.seeElement('$plugin-math-latex-editor')
   I.type('\\frac12 test42')
   I.pressKey('ArrowRight')
   I.dontSee('LaTeX')
@@ -742,7 +770,7 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'A'])
   I.pressKey('Backspace')
   I.click('$plugin-toolbar-button-matheformel')
-  I.see('LaTeX')
+  I.seeElement('$plugin-math-latex-editor')
 
   I.type('\\frac12')
   I.pressKey('ArrowRight')
@@ -750,7 +778,9 @@ Scenario('Toolbar Toggle on and off', async ({ I }) => {
   I.seeElement('span.katex')
 
   I.say('Toggle math off')
+  // show LaTeX editor again to remove it upon clicking into the toolbar
   I.pressKey('ArrowLeft')
+  I.see('LaTeX')
   I.click('$plugin-toolbar-button-matheformel')
   I.dontSeeElement('span.katex')
 })
@@ -787,6 +817,10 @@ Scenario('Multimedia plugin controls', async ({ I }) => {
     'aria-selected': 'true',
   })
   I.click('$modal-close-button')
+
+  // Actual class name is .media-wrapper.mobile:w-1/4 but we need to escape the
+  // colon and the forward slash with two backslashes (to escape the backslash
+  // as well)
   I.seeElement('.media-wrapper.mobile\\:w-1\\/4')
 
   // Change the type of the multimedia content to video

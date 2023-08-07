@@ -76,22 +76,37 @@ Scenario('Main Menu', async ({ I }) => {
 Scenario('Quickbar', ({ I }) => {
   I.amOnPage('/')
 
-  // Aktivate quickbar
-  I.click('input[placeholder*="heute lerne ich"]')
+  I.say('Open quickbar')
+  I.click('$quickbar-input')
   I.type('Vektor')
 
   // Check dropdown
+  I.seeElement('$quickbar-combobox-overlay')
   I.see('Kreuzprodukt')
   I.see('Vektorbegriff')
   I.see('Auf Serlo nach')
 
-  // Nav by enter
+  I.say('Assert aria attributes and navigate options using keyboard')
+  I.seeAttributesOnElements('$quickbar-option-0', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$quickbar-option-1', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$quickbar-option-2', { 'aria-selected': 'false' })
+
+  I.pressKey('ArrowDown')
+  I.seeAttributesOnElements('$quickbar-option-0', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$quickbar-option-1', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$quickbar-option-2', { 'aria-selected': 'false' })
+
+  I.pressKey('ArrowUp')
+  I.seeAttributesOnElements('$quickbar-option-0', { 'aria-selected': 'true' })
+  I.seeAttributesOnElements('$quickbar-option-1', { 'aria-selected': 'false' })
+  I.seeAttributesOnElements('$quickbar-option-2', { 'aria-selected': 'false' })
+
   I.pressKey('Enter')
   I.seeInTitle('Vektor')
 
-  // Another search
+  I.say('Perform another search')
   I.amOnPage('/')
-  I.click('input[placeholder*="heute lerne ich"]')
+  I.click('$quickbar-input')
   I.type('Berechnungen am Kreis')
 
   I.click('Berechnungen am Kreis')

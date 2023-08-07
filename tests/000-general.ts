@@ -73,7 +73,7 @@ Scenario('Main Menu', async ({ I }) => {
   await testMenu()
 })
 
-Scenario('Quickbar', ({ I }) => {
+Scenario.only('Quickbar', ({ I }) => {
   I.amOnPage('/')
 
   I.say('Open quickbar')
@@ -87,6 +87,9 @@ Scenario('Quickbar', ({ I }) => {
   I.see('Auf Serlo nach')
 
   I.say('Assert aria attributes and navigate options using keyboard')
+  I.seeAttributesOnElements('$quickbar-combobox-overlay', { role: 'listbox' })
+  I.seeAttributesOnElements('$quickbar-input', { role: 'combobox' })
+
   I.seeAttributesOnElements('$quickbar-option-0', { 'aria-selected': 'true' })
   I.seeAttributesOnElements('$quickbar-option-1', { 'aria-selected': 'false' })
   I.seeAttributesOnElements('$quickbar-option-2', { 'aria-selected': 'false' })

@@ -1,7 +1,22 @@
+import { execSync } from 'child_process'
+
 import config from './config'
-import { precompilePages } from './utils/precompile'
+import {
+  deregisterPreCompilePages,
+  registerPreCompilePages,
+} from './utils/precompile'
 
 const { adminUser, frontendUrl, isCI } = config
+
+function isDevServerRunning() {
+  try {
+    const processOutput = execSync('ps aux | grep "next dev"').toString()
+    const isNextDevServerRunning = processOutput.includes('next dev')
+    return isNextDevServerRunning
+  } catch (error) {
+    return false
+  }
+}
 
 exports.config = {
   tests: 'tests/**.ts',
@@ -23,10 +38,20 @@ exports.config = {
     },
   },
   async bootstrap() {
-    console.log('Bootstrap hook started!')
-    await precompilePages()
-    console.log('Bootstrap hook finished! Ready to run tests.')
+    if (isDevServerRunning()) {
+      console.log('Bootstrap hook started!')
+      registerPreCompilePages()
+      console.log('Bootstrap hook finished! Ready to run tests.')
+    }
   },
+  async teardown() {
+    if (isDevServerRunning()) {
+      console.log('Teardown hook started!')
+      deregisterPreCompilePages()
+      console.log('Teardown hook finished!')
+    }
+  },
+
   plugins: {
     customLocator: {
       enabled: true,

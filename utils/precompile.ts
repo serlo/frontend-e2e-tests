@@ -1,59 +1,45 @@
-import { execSync } from 'child_process'
+import { event } from 'codeceptjs'
 
-function isDevServerRunning() {
-  try {
-    const processOutput = execSync('ps aux | grep "next dev"').toString()
-    const isNextDevServerRunning = processOutput.includes('next dev')
-    return isNextDevServerRunning
-  } catch (error) {
-    return false
+const compiledRoutes = new Set<string>()
+
+const stepBeforeHandler = async (step) => {
+  if (step.name === 'amOnPage') {
+    const route = step.args[0]
+    if (!compiledRoutes.has(route)) {
+      // Let's increase the timeout in a hacky way to make sure there is enough
+      // time for our page to compile
+      step.options.timeout = 15000
+      await precompilePage(route)
+      console.log('Compile ')
+      compiledRoutes.add(route)
+    }
   }
 }
 
-export async function precompilePages() {
-  if (!isDevServerRunning()) {
-    // Dev server is not running. We assume that yarn build and yarn start where
-    // ran and there is no need to precompile pages!
-    return
-  }
+export function registerPreCompilePages() {
+  console.log('Registering step before handler')
+  /**
+   * Allows urls to be compiled on the fly and therefore adds some resiliency to
+   * run the tests against the dev server
+   */
+  event.dispatcher.on(event.step.before, stepBeforeHandler)
+  // event.dispatcher.on(event.step.after, stepAfterHandler)
+}
 
+export function deregisterPreCompilePages() {
+  console.log('Deregistering step before handler')
+  event.dispatcher.removeListener(event.step.before, stepBeforeHandler)
+}
+
+async function precompilePage(route: string) {
+  // This assumes the base URL is the one from which you're running tests
   const FRONTEND_URL = process.env.FRONTEND_URL
-  fetch(FRONTEND_URL)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `Failed to reach FRONTEND_URL. Status: ${response.status}`,
-        )
-      }
-    })
-    .catch((error) => {
-      throw new Error(
-        `Could not reach client. Make sure the server is running! Error: ${error.message}`,
-      )
-    })
+  const fullUrl = `${FRONTEND_URL}${route}`
 
-  const routes = [
-    '/',
-    '/entity/repository/add-revision/74888',
-    '/mathe',
-    '/spenden',
-    '/community',
-    '/consent',
-    '/taxonomy/term/sort/entities',
-  ]
-
-  for (const route of routes) {
-    const url = `${FRONTEND_URL}${route}`
-    try {
-      const response = await fetch(url)
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status: ${response.status}`)
-      }
-
-      console.log(`Precompiled ${route}`)
-    } catch (error) {
-      console.error(`Failed to precompile ${route}. Error: ${error.message}`)
-    }
+  const response = await fetch(fullUrl)
+  if (!response.ok) {
+    throw new Error(
+      `Failed to precompile ${fullUrl}. Status: ${response.status}`,
+    )
   }
 }

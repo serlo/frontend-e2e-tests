@@ -73,7 +73,7 @@ Scenario('Main Menu', async ({ I }) => {
   await testMenu()
 })
 
-Scenario.only('Quickbar', ({ I }) => {
+Scenario('Quickbar', ({ I }) => {
   I.amOnPage('/')
 
   I.say('Open quickbar')

@@ -1,4 +1,5 @@
 import config from './config'
+import { precompilePages } from './utils/precompile'
 
 const { adminUser, frontendUrl, isCI } = config
 
@@ -21,7 +22,11 @@ exports.config = {
         : { browser: 'chromium' }),
     },
   },
-  name: 'frontend-e2e-tests',
+  async bootstrap() {
+    console.log('Bootstrap hook started!')
+    await precompilePages()
+    console.log('Bootstrap hook finished! Ready to run tests.')
+  },
   plugins: {
     customLocator: {
       enabled: true,

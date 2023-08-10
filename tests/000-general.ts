@@ -114,7 +114,11 @@ Scenario('Quickbar', ({ I }) => {
 
   I.click('Berechnungen am Kreis')
   I.seeInTitle('Berechnungen am Kreis')
-  I.see('Dreiecke, Vierecke')
+  const radiusArticleLink = locate('.serlo-link').withText('Radius')
+  I.seeElement(radiusArticleLink)
+
+  const piArticleLink = locate('.serlo-link').withText('Kreiszahl Pi')
+  I.seeElement(piArticleLink)
 })
 
 Scenario('Share modal', ({ I }) => {

@@ -68,14 +68,26 @@ Scenario('Edit existing link', async ({ I }) => {
   I.pressKey(['CommandOrControl', 'A'])
   I.click('$plugin-toolbar-button-link')
   I.type('Math')
-  I.click('$link-suggestion-0')
-  I.seeElement({ css: '.serlo-editor-hacks a' })
+  I.seeElement('$link-suggestion-1')
+  I.pressKey('ArrowDown')
+  I.pressKey('Enter')
+  I.seeElement(
+    locate({ css: '.serlo-editor-hacks a' }).withAttr({ href: '/83249' }),
+  )
 
   I.say('Click edit button')
   I.click('Some text')
   I.click('$edit-link-button')
 
-  // TODO: Implement the actual edit
+  I.say('Change the link href value')
+  I.pressKey(['CommandOrControl', 'A'])
+  I.type('Geo')
+  I.seeElement('$link-suggestion-1')
+  I.pressKey('ArrowDown')
+  I.pressKey('Enter')
+  I.seeElement(
+    locate({ css: '.serlo-editor-hacks a' }).withAttr({ href: '/274643' }),
+  )
 })
 
 Scenario('Remove existing link', async ({ I }) => {

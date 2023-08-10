@@ -66,8 +66,7 @@ Scenario('Close plugin selection modal', async ({ I }) => {
 
   // focus something different by clicking outside of the modal, in this
   // instance into the quickbar
-  const quickbar = 'input[placeholder*="Suche"]'
-  I.click(quickbar)
+  I.click('$quickbar-input')
   // Modal should now be closed
   I.dontSee(textPluginDescription)
 })

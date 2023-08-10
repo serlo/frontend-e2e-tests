@@ -5,9 +5,6 @@ Feature('Serlo Editor - Text plugin - list')
 Before(popupWarningFix)
 
 Scenario('Unordered list shortcuts (indentation missing)', async ({ I }) => {
-  // TODO: Indent/un-indent list
-  // At the moment, I am unable to indent a bullet list within the text. Therefore, I cannot test this case here.
-
   I.amOnPage('/entity/create/Article/1377')
 
   I.say('Add a new text plugin and delete the backslash')
@@ -18,12 +15,22 @@ Scenario('Unordered list shortcuts (indentation missing)', async ({ I }) => {
   I.type('- Some text')
   I.see('Some text', 'ul')
 
-  I.say('Add new list item on enter')
+  I.say('Add new list item on Enter')
   I.pressKey('Enter')
   I.type('Some more text')
   I.see('Some more text', 'ul')
 
-  I.say('Exit the list on double enter')
+  I.say('Indent list item on Tab')
+  I.dontSee('ul > li > ul > li')
+  I.pressKey('Tab')
+  I.seeElement({ css: 'ul > li > ul > li' })
+
+  I.say('Unindent list item on Shift+Tab')
+  I.dontSee('ul > li > ul > li')
+  I.pressKey(['Shift', 'Tab'])
+  I.dontSeeElement({ css: 'ul > li > ul > li' })
+
+  I.say('Exit the list on double Enter')
   I.pressKey('Enter')
   I.pressKey('Enter')
   I.type('Exit the list')

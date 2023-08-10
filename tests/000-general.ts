@@ -110,11 +110,11 @@ Scenario('Quickbar', ({ I }) => {
   I.say('Perform another search')
   I.amOnPage('/')
   I.click('$quickbar-input')
-  I.type('Berechnungen am Kreis')
+  I.type('Aufgaben zu Urnenmodellen')
 
-  I.click('Berechnungen am Kreis')
-  I.seeInTitle('Berechnungen am Kreis')
-  I.see('Dreiecke, Vierecke')
+  I.click('Aufgaben zu Urnenmodellen')
+  I.seeInTitle('Aufgaben zu Urnenmodellen')
+  I.see('Abiturkurs Stochastik')
 })
 
 Scenario('Share modal', ({ I }) => {

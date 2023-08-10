@@ -12,7 +12,7 @@ const initialTextPluginCount = 3
 Scenario('Duplicate plugin', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  I.seeNumberOfElements('$plugin-text-editor', 3)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 
   I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')

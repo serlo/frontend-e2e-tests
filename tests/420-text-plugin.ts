@@ -4,30 +4,33 @@ Feature('Serlo Editor - Text plugin basic interactions')
 
 Before(popupWarningFix)
 
+// First Text plugin is the multimedia explanation,
+// second is multimedia image caption,
+// third is default empty text plugin
+const initialTextPluginCount = 3
+
 Scenario('Add a new Text plugin using Enter', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  const initialTextPluginsCount = await I.grabNumberOfVisibleElements(
-    '$plugin-text-editor',
-  )
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 
   I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 1)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
   I.say('Press Enter to add a new plugin')
   I.pressKey('Enter')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 2)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
 })
 
 Scenario('Split a Text plugin in two using Enter', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  const initialTextPluginsCount = await I.grabNumberOfVisibleElements(
-    '$plugin-text-editor',
-  )
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 
   I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 1)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
   const firstText = 'first'
   const secondText = 'second'
@@ -41,7 +44,7 @@ Scenario('Split a Text plugin in two using Enter', async ({ I }) => {
 
   I.say('Press enter to split the Text plugin into two Text plugins')
   I.pressKey('Enter')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 2)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
   I.dontSee(firstText + secondText)
   I.see(firstText)
   I.see(secondText)

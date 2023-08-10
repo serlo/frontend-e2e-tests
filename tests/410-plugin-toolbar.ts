@@ -4,40 +4,43 @@ Feature('Serlo Editor - plugin toolbar')
 
 Before(popupWarningFix)
 
+// First Text plugin is the multimedia explanation,
+// second is multimedia image caption,
+// third is default empty text plugin
+const initialTextPluginCount = 3
+
 Scenario('Duplicate plugin', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  const initialTextPluginsCount = await I.grabNumberOfVisibleElements(
-    '$plugin-text-editor',
-  )
+
+  I.seeNumberOfElements('$plugin-text-editor', 3)
 
   I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 1)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
   I.moveCursorTo(
     locate('[data-radix-collection-item]').inside('.plugin-toolbar'),
   )
   I.click('$duplicate-plugin-button')
 
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 2)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
 })
 
 Scenario('Delete plugin', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  const initialTextPluginsCount = await I.grabNumberOfVisibleElements(
-    '$plugin-text-editor',
-  )
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 
   I.click('$add-new-plugin-row-button')
   I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount + 1)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
   I.moveCursorTo(
     locate('[data-radix-collection-item]').inside('.plugin-toolbar'),
   )
   I.click('$remove-plugin-button')
 
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginsCount)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
 // The anchor link copy tool is currently not rendered in Codecept.

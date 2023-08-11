@@ -4,9 +4,51 @@ Feature('Serlo Editor - Text plugin basic interactions')
 
 Before(popupWarningFix)
 
-Scenario.todo('Add a new Text plugin using Enter')
+// First Text plugin is the multimedia explanation,
+// second is multimedia image caption,
+// third is default empty text plugin
+const initialTextPluginCount = 3
 
-Scenario.todo('Split a Text plugin in two using Enter')
+Scenario('Add a new Text plugin using Enter', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+
+  I.click('$add-new-plugin-row-button')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+
+  I.say('Press Enter to add a new plugin')
+  I.pressKey('Enter')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
+})
+
+Scenario('Split a Text plugin in two using Enter', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+
+  I.click('$add-new-plugin-row-button')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+
+  const firstText = 'first'
+  const secondText = 'second'
+
+  I.say('Type some text and move the cursor in the middle of it')
+  I.type(firstText + secondText)
+  I.see(firstText + secondText)
+  for (let i = 0; i < secondText.length; i++) {
+    I.pressKey('ArrowLeft')
+  }
+
+  I.say('Press enter to split the Text plugin into two Text plugins')
+  I.pressKey('Enter')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
+  I.dontSee(firstText + secondText)
+  I.see(firstText)
+  I.see(secondText)
+})
 
 Scenario('Remove empty Text plugin using Backspace', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')

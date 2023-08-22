@@ -18,19 +18,19 @@ Scenario('Basic text interactions', async ({ I }) => {
   I.dontSee(testString)
 })
 
-// TODO: Selector not working anymore
-// not sure how to fix this right now
-
-/*Scenario('Add new plugins', async ({ I }) => {
+Scenario('Add new plugins', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
   I.click('$add-new-plugin-row-button')
   I.pressKey('Enter')
-  I.pressKey('Backspace')
 
   // Only one text plugin visible
   I.see('Schreib etwas oder füge')
 
+  // workaround: plugin toolbar is hiding add-new-plugin-row-button
+  // unfocus to make it visible
+  I.click('input[placeholder="Titel"]')
   I.click('$add-new-plugin-row-button')
+
   for (let i = 0; i < 3; i++) {
     I.pressKey('ArrowDown')
   }
@@ -49,8 +49,8 @@ Scenario('Basic text interactions', async ({ I }) => {
   I.see('Art der Box')
   I.click('Merke')
 
-  I.see('(optionaler Titel)')
-})*/
+  // I.see('(optionaler Titel)')
+})
 
 Scenario('Close plugin selection modal', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')

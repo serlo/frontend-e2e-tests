@@ -9,7 +9,7 @@ Before(popupWarningFix)
 // third is default empty text plugin
 const initialTextPluginCount = 3
 
-Scenario('Add a new Text plugin using Enter', async ({ I }) => {
+Scenario('Add a new line using Enter', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
@@ -18,12 +18,12 @@ Scenario('Add a new Text plugin using Enter', async ({ I }) => {
   I.pressKey('Backspace')
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
-  I.say('Press Enter to add a new plugin')
+  I.say('Press Enter to add a new line')
   I.pressKey('Enter')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 })
 
-Scenario('Split a Text plugin in two using Enter', async ({ I }) => {
+Scenario('Add new line in plugin using Enter', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
@@ -42,9 +42,9 @@ Scenario('Split a Text plugin in two using Enter', async ({ I }) => {
     I.pressKey('ArrowLeft')
   }
 
-  I.say('Press enter to split the Text plugin into two Text plugins')
+  I.say('Add new line in plugin using Enter')
   I.pressKey('Enter')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 2)
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
   I.dontSee(firstText + secondText)
   I.see(firstText)
   I.see(secondText)

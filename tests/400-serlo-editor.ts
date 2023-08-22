@@ -49,7 +49,7 @@ Scenario('Add new plugins', async ({ I }) => {
   I.see('Art der Box')
   I.click('Merke')
 
-  // I.see('(optionaler Titel)')
+  I.see('(optionaler Titel)')
 })
 
 Scenario('Close plugin selection modal', async ({ I }) => {

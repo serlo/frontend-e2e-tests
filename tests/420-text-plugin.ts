@@ -50,30 +50,60 @@ Scenario('Add new line in plugin using Enter', async ({ I }) => {
   I.see(secondText)
 })
 
-Scenario('Remove empty Text plugin using Backspace', async ({ I }) => {
+Scenario('Remove empty Text plugin using Backspace key', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  // When visting the page, a new text plugin with no content is already there.
-  // Now we create a second one.
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+
+  I.say('Focus the default Text plugin')
+  I.pressKey('ArrowDown')
+
+  I.say('Nothing happens when Backspace is pressed in the first plugin')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+
+  I.say('Add a second Text plugin')
   I.click('$add-new-plugin-row-button')
-  // Delete two text plugins. First one with delete, the other one with
-  // backspace. The first backspace is needed to delete the / in the beginning
-  // too
-  I.pressKey('Backspace')
-  I.pressKey('Delete')
-  I.pressKey('Backspace')
-  I.dontSee('Schreib etwas oder füge')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
 
-  I.click('$add-new-plugin-row-button')
-  // Removes the slash and not the text plugin
+  I.say('Remove the forward slash')
   I.pressKey('Backspace')
 
-  // Only one empty text plugin should be visible
-  I.see('Schreib etwas oder füge')
-
-  // Now delete the text plugin with the delete key
-  I.pressKey('Delete')
-  I.dontSee('Schreib etwas oder füge')
+  I.say('Remove the plugin using Backspace')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
+
+Scenario.only('Remove empty Text plugin using Delete key', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+
+  I.say('Focus the default Text plugin')
+  I.pressKey('ArrowDown')
+
+  I.say('Add a second Text plugin')
+  I.click('$add-new-plugin-row-button')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+
+  I.say('Remove the forward slash')
+  I.pressKey('Backspace')
+
+  I.say('Nothing happens when Delete is pressed in the last plugin')
+  I.pressKey('Delete')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+
+  I.say('Focus the first plugin')
+  I.pressKey('ArrowUp')
+
+  I.say('Remove the plugin using Delete')
+  I.pressKey('Delete')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+})
+
+Scenario.todo('Merge with previous plugin using Backspace key')
+
+Scenario.todo('Merge with next plugin using Delete key')
 
 Scenario('Undo', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')

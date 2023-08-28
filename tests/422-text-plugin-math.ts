@@ -33,7 +33,9 @@ Scenario('Close math formula using arrow keys', async ({ I }) => {
   I.seeElement('span.katex')
 
   I.say('Refocus math editor')
-  I.click('span.katex')
+
+  // Codecept tries to scroll into view, but this causes sticky header to hide element
+  I.forceClick('span.katex')
   I.seeElement('$plugin-math-latex-editor')
 
   I.say('Close math editor with cursor at the start and ArrowLeft')

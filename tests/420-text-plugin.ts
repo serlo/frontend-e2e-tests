@@ -74,7 +74,7 @@ Scenario('Remove empty Text plugin using Backspace key', async ({ I }) => {
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
-Scenario.only('Remove empty Text plugin using Delete key', async ({ I }) => {
+Scenario('Remove empty Text plugin using Delete key', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)

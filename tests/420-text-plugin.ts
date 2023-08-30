@@ -115,7 +115,7 @@ Scenario('Undo', async ({ I }) => {
   I.type('Some text')
   I.see('Some text')
 
-  I.click('button[title="Undo"]')
+  I.click('$editor-toolbar-undo')
 
   I.dontSee('Some text')
 })
@@ -154,11 +154,11 @@ Scenario('Redo', async ({ I }) => {
 
   I.see('Some text')
 
-  I.click('button[title="Undo"]')
+  I.click('$editor-toolbar-undo')
 
   I.dontSee('Some text')
 
-  I.click('button[title="Redo"]')
+  I.click('$editor-toolbar-redo')
 
   I.see('Some text')
 })

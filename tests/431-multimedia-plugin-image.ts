@@ -1,4 +1,4 @@
-import { addAndFocusNewMultimediaPlugin } from './430-multimedia-plugin'
+import { addMultimediaPlugin } from './430-multimedia-plugin'
 
 Feature('Serlo Editor - Multimedia plugin - image multimedia type')
 
@@ -17,7 +17,7 @@ Scenario.todo('Multimedia plugin too big image upload')
 Scenario('Multimedia plugin successful image upload', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  addAndFocusNewMultimediaPlugin(I)
+  addMultimediaPlugin(I)
 
   I.say('Focus multimedia Image plugin')
   I.click(locate('$plugin-image-editor').inside('.plugin-rows'))
@@ -76,7 +76,7 @@ Scenario('Multimedia plugin successful image upload', async ({ I }) => {
 Scenario('Multimedia plugin invalid image URL', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  addAndFocusNewMultimediaPlugin(I)
+  addMultimediaPlugin(I)
 
   I.say('Type in the image src')
   I.click(locate('$plugin-image-src').inside('.plugin-rows'))
@@ -94,7 +94,7 @@ Scenario('Multimedia plugin invalid image URL', async ({ I }) => {
 Scenario('Multimedia plugin valid image URL', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  addAndFocusNewMultimediaPlugin(I)
+  addMultimediaPlugin(I)
 
   I.say('Type in the image src')
   const src = 'https://de.serlo.org/_assets/img/serlo-logo.svg'
@@ -150,7 +150,7 @@ Scenario('Multimedia plugin valid image URL', async ({ I }) => {
 Scenario('Multimedia plugin fill in image caption', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  addAndFocusNewMultimediaPlugin(I)
+  addMultimediaPlugin(I)
 
   I.say('Type in the caption')
   const caption = 'Pleasant image caption'

@@ -4,7 +4,7 @@ Feature('Serlo Editor - Multimedia plugin')
 
 Before(popupWarningFix)
 
-export async function addAndFocusNewMultimediaPlugin(I: CodeceptJS.I) {
+export async function addMultimediaPlugin(I: CodeceptJS.I) {
   // Ensure that only the Multimedia plugin from article introduction is present
   I.seeNumberOfElements('$plugin-multimedia-wrapper', 1)
 
@@ -19,7 +19,7 @@ export async function addAndFocusNewMultimediaPlugin(I: CodeceptJS.I) {
 Scenario('Multimedia plugin toolbar controls', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  addAndFocusNewMultimediaPlugin(I)
+  addMultimediaPlugin(I)
 
   // When adding a new Multimedia plugin, the caption of its Image plugin is focused.
   // In order to focus the actual Multimedia plugin, click the parent indicator.

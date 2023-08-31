@@ -1,4 +1,3 @@
-import { login } from './helpers/login'
 import { popupWarningFix } from './helpers/popup-warning-fix'
 
 Feature('Serlo Editor - Multimedia plugin')

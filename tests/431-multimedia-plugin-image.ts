@@ -1,10 +1,10 @@
 import { addAndFocusNewMultimediaPlugin } from './430-multimedia-plugin'
-import { login } from './helpers/login'
-import { popupWarningFix } from './helpers/popup-warning-fix'
 
 Feature('Serlo Editor - Multimedia plugin - image multimedia type')
 
-Before(popupWarningFix)
+Before(({ login }) => {
+  login('admin')
+})
 
 // Currently, we're not displaying any messages when users try to upload image
 // while not logged in. This scenario should be added when that is implemented.
@@ -16,8 +16,6 @@ Scenario.todo('Multimedia plugin too big image upload')
 
 Scenario('Multimedia plugin successful image upload', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-
-  await login(I)
 
   addAndFocusNewMultimediaPlugin(I)
 
@@ -78,8 +76,6 @@ Scenario('Multimedia plugin successful image upload', async ({ I }) => {
 Scenario('Multimedia plugin invalid image URL', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
-  await login(I)
-
   addAndFocusNewMultimediaPlugin(I)
 
   I.say('Type in the image src')
@@ -97,8 +93,6 @@ Scenario('Multimedia plugin invalid image URL', async ({ I }) => {
 
 Scenario('Multimedia plugin valid image URL', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-
-  await login(I)
 
   addAndFocusNewMultimediaPlugin(I)
 

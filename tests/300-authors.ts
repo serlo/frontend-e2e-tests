@@ -2,7 +2,6 @@ Feature('Authors')
 
 // expecting user to be logged out before start of tests
 
-// @ts-expect-error login is defined in codecept.config.ts
 Before(({ login, I }) => {
   login('admin') // login as admin for now
 })

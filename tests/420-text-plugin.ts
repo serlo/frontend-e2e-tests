@@ -249,3 +249,67 @@ Scenario('Copy/cut/paste text', async ({ I }) => {
 
   I.see('CUTCUTCUT')
 })
+
+Scenario('Empty line restrictions while typing', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.click(locate('$plugin-text-editor').inside('.plugin-rows'))
+  I.type('First line')
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element').inside('.plugin-rows'),
+    1,
+  )
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element-with-placeholder').inside('.plugin-rows'),
+    0,
+  )
+
+  I.say('First Enter key press adds a new line with a placeholder')
+  I.pressKey('Enter')
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element').inside('.plugin-rows'),
+    2,
+  )
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element-with-placeholder').inside('.plugin-rows'),
+    1,
+  )
+
+  I.say('Second Enter key press adds another new line with a placeholder')
+  I.pressKey('Enter')
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element').inside('.plugin-rows'),
+    3,
+  )
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element-with-placeholder').inside('.plugin-rows'),
+    1,
+  )
+
+  I.say('Third Enter key press does not add a new line')
+  I.pressKey('Enter')
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element').inside('.plugin-rows'),
+    3,
+  )
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element-with-placeholder').inside('.plugin-rows'),
+    1,
+  )
+
+  I.say(
+    'Text plugin blur removes one of the adjacent empty lines and hides the placeholder',
+  )
+  I.click('$plugin-multimedia-wrapper')
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element').inside('.plugin-rows'),
+    2,
+  )
+  I.seeNumberOfElements(
+    locate('$plugin-text-leaf-element-with-placeholder').inside('.plugin-rows'),
+    0,
+  )
+})
+
+// Couldn't find any info on testing paste behavior with Codecept.js
+Scenario.todo('Empty line restrictions when pasting text')

@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "format": "prettier . --write",
-    "test": "codeceptjs run --steps"
+    "test": "codeceptjs run --steps",
+    "test-localhost": "cross-env FRONTEND_URL=http://localhost:3000 codeceptjs run --steps",
+    "test-localapi": "cross-env FRONTEND_API=local codeceptjs run --steps"
   },
   "devDependencies": {
     "@types/node": "^18.16.19",
     "codeceptjs": "^3.5.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "playwright": "^1.36.0",
     "prettier": "^3.0.0",

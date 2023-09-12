@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "format": "prettier . --write",
-    "test": "codeceptjs run --steps"
+    "test": "codeceptjs run --steps",
+    "test-localhost": "FRONTEND_URL=http://localhost:3000 codeceptjs run --steps",
+    "test-localapi": "FRONTEND_API=local codeceptjs run --steps"
   },
   "devDependencies": {
     "@types/node": "^18.16.19",

@@ -129,6 +129,7 @@ Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
+// Test related to issue: https://github.com/serlo/backlog/issues/158
 Scenario('Merge with previous plugin containing list using Backspace key', async({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 

@@ -103,6 +103,33 @@ Scenario('Remove empty Text plugin using Delete key', async ({ I }) => {
 
 Scenario.todo('Merge with previous plugin using Backspace key')
 
+Scenario('Merge with previous plugin containing list using Backspace key', async({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.say('Create a text plugin')
+  I.click('$add-new-plugin-row-button')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+  I.pressKey('Backspace')
+  I.type('- Plain text')
+  I.see('Plain text')
+
+  I.say('Focus the first text plugin')
+  I.pressKey('ArrowUp')
+  I.pressKey('ArrowUp')
+
+  I.say('Create an ordered list')
+  I.type('- Unordered list')
+  I.click('$plugin-toolbar-button-nummerierte-liste')
+  I.see('Unordered list', 'ol')
+
+  I.say('Focus the second text plugin')
+  I.pressKey('ArrowDown')
+
+  I.say('Merge the 2 text plugins by pressing Backspace')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+})
+
 Scenario.todo('Merge with next plugin using Delete key')
 
 Scenario('Undo', async ({ I }) => {

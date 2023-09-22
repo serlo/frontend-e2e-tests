@@ -101,7 +101,63 @@ Scenario('Remove empty Text plugin using Delete key', async ({ I }) => {
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
-Scenario.todo('Merge with previous plugin using Backspace key')
+Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.say('Create another text plugin')
+  I.click('$add-new-plugin-row-button')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+  I.pressKey('Backspace')
+  I.type('- Second text plugin')
+  I.see('Second text plugin')
+
+  I.say('Focus the first text plugin')
+  I.pressKey('ArrowUp')
+  I.pressKey('ArrowUp')
+
+  I.say('Write text into the first text plugin')
+  I.type('- First text plugin')
+  I.see('First text plugin')
+
+  I.say('Focus the second text plugin')
+  I.pressKey('ArrowDown')
+
+  I.say('Merge the 2 text plugins by pressing Backspace')
+  // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
+  I.pressKey('Backspace')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+})
+
+// Test related to issue: https://github.com/serlo/backlog/issues/158
+Scenario('Merge with previous plugin containing list using Backspace key', async({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+
+  I.say('Create a text plugin')
+  I.click('$add-new-plugin-row-button')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+  I.pressKey('Backspace')
+  I.type('- Plain text')
+  I.see('Plain text')
+
+  I.say('Focus the first text plugin')
+  I.pressKey('ArrowUp')
+  I.pressKey('ArrowUp')
+
+  I.say('Create an ordered list')
+  I.type('- Unordered list')
+  I.click('$plugin-toolbar-button-nummerierte-liste')
+  I.see('Unordered list', 'ol')
+
+  I.say('Focus the second text plugin')
+  I.pressKey('ArrowDown')
+
+  I.say('Merge the 2 text plugins by pressing Backspace')
+  // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
+  I.pressKey('Backspace')
+  I.pressKey('Backspace')
+  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+})
 
 Scenario.todo('Merge with next plugin using Delete key')
 

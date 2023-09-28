@@ -142,7 +142,9 @@ Scenario(
       I.say(`Checking undo keyboard shortcut for '${platform}'`)
 
       // No need to create the image plugin first as the multimedia plugin at the
-      // beginning of each page already contains one
+      // beginning of each page already contains one. But, we do need to focus it,
+      // in order to make the src input visible
+      I.click('$plugin-image-editor')
       const imagePluginUrlInput =
         'input[placeholder="https://example.com/image.png"]'
 

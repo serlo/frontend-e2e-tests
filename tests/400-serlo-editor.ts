@@ -141,6 +141,8 @@ Scenario(
     for (const [platform, keys] of Object.entries(keyCombos)) {
       I.say(`Checking undo keyboard shortcut for '${platform}'`)
 
+      // make sure autofocus logic after opening is done
+      I.wait(0.5)
       // No need to create the image plugin first as the multimedia plugin at the
       // beginning of each page already contains one. But, we do need to focus it,
       // in order to make the src input visible

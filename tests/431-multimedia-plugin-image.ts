@@ -79,6 +79,9 @@ Scenario('Multimedia plugin invalid image URL', async ({ I }) => {
   addMultimediaPlugin(I)
 
   I.say('Type in the image src')
+  // Focus the image plugin to make the src input visible
+  I.click(locate('$plugin-image-editor').inside('.plugin-rows'))
+  // Focus the src input
   I.click(locate('$plugin-image-src').inside('.plugin-rows'))
   I.type('https://de.serlo.org/_assets/img/serlo-logo')
   // Unfortunately, our handling of invalid URLs is the same as handling of valid URLs, at the moment.
@@ -98,6 +101,9 @@ Scenario('Multimedia plugin valid image URL', async ({ I }) => {
 
   I.say('Type in the image src')
   const src = 'https://de.serlo.org/_assets/img/serlo-logo.svg'
+  // Focus the image plugin to make the src input visible
+  I.click(locate('$plugin-image-editor').inside('.plugin-rows'))
+  // Focus the src input
   I.click(locate('$plugin-image-src').inside('.plugin-rows'))
   I.type(src)
   I.seeElement(locate('img.serlo-img').withAttr({ src }))

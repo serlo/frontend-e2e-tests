@@ -27,4 +27,10 @@ You can also run a single file:
 yarn test tests/000-general.ts
 ```
 
+Run all editor tests:
+
+```sh
+yarn test tests/4*.ts
+```
+
 The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests, TypeScript is supported.

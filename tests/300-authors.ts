@@ -124,7 +124,8 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.amOnPage('/taxonomy/term/sort/entities/23869')
 
   I.see('Aufgaben')
-  I.see('(1) Aufgabe mit Teilaufgaben:')
+  I.see('(1) Aufgabe')
+  I.see('(2) Aufgabe')
   I.see('(20)')
 })
 

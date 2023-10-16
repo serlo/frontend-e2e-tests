@@ -124,8 +124,22 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.amOnPage('/taxonomy/term/sort/entities/23869')
 
   I.see('Aufgaben')
-  I.see('(1) Aufgabe')
-  I.see('(2) Aufgabe')
+
+  const firstElement = locate('li')
+  const secondElement = locate('li')
+    .withText('(2) Aufgabe')
+    .withText('(1) Aufgabe')
+
+  // initial order
+  I.seeElement(locate(firstElement).before(secondElement))
+
+  I.focus(firstElement)
+  I.pressKey('Space')
+  I.pressKey('ArrowDown')
+
+  //changed order
+  I.seeElement(locate(secondElement).before(firstElement))
+
   I.see('(20)')
 })
 

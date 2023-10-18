@@ -23,10 +23,11 @@ exports.config = {
   },
   name: 'frontend-e2e-tests',
   plugins: {
+    // https://codecept.io/locators/#custom-locators
     customLocator: {
       enabled: true,
       // Allows data-qa attributes to be selected with $ prefix. E.g
-      // [data-qa-quickbar] could be selected with simply I.click('$quickbar').
+      // `I.click({ css: '[data-qa=register_button]'})` becomes `I.click('$register_button')`
       attribute: 'data-qa',
     },
     autoLogin: {

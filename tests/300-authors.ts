@@ -125,10 +125,8 @@ Scenario('Sort exercise folder', async ({ I }) => {
 
   I.see('Aufgaben')
 
-  const firstElement = locate('li')
-  const secondElement = locate('li')
-    .withText('(2) Aufgabe')
-    .withText('(1) Aufgabe')
+  const firstElement = locate('li').withText('(1) Aufgabe')
+  const secondElement = locate('li').withText('(2) Aufgabe')
 
   // initial order
   I.seeElement(locate(firstElement).before(secondElement))
@@ -136,10 +134,10 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.focus(firstElement)
   I.pressKey('Space')
   I.pressKey('ArrowDown')
+  I.pressKey('Space')
 
   //changed order
   I.seeElement(locate(secondElement).before(firstElement))
-
   I.see('(20)')
 })
 

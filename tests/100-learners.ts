@@ -331,7 +331,7 @@ Scenario('Course', ({ I }) => {
   I.click('Kursübersicht')
   I.see('Zusammenfassung')
   I.click('Weiterführende Übungen')
-  I.see('123mathe.de')
+  I.see('Lösung anzeigen')
 })
 
 Scenario('Comments', ({ I }) => {

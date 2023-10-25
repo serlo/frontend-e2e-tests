@@ -77,7 +77,7 @@ Scenario(
   },
 )
 
-Scenario.only('Empty box warning message appears when box content is empty', async ({ I }) => {
+Scenario('Empty box warning message appears when box content is empty', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
   addBoxPlugin(I, 'blank')
 
@@ -96,4 +96,42 @@ Scenario.only('Empty box warning message appears when box content is empty', asy
   I.type('Boxinhalt')
   I.click('input[placeholder="Titel"]') // unfocus box plugin
   I.dontSeeElement('$plugin-box-empty-content-warning')
+})
+
+Scenario('Set box type using keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+  
+  I.say('Create box plugin')
+  I.click('$plugin-text-editor', '$plugin-article-content')
+  I.type('/')
+  I.type('Box')
+  I.pressKey('Enter')
+  I.seeElement('$plugin-box-initial-type-chooser')
+
+  I.say('Use the Tab key to select a type')
+  I.pressKey('Tab')
+  I.pressKey('Enter')
+  I.seeElement('$plugin-box')
+})
+
+
+Scenario('Change box type using keyboard', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+  addBoxPlugin(I, 'blank')
+
+  I.say('Pick a new box type by only using keys')
+  I.pressKey('Tab')
+  I.pressKey('Space')
+  I.pressKey('ArrowDown')
+  I.pressKey('Enter')
+  I.see('Beispiel')
+})
+
+Scenario('Move between box title and content with Tab', async ({ I }) => {
+  I.amOnPage('/entity/create/Article/1377')
+  addBoxPlugin(I, 'blank')
+
+  I.say('Select the box title')
+  I.click('$plugin-text-editor', '$plugin-box-title')
+
 })

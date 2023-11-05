@@ -133,5 +133,15 @@ Scenario('Move between box title and content with Tab', async ({ I }) => {
 
   I.say('Select the box title')
   I.click('$plugin-text-editor', '$plugin-box-title')
+  I.type('Boxtitel')
 
+  I.say('Move to the box content with Tab')
+  // Selects the row drag button of the box content first
+  I.pressKey('Tab')
+  // Selects the box content
+  I.pressKey('Tab')
+  I.type('Boxinhalt')
+
+  I.see('Boxtitel', '$plugin-box-title')
+  I.see('Boxinhalt', '$plugin-box-content')
 })

@@ -183,6 +183,12 @@ Scenario('Geogebra', ({ I }) => {
   I.amOnPage('/43563')
   I.click('Applet laden von GeoGebra')
   I.waitForElement('canvas[data-test="euclidianView"]', 10)
+
+  I.amOnPage('/')
+
+  I.amOnPage('/279849')
+  I.click('Applet laden von GeoGebra')
+  I.waitForElement('canvas[data-test="euclidianView"]', 10)
 })
 
 Scenario('Video + Injection', ({ I }) => {
@@ -354,6 +360,6 @@ Scenario('Check picture in scmc exercise', ({ I }) => {
   I.see('Aufgaben zu Kreisen und Kreisteilen')
 
   I.seeInSource(
-    'https://assets.serlo.org/legacy/56ebffb3bb393_1fe5b83b4ff8aae9bbc0026f127423c166e1ce93.png'
+    'https://assets.serlo.org/legacy/56ebffb3bb393_1fe5b83b4ff8aae9bbc0026f127423c166e1ce93.png',
   )
 })

@@ -1,3 +1,5 @@
+import assert from 'assert'
+
 Feature('General')
 
 Scenario('About Serlo', ({ I }) => {
@@ -177,21 +179,30 @@ Scenario('Donation', ({ I }) => {
   I.see('Einwilligungen für externe Inhalte', 'h1')
 })
 
-Scenario('Legal Pages', ({ I }) => {
+Scenario('Legal Pages', async ({ I }) => {
   I.amOnPage('/')
   I.click('Impressum')
   I.see('Amtsgericht München')
   I.see('Haftung für Inhalte')
+  I.seeInCurrentUrl('/legal')
 
   I.amOnPage('/')
   I.click('Datenschutz')
   I.see('personenbezogene Daten')
   I.see('Verarbeitung der Nutzerdaten')
+  I.see('Einwilligungen für externe Inhalte')
+  const date = await I.grabTextFrom('time')
+  assert.equal(true, date && date.length !== 0)
+  I.seeInCurrentUrl('/privacy')
 
   I.amOnPage('/')
   I.click('Nutzungsbedingungen und Urheberrecht')
   I.see('Änderungsvorbehalt')
   I.see('CC-BY-SA-Lizenz')
+
+  I.amOnPage('/hi/privacy')
+  I.see('Privacy Policy')
+  I.see('en@serlo.org')
 })
 
 Scenario('Consent', async ({ I }) => {

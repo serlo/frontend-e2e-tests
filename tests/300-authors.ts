@@ -124,15 +124,28 @@ Scenario('Sort exercise folder', async ({ I }) => {
   I.amOnPage('/taxonomy/term/sort/entities/23869')
 
   I.see('Aufgaben')
-  I.see('(1) Aufgabe')
-  I.see('(2) Aufgabe')
+
+  const firstElement = locate('li').withText('(1) Aufgabe')
+  const secondElement = locate('li').withText('(2) Aufgabe')
+
+  // initial order
+  I.seeElement(locate(firstElement).before(secondElement))
+
+  I.focus(firstElement)
+  I.pressKey('Space')
+  I.pressKey('ArrowDown')
+  I.pressKey('Space')
+
+  //changed order
+  I.seeElement(locate(secondElement).before(firstElement))
   I.see('(20)')
 })
 
-Scenario('Solution revision should be visible', async ({ I }) => {
+// removed by https://github.com/serlo/frontend/pull/3044
+/*Scenario('Solution revision should be visible', async ({ I }) => {
   I.amOnPage('/entity/repository/compare/279738/279739')
   I.see('Der Zeiger ist alle 12 Stunden')
-})
+})*/
 
 Scenario("Switching tabs shouldn't lose work", async ({ I }) => {
   I.amOnPage('/entity/repository/add-revision/74888')

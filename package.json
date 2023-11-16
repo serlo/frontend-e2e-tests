@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "format": "prettier . --write",
-    "test": "codeceptjs run --steps",
+    "test": "codeceptjs run --debug",
+    "test-workers": "codeceptjs run-workers --suites 3",
     "test-localhost": "cross-env FRONTEND_URL=http://localhost:3000 codeceptjs run --steps",
     "test-localapi": "cross-env FRONTEND_API=local codeceptjs run --steps"
   },

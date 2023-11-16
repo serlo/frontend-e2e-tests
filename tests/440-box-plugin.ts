@@ -77,30 +77,33 @@ Scenario(
   },
 )
 
-Scenario('Empty box warning message appears when box content is empty', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
-  addBoxPlugin(I, 'blank')
+Scenario(
+  'Empty box warning message appears when box content is empty',
+  async ({ I }) => {
+    I.amOnPage('/entity/create/Article/1377')
+    addBoxPlugin(I, 'blank')
 
-  I.say('Empty warning message visible after creating new box')
-  I.click('input[placeholder="Titel"]') // unfocus box plugin
-  I.seeElement('$plugin-box-empty-content-warning')
+    I.say('Empty warning message visible after creating new box')
+    I.click('input[placeholder="Titel"]') // unfocus box plugin
+    I.seeElement('$plugin-box-empty-content-warning')
 
-  I.say('Empty warning message visible even if title is not empty')
-  I.click('$plugin-text-editor', '$plugin-box-title')
-  I.type('Boxtitel')
-  I.click('input[placeholder="Titel"]') // unfocus box plugin
-  I.seeElement('$plugin-box-empty-content-warning')
+    I.say('Empty warning message visible even if title is not empty')
+    I.click('$plugin-text-editor', '$plugin-box-title')
+    I.type('Boxtitel')
+    I.click('input[placeholder="Titel"]') // unfocus box plugin
+    I.seeElement('$plugin-box-empty-content-warning')
 
-  I.say('Empty warning message not visible if content not empty')
-  I.click('$plugin-text-editor', '$plugin-box-content')
-  I.type('Boxinhalt')
-  I.click('input[placeholder="Titel"]') // unfocus box plugin
-  I.dontSeeElement('$plugin-box-empty-content-warning')
-})
+    I.say('Empty warning message not visible if content not empty')
+    I.click('$plugin-text-editor', '$plugin-box-content')
+    I.type('Boxinhalt')
+    I.click('input[placeholder="Titel"]') // unfocus box plugin
+    I.dontSeeElement('$plugin-box-empty-content-warning')
+  },
+)
 
 Scenario('Set box type using keyboard', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
-  
+
   I.say('Create box plugin')
   I.click('$plugin-text-editor', '$plugin-article-content')
   I.type('/')
@@ -108,23 +111,12 @@ Scenario('Set box type using keyboard', async ({ I }) => {
   I.pressKey('Enter')
   I.seeElement('$plugin-box-initial-type-chooser')
 
-  I.say('Use the Tab key to select a type')
+  I.say('Use the Tab key to select a box type')
+  I.pressKey('Tab')
   I.pressKey('Tab')
   I.pressKey('Enter')
-  I.seeElement('$plugin-box')
-})
-
-
-Scenario('Change box type using keyboard', async ({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
-  addBoxPlugin(I, 'blank')
-
-  I.say('Pick a new box type by only using keys')
-  I.pressKey('Tab')
-  I.pressKey('Space')
-  I.pressKey('ArrowDown')
-  I.pressKey('Enter')
-  I.see('Beispiel')
+  I.see('Beispiel', locate('span.text-brand').inside('$plugin-box'))
+  I.dontSeeElement('$plugin-box-initial-type-chooser')
 })
 
 Scenario('Move between box title and content with Tab', async ({ I }) => {

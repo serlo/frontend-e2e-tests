@@ -317,7 +317,7 @@ Scenario('Exercise folder', ({ I }) => {
   I.see('Erstelle mit uns Lerninhalte')
 
   // This line takes some time?
-  I.click('button.rounded-full')
+  I.click('button.serlo-close-button')
 
   I.click('Aufgabe hinzufügen')
   I.see('Erstelle mit uns Lerninhalte')

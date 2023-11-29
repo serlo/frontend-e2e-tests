@@ -1,6 +1,8 @@
 import config from './config'
 
-const { adminUser, frontendUrl, isCI } = config
+const { adminUser, frontendUrl, isCI, browser } = config
+
+const isChromium = browser === 'chromium'
 
 exports.config = {
   tests: 'tests/**.ts',
@@ -12,14 +14,13 @@ exports.config = {
       keepBrowserState: true,
       keepCookies: true,
       show: isCI ? false : true,
-      /*...(isCI
+      ...(isCI && isChromium
         ? {
             chromium: {
               args: ['--no-sandbox'], // this is needed for github CI to work
             },
           }
-        : { browser: 'firefox' }),*/
-      browser: 'firefox',
+        : { browser }),
     },
   },
   name: 'frontend-e2e-tests',

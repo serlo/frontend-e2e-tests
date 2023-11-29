@@ -101,7 +101,7 @@ Scenario('Remove empty Text plugin using Delete key', async ({ I }) => {
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
-Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
+Scenario('Merge with previous plugin using Backspace key', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.say('Create another text plugin')
@@ -130,34 +130,37 @@ Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
 })
 
 // Test related to issue: https://github.com/serlo/backlog/issues/158
-Scenario('Merge with previous plugin containing list using Backspace key', async({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+Scenario(
+  'Merge with previous plugin containing list using Backspace key',
+  async ({ I }) => {
+    I.amOnPage('/entity/create/Article/1377')
 
-  I.say('Create a text plugin')
-  I.click('$add-new-plugin-row-button')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
-  I.pressKey('Backspace')
-  I.type('- Plain text')
-  I.see('Plain text')
+    I.say('Create a text plugin')
+    I.click('$add-new-plugin-row-button')
+    I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+    I.pressKey('Backspace')
+    I.type('- Plain text')
+    I.see('Plain text')
 
-  I.say('Focus the first text plugin')
-  I.pressKey('ArrowUp')
-  I.pressKey('ArrowUp')
+    I.say('Focus the first text plugin')
+    I.pressKey('ArrowUp')
+    I.pressKey('ArrowUp')
 
-  I.say('Create an ordered list')
-  I.type('- Unordered list')
-  I.click('$plugin-toolbar-button-nummerierte-liste')
-  I.see('Unordered list', 'ol')
+    I.say('Create an ordered list')
+    I.type('- Unordered list')
+    I.click('$plugin-toolbar-button-nummerierte-liste')
+    I.see('Unordered list', 'ol')
 
-  I.say('Focus the second text plugin')
-  I.pressKey('ArrowDown')
+    I.say('Focus the second text plugin')
+    I.pressKey('ArrowDown')
 
-  I.say('Merge the 2 text plugins by pressing Backspace')
-  // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
-  I.pressKey('Backspace')
-  I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
-})
+    I.say('Merge the 2 text plugins by pressing Backspace')
+    // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
+    I.pressKey('Backspace')
+    I.pressKey('Backspace')
+    I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+  },
+)
 
 Scenario.todo('Merge with next plugin using Delete key')
 
@@ -261,11 +264,11 @@ Scenario('Redo using keyboard', async ({ I }) => {
 })
 
 Scenario('Copy/cut/paste text', async ({ I }) => {
-  I.amOnPage('/entity/repository/add-revision/74888')
+  I.amOnPage('/entity/create/Article/1377')
 
-  I.click('span[data-slate-node="text"]')
+  I.click('$add-new-plugin-row-button')
 
-  I.type(' ')
+  I.pressKey('Backspace')
 
   I.type('TESTTESTTEST')
 

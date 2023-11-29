@@ -18,7 +18,7 @@ exports.config = {
               args: ['--no-sandbox'], // this is needed for github CI to work
             },
           }
-        : { browser: 'chromium' }),
+        : { browser: 'firefox' }),
     },
   },
   name: 'frontend-e2e-tests',

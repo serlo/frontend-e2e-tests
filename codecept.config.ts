@@ -12,13 +12,14 @@ exports.config = {
       keepBrowserState: true,
       keepCookies: true,
       show: isCI ? false : true,
-      ...(isCI
+      /*...(isCI
         ? {
             chromium: {
               args: ['--no-sandbox'], // this is needed for github CI to work
             },
           }
-        : { browser: 'firefox' }),
+        : { browser: 'firefox' }),*/
+      browser: 'firefox',
     },
   },
   name: 'frontend-e2e-tests',

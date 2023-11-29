@@ -15,6 +15,10 @@ Scenario.todo('Multimedia plugin unauthorized image upload')
 Scenario.todo('Multimedia plugin too big image upload')
 
 Scenario('Multimedia plugin successful image upload', async ({ I }) => {
+  // Temporary fix for Firefox: wait before redirection
+  // Cause: Firefox errors out if redirection happens while a page is already loading
+  I.wait(1)
+
   I.amOnPage('/entity/create/Article/1377')
 
   addMultimediaPlugin(I)

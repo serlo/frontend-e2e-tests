@@ -39,7 +39,10 @@ const logout = async (I: CodeceptJS.I) => {
   I.see('Anmelden')
 }
 
-Before(popupWarningFix)
+Before(({ I }) => {
+  popupWarningFix({ I })
+  logout(I)
+})
 
 // Currently, we're not displaying any messages when users try to upload image
 // while not logged in. This scenario should be added when that is implemented.

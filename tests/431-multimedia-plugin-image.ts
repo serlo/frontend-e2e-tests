@@ -1,8 +1,10 @@
 import { addMultimediaPlugin } from './430-multimedia-plugin'
+import { popupWarningFix } from './helpers/popup-warning-fix'
 
 Feature('Serlo Editor - Multimedia plugin - image multimedia type')
 
-Before(({ login }) => {
+Before(({ I, login }) => {
+  popupWarningFix({ I })
   login('admin')
 })
 

@@ -8,6 +8,7 @@ function createConfig() {
   return {
     adminUser: useLocalAPI ? 'admin' : 'Kulla',
     isCI: Boolean(process.env.CI),
+    browser: process.env.BROWSER ?? 'chromium',
     frontendUrl:
       process.env.FRONTEND_URL ?? useLocalAPI
         ? 'http://localhost:3000'

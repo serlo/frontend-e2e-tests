@@ -33,4 +33,10 @@ Run all editor tests:
 yarn test tests/4*.ts
 ```
 
+You can run tests on firefox instead of chromium with
+
+```sh
+yarn test-firefox
+```
+
 The tests are written in `/tests`, the file names are setting the order of execution. The browser session is stored between tests, TypeScript is supported.

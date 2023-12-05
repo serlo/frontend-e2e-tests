@@ -101,7 +101,7 @@ Scenario('Remove empty Text plugin using Delete key', async ({ I }) => {
   I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
 })
 
-Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
+Scenario('Merge with previous plugin using Backspace key', async ({ I }) => {
   I.amOnPage('/entity/create/Article/1377')
 
   I.say('Create another text plugin')
@@ -130,34 +130,37 @@ Scenario('Merge with previous plugin using Backspace key', async({ I }) => {
 })
 
 // Test related to issue: https://github.com/serlo/backlog/issues/158
-Scenario('Merge with previous plugin containing list using Backspace key', async({ I }) => {
-  I.amOnPage('/entity/create/Article/1377')
+Scenario(
+  'Merge with previous plugin containing list using Backspace key',
+  async ({ I }) => {
+    I.amOnPage('/entity/create/Article/1377')
 
-  I.say('Create a text plugin')
-  I.click('$add-new-plugin-row-button')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
-  I.pressKey('Backspace')
-  I.type('- Plain text')
-  I.see('Plain text')
+    I.say('Create a text plugin')
+    I.click('$add-new-plugin-row-button')
+    I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount + 1)
+    I.pressKey('Backspace')
+    I.type('- Plain text')
+    I.see('Plain text')
 
-  I.say('Focus the first text plugin')
-  I.pressKey('ArrowUp')
-  I.pressKey('ArrowUp')
+    I.say('Focus the first text plugin')
+    I.pressKey('ArrowUp')
+    I.pressKey('ArrowUp')
 
-  I.say('Create an ordered list')
-  I.type('- Unordered list')
-  I.click('$plugin-toolbar-button-nummerierte-liste')
-  I.see('Unordered list', 'ol')
+    I.say('Create an ordered list')
+    I.type('- Unordered list')
+    I.click('$plugin-toolbar-button-nummerierte-liste')
+    I.see('Unordered list', 'ol')
 
-  I.say('Focus the second text plugin')
-  I.pressKey('ArrowDown')
+    I.say('Focus the second text plugin')
+    I.pressKey('ArrowDown')
 
-  I.say('Merge the 2 text plugins by pressing Backspace')
-  // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
-  I.pressKey('Backspace')
-  I.pressKey('Backspace')
-  I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
-})
+    I.say('Merge the 2 text plugins by pressing Backspace')
+    // We need to duplicate the 'Backspace' command since only once doesn't have the expected effect
+    I.pressKey('Backspace')
+    I.pressKey('Backspace')
+    I.seeNumberOfElements('$plugin-text-editor', initialTextPluginCount)
+  },
+)
 
 Scenario.todo('Merge with next plugin using Delete key')
 
@@ -177,26 +180,18 @@ Scenario('Undo', async ({ I }) => {
 })
 
 Scenario('Undo using keyboard', async ({ I }) => {
-  const keyCombos = {
-    windowsAndLinux: ['control', 'z'],
-    mac: ['command', 'z'],
-  }
+  I.amOnPage('/entity/create/Article/1377')
 
-  for (const [platform, keys] of Object.entries(keyCombos)) {
-    I.say(`Checking undo keyboard shortcut for '${platform}'`)
-    I.amOnPage('/entity/create/Article/1377')
+  I.click('$add-new-plugin-row-button')
 
-    I.click('$add-new-plugin-row-button')
+  I.pressKey('Backspace')
 
-    I.pressKey('Backspace')
+  I.type('Some text')
+  I.see('Some text')
 
-    I.type('Some text')
-    I.see('Some text')
+  I.pressKey(['CommandOrControl', 'Z'])
 
-    I.pressKey(keys)
-
-    I.dontSee('Some text')
-  }
+  I.dontSee('Some text')
 })
 
 Scenario('Redo', async ({ I }) => {
@@ -220,52 +215,37 @@ Scenario('Redo', async ({ I }) => {
 })
 
 Scenario('Redo using keyboard', async ({ I }) => {
-  const keyCombos = {
-    windowsAndLinux: {
-      UNDO: ['control', 'z'],
-      REDO: ['control', 'y'],
-    },
-    mac: {
-      UNDO: ['command', 'z'],
-      REDO: ['command', 'y'],
-    },
-  }
+  I.amOnPage('/entity/create/Article/1377')
 
-  for (const [platform, keys] of Object.entries(keyCombos)) {
-    I.say(`Checking redo keyboard shortcut for '${platform}'`)
+  I.click('$add-new-plugin-row-button')
 
-    I.amOnPage('/entity/create/Article/1377')
+  I.pressKey('Backspace')
 
-    I.click('$add-new-plugin-row-button')
+  I.type('Some text')
 
-    I.pressKey('Backspace')
+  I.see('Some text')
 
-    I.type('Some text')
+  I.pressKey(['CommandOrControl', 'Z'])
 
-    I.see('Some text')
+  I.dontSee('Some text')
 
-    I.pressKey(keys.UNDO)
+  // ! For some reason, the first redo does not work. The second one does. If
+  // one puts a pause() here and runs the command only once through the
+  // interactive shell , it works just as fine as clicking the button.
+  // Therefore, I thought the Ctrl+Y was maybe happening too quickly after the
+  // Ctrl+Z, but even with I.wait(1) inbetween, two executions were needed.
+  I.pressKey(['CommandOrControl', 'Y'])
+  I.pressKey(['CommandOrControl', 'Y'])
 
-    I.dontSee('Some text')
-
-    // ! For some reason, the first redo does not work. The second one does. If
-    // one puts a pause() here and runs the command only once through the
-    // interactive shell , it works just as fine as clicking the button.
-    // Therefore, I thought the Ctrl+Y was maybe happening too quickly after the
-    // Ctrl+Z, but even with I.wait(1) inbetween, two executions were needed.
-    I.pressKey(keys.REDO)
-    I.pressKey(keys.REDO)
-
-    I.see('Some text')
-  }
+  I.see('Some text')
 })
 
 Scenario('Copy/cut/paste text', async ({ I }) => {
-  I.amOnPage('/entity/repository/add-revision/74888')
+  I.amOnPage('/entity/create/Article/1377')
 
-  I.click('span[data-slate-node="text"]')
+  I.click('$add-new-plugin-row-button')
 
-  I.type(' ')
+  I.pressKey('Backspace')
 
   I.type('TESTTESTTEST')
 

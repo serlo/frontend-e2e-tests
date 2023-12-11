@@ -110,3 +110,6 @@ output/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# OS
+.DS_Store
